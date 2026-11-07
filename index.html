@@ -764,6 +764,18 @@ a.btn-primary[href="#contact"]:hover .fire::after{animation-duration:2.6s}
 a.btn-primary[href="#contact"]:hover::before{animation-duration:2.6s}
 @media (prefers-reduced-motion:reduce){.fire::after,a.btn-primary[href="#contact"]::before{animation:none!important;opacity:0}}
 
+
+/* ---------- управляемое чтение: общий механизм для разделов с классом .guided ---------- */
+.guided.seq-ready .sq{opacity:0;transform:translate3d(var(--sq-x,0),var(--sq-y,20px),0);filter:contrast(.8) saturate(.7);
+  transition:opacity .75s var(--ease),transform .75s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--i,0) * var(--sq-step,130ms))}
+.guided.seq-ready .sq-l{--sq-x:-14px}
+.guided.seq-ready .sq-block.sq-in .sq{opacity:1;transform:none;filter:none}
+.guided.seq-ready .dir{border-top-color:transparent;transition:border-color .8s var(--ease)}
+.guided.seq-ready .dir.sq-in{border-top-color:var(--line)}
+.guided.seq-ready .dir:last-child{border-bottom-color:transparent}
+.guided.seq-ready .dir:last-child.sq-in{border-bottom-color:var(--line)}
+@media (max-width:860px){.guided.seq-ready{--sq-step:100ms}.guided.seq-ready .sq{--sq-y:16px}.guided.seq-ready .sq-l{--sq-x:0}}
+
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
 .direct p{font-size:.92rem;color:var(--on-dark-2)}
@@ -1182,105 +1194,105 @@ strong.hl{font-weight:500}
   </section>
 
   <!-- 4. НАПРАВЛЕНИЯ -->
-  <section class="light section" id="directions" aria-labelledby="directions-title">
+  <section class="light section guided" id="directions" aria-labelledby="directions-title">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Что мы можем сделать</p>
-        <h2 id="directions-title">От ситуации, с которой вы пришли, к результату, который останется с вами</h2>
+      <div class="section-head sq-block">
+        <p class="eyebrow sq" style="--i:0">Что мы можем сделать</p>
+        <h2 id="directions-title" class="sq" style="--i:1">От ситуации, с которой вы пришли, к результату, который останется с вами</h2>
       </div>
       <div class="directions-grid">
-        <aside class="directions-aside reveal">
-          <div class="consult">
-            <p class="eyebrow">Точка входа</p>
-            <h3>Не знаете, что из этого вам нужно?</h3>
-            <p>Это нормально. Начните <span class="hl">с консультации</span>: опишите ситуацию своими словами, а подходящий формат помощи определим вместе.</p>
-            <a class="btn btn-primary" href="#contact"><span class="fire" aria-hidden="true"></span>Обсудить задачу <span class="arr" aria-hidden="true">→</span></a>
+        <aside class="directions-aside sq-block">
+          <div class="consult sq" style="--i:0">
+            <p class="eyebrow sq" style="--i:1">Точка входа</p>
+            <h3 class="sq" style="--i:2">Не знаете, что из этого вам нужно?</h3>
+            <p class="sq" style="--i:3">Это нормально. Начните <span class="hl">с консультации</span>: опишите ситуацию своими словами, а подходящий формат помощи определим вместе.</p>
+            <a class="btn btn-primary sq" style="--i:5" href="#contact"><span class="fire" aria-hidden="true"></span>Обсудить задачу <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </aside>
         <div>
-          <article class="dir reveal">
-            <h3>Искусственный интеллект в работе и бизнесе</h3>
+          <article class="dir sq-block">
+            <h3 class="sq sq-l" style="--i:0">Искусственный интеллект в работе и бизнесе</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Хочется понять, где AI действительно сэкономит время, а где он не нужен.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Сценарии применения <span class="hl">под ваши задачи</span>, подобранные инструменты, рабочие инструкции и обучение команды.</p></div>
+              <div><p class="eyebrow sq" style="--i:1">Когда</p><p class="sq" style="--i:2">Хочется понять, где AI действительно сэкономит время, а где он не нужен.</p></div>
+              <div class="res"><p class="eyebrow sq" style="--i:3">Что получится</p><p class="sq" style="--i:4">Сценарии применения <span class="hl">под ваши задачи</span>, подобранные инструменты, рабочие инструкции и обучение команды.</p></div>
             </div>
           </article>
-          <article class="dir reveal">
-            <h3>Корпоративное обучение</h3>
+          <article class="dir sq-block">
+            <h3 class="sq sq-l" style="--i:0">Корпоративное обучение</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Сотрудники пользуются технологиями бессистемно, и результат зависит от случая.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Программа по итогам диагностики, <span class="hl">практика на рабочих материалах</span>, учебные модули и оценка результатов.</p></div>
+              <div><p class="eyebrow sq" style="--i:1">Когда</p><p class="sq" style="--i:2">Сотрудники пользуются технологиями бессистемно, и результат зависит от случая.</p></div>
+              <div class="res"><p class="eyebrow sq" style="--i:3">Что получится</p><p class="sq" style="--i:4">Программа по итогам диагностики, <span class="hl">практика на рабочих материалах</span>, учебные модули и оценка результатов.</p></div>
             </div>
           </article>
-          <article class="dir reveal">
-            <h3>Образовательные продукты и методология</h3>
+          <article class="dir sq-block">
+            <h3 class="sq sq-l" style="--i:0">Образовательные продукты и методология</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Есть экспертиза и идея курса, но <span class="hl">нет структуры</span> и понятной логики обучения.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Образовательная программа, учебно-методический комплекс, интерактивные задания, сопровождение автора.</p></div>
+              <div><p class="eyebrow sq" style="--i:1">Когда</p><p class="sq" style="--i:2">Есть экспертиза и идея курса, но <span class="hl">нет структуры</span> и понятной логики обучения.</p></div>
+              <div class="res"><p class="eyebrow sq" style="--i:3">Что получится</p><p class="sq" style="--i:4">Образовательная программа, учебно-методический комплекс, интерактивные задания, сопровождение автора.</p></div>
             </div>
           </article>
-          <article class="dir reveal">
-            <h3>Цифровые решения и автоматизация</h3>
+          <article class="dir sq-block">
+            <h3 class="sq sq-l" style="--i:0">Цифровые решения и автоматизация</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Рабочий процесс отнимает слишком много ручных операций.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p><span class="hl">Схема упрощения процесса</span>, подбор инструментов, концепция или прототип решения и сопровождение реализации.</p></div>
+              <div><p class="eyebrow sq" style="--i:1">Когда</p><p class="sq" style="--i:2">Рабочий процесс отнимает слишком много ручных операций.</p></div>
+              <div class="res"><p class="eyebrow sq" style="--i:3">Что получится</p><p class="sq" style="--i:4"><span class="hl">Схема упрощения процесса</span>, подбор инструментов, концепция или прототип решения и сопровождение реализации.</p></div>
             </div>
           </article>
-          <article class="dir reveal">
-            <h3>Проектирование и сопровождение проектов</h3>
+          <article class="dir sq-block">
+            <h3 class="sq sq-l" style="--i:0">Проектирование и сопровождение проектов</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Цель понятна, но неясно, как организовать работу и измерить результат.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Концепция, <span class="hl">цели и показатели</span>, этапы, команда, контроль результатов.</p></div>
+              <div><p class="eyebrow sq" style="--i:1">Когда</p><p class="sq" style="--i:2">Цель понятна, но неясно, как организовать работу и измерить результат.</p></div>
+              <div class="res"><p class="eyebrow sq" style="--i:3">Что получится</p><p class="sq" style="--i:4">Концепция, <span class="hl">цели и показатели</span>, этапы, команда, контроль результатов.</p></div>
             </div>
           </article>
         </div>
       </div>
-      <div class="digital reveal">
+      <div class="digital sq-block">
         <div class="digital-head">
-          <p class="eyebrow">Разработка</p>
-          <h3>Создаём не только решения. <span>Создаём цифровую среду.</span></h3>
-          <p>Проектируем и разрабатываем современные сайты, цифровые продукты и инструменты, которые помогают решать реальные задачи.</p>
+          <p class="eyebrow sq" style="--i:0">Разработка</p>
+          <h3 class="sq" style="--i:1">Создаём не только решения. <span>Создаём цифровую среду.</span></h3>
+          <p class="sq" style="--i:3">Проектируем и разрабатываем современные сайты, цифровые продукты и инструменты, которые помогают решать реальные задачи.</p>
         </div>
         <ul class="digital-list">
-          <li><span class="hl">Разработка современных сайтов</span></li>
-          <li>Проектирование <span class="hl">цифровых продуктов</span></li>
-          <li><span class="hl">Автоматизация</span> рабочих процессов</li>
-          <li>Разработка цифровых инструментов и сервисов</li>
-          <li>Решения на основе <span class="hl">искусственного интеллекта</span></li>
+          <li class="sq sq-l" style="--i:5"><span class="hl">Разработка современных сайтов</span></li>
+          <li class="sq sq-l" style="--i:6">Проектирование <span class="hl">цифровых продуктов</span></li>
+          <li class="sq sq-l" style="--i:7"><span class="hl">Автоматизация</span> рабочих процессов</li>
+          <li class="sq sq-l" style="--i:8">Разработка цифровых инструментов и сервисов</li>
+          <li class="sq sq-l" style="--i:9">Решения на основе <span class="hl">искусственного интеллекта</span></li>
         </ul>
-        <p class="digital-foot">От идеи и проектирования до работающего цифрового продукта. <span>Этот сайт — собственный проект AI OASIS: от концепции до разработки.</span></p>
+        <p class="digital-foot sq" style="--i:11">От идеи и проектирования до работающего цифрового продукта. <span>Этот сайт — собственный проект AI OASIS: от концепции до разработки.</span></p>
       </div>
     </div>
   </section>
 
   <!-- 5. МЕТОД -->
-  <section class="dark section method" id="method" aria-labelledby="method-title">
+  <section class="dark section method guided" style="--sq-step:150ms" id="method" aria-labelledby="method-title">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Как мы работаем</p>
-        <h2 id="method-title">Шесть шагов от проблемы к результату</h2>
-        <p>Каждый шаг отвечает на свой вопрос. Поэтому к выбору технологий мы приходим <span class="hl">только на четвёртом</span>.</p>
+      <div class="section-head sq-block" data-sq="section">
+        <p class="eyebrow sq" style="--i:0">Как мы работаем</p>
+        <h2 id="method-title" class="sq" style="--i:1">Шесть шагов от проблемы к результату</h2>
+        <p class="sq" style="--i:4">Каждый шаг отвечает на свой вопрос. Поэтому к выбору технологий мы приходим <span class="hl">только на четвёртом</span>.</p>
       </div>
-      <div class="cycle" id="cycle">
+      <div class="cycle sq-block" id="cycle">
         <div class="phases" aria-hidden="true">
-          <div class="phase">Понять <i>шаги 1–2</i></div>
-          <div class="phase">Спроектировать <i>шаги 3–4</i></div>
-          <div class="phase">Сделать и проверить <i>шаги 5–6</i></div>
+          <div class="phase sq sq-l" style="--i:0">Понять <i>шаги 1–2</i></div>
+          <div class="phase sq sq-l" style="--i:2">Спроектировать <i>шаги 3–4</i></div>
+          <div class="phase sq sq-l" style="--i:4">Сделать и проверить <i>шаги 5–6</i></div>
         </div>
-        <div class="track" aria-hidden="true">
+        <div class="track sq" style="--i:1" aria-hidden="true">
           <span class="node" style="left:0%"></span><span class="node" style="left:16.66%"></span><span class="node" style="left:33.33%"></span>
           <span class="node" style="left:50%"></span><span class="node" style="left:66.66%"></span><span class="node" style="left:83.33%"></span>
           <span class="bead" id="bead"></span>
         </div>
         <ol class="steps">
-          <li class="step"><span class="num">01</span><h3>Диагностика</h3><p>Разбираемся, что происходит сейчас, в чём проблема и почему привычный способ работы не даёт нужного результата.</p></li>
-          <li class="step"><span class="num">02</span><h3>Постановка задачи</h3><p>Формулируем конкретную цель и определяем, что должно измениться.</p></li>
-          <li class="step"><span class="num">03</span><h3>Проектирование решения</h3><p>Разрабатываем сценарий действий: ресурсы, инструменты, этапы.</p></li>
-          <li class="step"><span class="num">04</span><h3>Выбор технологий</h3><p>Подбираем инструменты <span class="hl">исходя из задачи, а не наоборот</span>.</p></li>
-          <li class="step"><span class="num">05</span><h3>Реализация</h3><p>Создаём, адаптируем или внедряем решение. При необходимости привлекаем профильных специалистов.</p></li>
-          <li class="step"><span class="num">06</span><h3>Оценка результата</h3><p>Проверяем, насколько решение соответствует поставленной цели.</p></li>
+          <li class="step sq sq-l" style="--i:2"><span class="num">01</span><h3>Диагностика</h3><p>Разбираемся, что происходит сейчас, в чём проблема и почему привычный способ работы не даёт нужного результата.</p></li>
+          <li class="step sq sq-l" style="--i:3"><span class="num">02</span><h3>Постановка задачи</h3><p>Формулируем конкретную цель и определяем, что должно измениться.</p></li>
+          <li class="step sq sq-l" style="--i:4"><span class="num">03</span><h3>Проектирование решения</h3><p>Разрабатываем сценарий действий: ресурсы, инструменты, этапы.</p></li>
+          <li class="step sq sq-l" style="--i:5"><span class="num">04</span><h3>Выбор технологий</h3><p>Подбираем инструменты <span class="hl">исходя из задачи, а не наоборот</span>.</p></li>
+          <li class="step sq sq-l" style="--i:6"><span class="num">05</span><h3>Реализация</h3><p>Создаём, адаптируем или внедряем решение. При необходимости привлекаем профильных специалистов.</p></li>
+          <li class="step sq sq-l" style="--i:7"><span class="num">06</span><h3>Оценка результата</h3><p>Проверяем, насколько решение соответствует поставленной цели.</p></li>
         </ol>
-        <p class="loop">
+        <p class="loop sq" style="--i:9">
           <svg viewBox="0 0 52 52" aria-hidden="true"><path d="M40 16a17 17 0 1 0 3 16" fill="none" stroke="#A0E3D8" stroke-width="1.5" stroke-linecap="round"/><path d="M33 15h8V7" fill="none" stroke="#A0E3D8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span><b>Это цикл.</b> Оценка показывает, что работает и что стоит улучшить, и при необходимости работа идёт на следующий круг.</span>
         </p>
@@ -1841,6 +1853,29 @@ strong.hl{font-weight:500}
     }); },{rootMargin:'0px 0px -22% 0px'});
     if(scn) ioScene.observe(scn);
     rest.forEach(function(b){ if(b!==scn && b!==ctl) io.observe(b); }); if(tail) io.observe(tail);
+  })();
+
+  /* разделы .guided: каждый блок проявляется у середины экрана, внутри — по очереди слева направо.
+     После появления служебные классы снимаются, чтобы наведение на кнопки работало без задержек. */
+  (function(){
+    if(reduce || !('IntersectionObserver' in window)) return;
+    [].forEach.call(document.querySelectorAll('.guided'),function(sec){
+      sec.classList.add('seq-ready');
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        if(!(e.isIntersecting||e.boundingClientRect.bottom<0)) return;
+        var b=e.target; io.unobserve(b); b.classList.add('sq-in');
+        [].forEach.call(b.querySelectorAll('.hl'),function(h){ setTimeout(function(){ h.classList.add('on'); }, 1300); });
+        setTimeout(function(){ [].forEach.call(b.querySelectorAll('.sq'),function(x){ x.classList.remove('sq','sq-l'); }); }, 3500);
+      }); },{rootMargin:'0px 0px -50% 0px'});
+      var head=[].slice.call(sec.querySelectorAll('.sq-block[data-sq="section"]'));
+      if(head.length){
+        var ioS=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting||e.boundingClientRect.top<0){ ioS.disconnect(); head.forEach(function(b){ io.unobserve(b); b.classList.add('sq-in');
+          [].forEach.call(b.querySelectorAll('.hl'),function(h){ setTimeout(function(){ h.classList.add('on'); }, 1600); });
+          setTimeout(function(){ [].forEach.call(b.querySelectorAll('.sq'),function(x){ x.classList.remove('sq','sq-l'); }); }, 3500); }); } }); },{rootMargin:'0px 0px -70% 0px'});
+        ioS.observe(sec);
+      }
+      [].forEach.call(sec.querySelectorAll('.sq-block:not([data-sq="section"])'),function(b){ io.observe(b); });
+    });
   })();
 
   /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
@@ -3532,7 +3567,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   const world = new THREE.Group(); scene.add(world);
 
   /* ---------- фон, который преломляет стекло ---------- */
-  const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) }, uOrder: { value: 0 } };
+  const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) }, uOrder: { value: 0 }, uFog: { value: new THREE.Vector2(6, 9) } };
   const BG = `
     uniform float uTime; uniform float uAspect; uniform float uOrder;
     vec3 bg(vec2 uv){
@@ -3565,7 +3600,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
         vec4 mv=modelViewMatrix*instanceMatrix*vec4(position,1.); vP=mv.xyz;
         vN=normalize(normalMatrix*mat3(instanceMatrix)*normal); gl_Position=projectionMatrix*mv; }`,
     fragmentShader: BG + `
-      uniform vec2 uRes;
+      uniform vec2 uRes; uniform vec2 uFog;
       varying vec3 vN; varying vec3 vP; varying vec3 vC; varying vec3 vL; varying vec3 vLN; varying float vF; varying float vG; varying vec3 vS;
       float st(float e, float x){ float w=max(fwidth(x)*.8,1e-4); return smoothstep(e-w,e+w,x); }
       float box(vec2 p, vec2 a, vec2 b){ return st(a.x,p.x)*st(p.x,b.x)*st(a.y,p.y)*st(p.y,b.y); }
@@ -3617,6 +3652,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
         col+=mix(vec3(.88,1.,.98),vC,.25)*pt*mix(.7,.42,big)*(vF>3.5?.38:1.);
         if(vF>3.5) col*=.82; /* экран продукта — глубже и спокойнее, карточки на нём читаются лучше */
         col+=vec3(1.,.64,.52)*vG*(.3+fres*1.3)+vec3(1.,.82,.72)*vG*rim*.7;
+        /* воздушная перспектива: дальние элементы растворяются в глубине */
+        float fz=smoothstep(uFog.x,uFog.y,-vP.z); col=mix(col,bg(suv)*1.15,fz*.6);
         gl_FragColor=vec4(col,.95);
       }`
   });
@@ -3726,7 +3763,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     } else if (j < inN + coreN) {
       const k = j - inN, y = 1 - 2 * (k + 0.5) / coreN, rr = Math.sqrt(1 - y * y), th = k * 2.39996 + t * 0.15;
       o.p.set(Math.cos(th) * rr * 0.7, y * 0.7, Math.sin(th) * rr * 0.7); o.s.set(0.07, 0.07, 0.07); te.set(th, th, 0);
-      o.face = 0; o.glow = 0; o.link = inN + (k + 1) % coreN; o.link2 = inN + (k + 7) % coreN;
+      o.face = 0; o.glow = 0; o.link = inN + (k + 1) % coreN; o.link2 = k % 3 === 0 ? inN + (k + 7) % coreN : -1;
     } else {
       const k = j - inN - coreN; o.p.set(1.35, 0.32 - k * 0.32, 0.1 - k * 0.05); o.s.set(0.4, 0.27, 0.035); te.set(0, -0.4, 0);
       o.face = 1; o.glow = 1; o.link = inN + k * 3;
@@ -3734,7 +3771,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   };
 
   /* общая композиция: где стоит каждый подход, когда их несколько */
-  const SLOT = { method: [0, 1.05, -0.5], process: [-1.75, 0.15, 0], data: [-1.05, -1.0, 0.35], auto: [1.75, 0.15, 0], soft: [1.05, -1.0, 0.35], ai: [0, 0.05, 0.4] };
+  const SLOT = { method: [0, 0.98, -1.0], process: [-1.48, 0.28, -0.35], data: [-0.9, -0.78, 0.65], auto: [1.48, 0.3, -0.4], soft: [0.95, -0.74, 0.6], ai: [0, 0.02, 0.25] };
 
   /* ---------- распределение элементов между подходами с минимальной перестройкой ---------- */
   let groups = {}; // dir -> {members:[], cx, cy, cz, sc}
@@ -3756,8 +3793,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     let cx = 0, cy = 0;
     sel.forEach(d => { cx += slot(d)[0]; cy += slot(d)[1]; });
     if (k) { cx /= k; cy /= k; }
-    const sc = k === 1 ? 1 : k === 2 ? 0.62 : k <= 4 ? 0.5 : 0.46;
-    const spread = k === 1 ? 0 : k === 2 ? 0.75 : 1;
+    const sc = k === 1 ? 1 : k === 2 ? 0.72 : k <= 4 ? 0.62 : 0.56;
+    const spread = k === 1 ? 0 : k === 2 ? 0.85 : 1;
     sel.forEach(d => {
       const members = E.filter(e => e.dir === d).sort((a, b) => a.rank - b.rank);
       members.forEach((e, j) => (e.j = j));
@@ -3766,7 +3803,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   }
 
   /* ---------- связи и частицы ---------- */
-  const MAXL = N * 2 + 16;
+  const MAXL = N * 2 + 16 * 15;
   /* связи: экранные ленты с мягкими краями (обычные WebGL-линии всегда толщиной в 1 пиксель) */
   const LV = MAXL * 4;
   const lGeo = new THREE.BufferGeometry();
@@ -3783,17 +3820,19 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   lGeo.setAttribute('aSide', new THREE.BufferAttribute(side, 1)); lGeo.setAttribute('aT', new THREE.BufferAttribute(tt, 1));
   lGeo.setIndex(new THREE.BufferAttribute(idx, 1));
   const lMat = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, uniforms: { uView: { value: new THREE.Vector2(1, 1) } },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, uniforms: { uView: { value: new THREE.Vector2(1, 1) }, uFog: U.uFog },
     vertexShader: `attribute vec3 aEnd; attribute vec3 aCol; attribute float aW; attribute float aSide; attribute float aT;
-      uniform vec2 uView; varying vec3 vC; varying float vS;
+      uniform vec2 uView; uniform vec2 uFog; varying vec3 vC; varying float vS;
       void main(){
-        vec4 a=projectionMatrix*modelViewMatrix*vec4(position,1.), b=projectionMatrix*modelViewMatrix*vec4(aEnd,1.);
+        vec4 ma=modelViewMatrix*vec4(position,1.), mb=modelViewMatrix*vec4(aEnd,1.);
+        vec4 a=projectionMatrix*ma, b=projectionMatrix*mb;
         vec2 sa=a.xy/a.w*uView*.5, sb=b.xy/b.w*uView*.5; vec2 d=sb-sa; d=length(d)>1e-4?normalize(d):vec2(1.,0.);
         vec4 p=aT<.5?a:b; p.xy+=vec2(-d.y,d.x)*aSide*aW*p.w/(uView*.5);
-        gl_Position=p; vC=aCol; vS=aSide; }`,
+        float fz=smoothstep(uFog.x,uFog.y,-(aT<.5?ma.z:mb.z));
+        gl_Position=p; vC=aCol*(1.-.65*fz); vS=aSide; }`,
     fragmentShader: `varying vec3 vC; varying float vS;
       void main(){ float e=abs(vS); float glow=pow(1.-e,2.); float core=1.-smoothstep(.0,.4,e);
-        vec3 c=vC*(glow*.75+core*.9); gl_FragColor=vec4(c,glow); }`
+        vec3 c=vC*(glow*.6+core*.75); gl_FragColor=vec4(c,glow); }`
   });
   const lines = new THREE.Mesh(lGeo, lMat);
   lines.frustumCulled = false; world.add(lines);
@@ -3824,6 +3863,53 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   const labels = {};
   DIRS.forEach(d => { const el = document.createElement('span'); el.className = 'cx-label'; el.textContent = SHORT[d]; labelsEl.appendChild(el); labels[d] = { el, op: 0, w: 0 }; });
 
+  /* ---------- платформа: на неё «опирается» собранная система ---------- */
+  const floorMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: U.uTime, uOrder: U.uOrder }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader: `uniform float uTime; uniform float uOrder; varying vec2 vUv;
+      void main(){
+        vec2 p=(vUv-.5)*vec2(9.,6.); float r=length(p*vec2(1.,1.35));
+        float glow=exp(-r*r*.16);
+        float rings=0.; for(int i=0;i<3;i++){ float rr=1.1+float(i)*.95; float w=fwidth(r)*1.2; rings+=(1.-smoothstep(0.,w+.012,abs(r-rr)))*(1.-float(i)*.25); }
+        float sweep=.5+.5*sin(atan(p.y,p.x)*2.-uTime*.35);
+        vec3 c=vec3(.16,.62,.6)*glow*.22+vec3(.45,.92,.86)*rings*.22*(.5+.5*sweep)*exp(-r*.25)+vec3(.95,.6,.48)*rings*.06*(1.-sweep);
+        float a=(.25+.75*uOrder);
+        gl_FragColor=vec4(c*a,1.);
+      }`
+  });
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), floorMat);
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -1.42; floor.renderOrder = -5; world.add(floor);
+
+  /* ---------- боке: крупные расфокусированные пятна света спереди и в глубине ---------- */
+  const BK = 18, bkGeo = new THREE.BufferGeometry();
+  const bkPos = new Float32Array(BK * 3), bkCol = new Float32Array(BK * 3), bkSize = new Float32Array(BK), bk = [];
+  for (let i = 0; i < BK; i++) {
+    const near = i % 3 === 0;
+    bk.push({ x: (rnd() - 0.5) * 5.4, y: (rnd() - 0.5) * 3, z: near ? 1.6 + rnd() * 1.2 : -1.8 - rnd() * 1.8, ph: rnd() * 6.28, sp: 0.03 + rnd() * 0.04 });
+    const warm = i % 5 === 0, a = near ? 0.05 : 0.08;
+    bkCol.set(warm ? [0.95 * a, 0.6 * a, 0.48 * a] : [0.3 * a, 0.85 * a, 0.8 * a], i * 3); bkSize[i] = near ? 70 + rnd() * 70 : 22 + rnd() * 26;
+  }
+  bkGeo.setAttribute('position', new THREE.BufferAttribute(bkPos, 3).setUsage(THREE.DynamicDrawUsage));
+  bkGeo.setAttribute('aColor', new THREE.BufferAttribute(bkCol, 3)); bkGeo.setAttribute('aSize', new THREE.BufferAttribute(bkSize, 1));
+  const bkMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uPR: { value: 1 } },
+    vertexShader: `attribute vec3 aColor; attribute float aSize; uniform float uPR; varying vec3 vC;
+      void main(){ vC=aColor; vec4 mv=modelViewMatrix*vec4(position,1.); gl_PointSize=min(aSize*uPR,240.); gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `varying vec3 vC; void main(){ float d=length(gl_PointCoord-.5)*2.; if(d>1.) discard;
+      float disc=1.-smoothstep(.82,1.,d); float ring=smoothstep(.6,.95,d)*disc*.6; gl_FragColor=vec4(vC*(disc*.7+ring),1.); }`
+  });
+  const bokeh = new THREE.Points(bkGeo, bkMat); bokeh.frustumCulled = false; world.add(bokeh);
+
+  /* дуги мостов: квадратичная кривая, приподнятая вверх и к зрителю */
+  const gC = {}, bridges = [], tmpA = new V(), tmpA2 = new V(), tmpA3 = new V(), tmpB = new V(), ctl = new V();
+  function arcPt(a, b, u, out) {
+    ctl.set((a.x + b.x) / 2, (a.y + b.y) / 2 + 0.35 + a.distanceTo(b) * 0.12, (a.z + b.z) / 2 + 0.55);
+    const iu = 1 - u;
+    return out.set(iu * iu * a.x + 2 * iu * u * ctl.x + u * u * b.x, iu * iu * a.y + 2 * iu * u * ctl.y + u * u * b.y, iu * iu * a.z + 2 * iu * u * ctl.z + u * u * b.z);
+  }
+  let lastChange = 0;
+
   /* ---------- состояние ---------- */
   const tmpO = { p: new V(), s: new V(), face: 0, glow: 0, link: -1, link2: -1 }, tq = new Q(), tv = new V(), tc = new V();
   let order = 0;
@@ -3835,7 +3921,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     E.forEach(e => { e.t0 = (e.dir !== e.prevDir || e.j !== e.prevJ) ? now + (e.dir ? e.rank * 0.45 : e.rank * 0.25) : now; });
     if (reduce) settle();
   }
-  onChange = () => { relayout(); kick(); };
+  onChange = () => { lastChange = clock; relayout(); kick(); };
 
   function target(e, t) {
     tmpO.link = -1; tmpO.link2 = -1; tmpO.glow = 0;
@@ -3906,7 +3992,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     renderer.setSize(W, H, false); camera.aspect = W / H;
     const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     const dist = Math.max(2.55 / (tanH * camera.aspect), 1.75 / tanH);
-    camera.position.set(0, dist * 0.12, dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+    camera.position.set(0, dist * 0.2, dist); camera.lookAt(0, -0.05, 0); camera.updateProjectionMatrix();
+    U.uFog.value.set(dist - 0.4, dist + 2.6);
     U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db);
     /* суперсэмплинг: на экранах с плотностью ниже 2 сцена считается в увеличенном размере и уменьшается при выводе */
     const pr = renderer.getPixelRatio();
@@ -3915,7 +4002,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     const rw = Math.round(db.x * SS), rh = Math.round(db.y * SS);
     U.uRes.value.set(rw, rh);
     pMat.uniforms.uPR.value = pr * SS; pMat.uniforms.uH.value = H;
-    lMat.uniforms.uView.value.set(rw, rh);
+    lMat.uniforms.uView.value.set(rw, rh); bkMat.uniforms.uPR.value = pr * SS;
     rtMain.setSize(rw, rh);
     const bw = Math.max(1, rw >> 1), bh = Math.max(1, rh >> 1); rtA.setSize(bw, bh); rtB.setSize(bw, bh);
     compMat.uniforms.uOut.value.copy(db); compMat.uniforms.uSS.value = SS;
@@ -3937,7 +4024,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     const k = selected.size;
     order += ((k ? Math.min(1, 0.4 + k * 0.12) : 0) - order) * Math.min(1, dt * 1.5); U.uOrder.value = order;
     if (!drag.on) { drag.vel *= 0.94; drag.rot += drag.vel; }
-    world.rotation.y = drag.rot + Math.sin(t * 0.09) * 0.12 * (reduce ? 0 : 1);
+    world.rotation.y = drag.rot + Math.sin(t * 0.06) * 0.2 * (reduce ? 0 : 1);
     world.rotation.x = 0.06 + Math.sin(t * 0.07) * 0.03 * (reduce ? 0 : 1);
 
     /* элементы */
@@ -3969,17 +4056,30 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
         const a = Math.max(0, 1 - d / 1.3) * 0.5; tv.lerpVectors(e.P, p.P, 0.35 + 0.25 * Math.sin(t * 0.6 + e.ph));
         seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0, 1.5);
       } else if (e.organised) {
-        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.3, 0.62, 0.58, 0.3, 0.62, 0.58, 1.9);
+        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.26, 0.55, 0.52, 0.26, 0.55, 0.52, 1.5);
       }
     }
     /* мосты: при сочетании подходов связываем группы между собой, ИИ — с каждым */
     const sel = DIRS.filter(d => selected.has(d) && groups[d] && groups[d].members.length);
-    const anchor = d => groups[d].members[0].P;
+    /* центры групп плавно следуют за раскладкой */
+    for (const d of DIRS) { const g = groups[d]; if (!gC[d]) gC[d] = new V(); if (g) gC[d].lerp(tv.set(g.x, g.y, g.z), Math.min(1, dt * 2.5)); }
+    bridges.length = 0;
     if (sel.length > 1) {
-      if (selected.has('ai')) sel.forEach(d => { if (d !== 'ai') seg(anchor('ai'), anchor(d), 0.95, 0.62, 0.52, 0.3, 0.72, 0.7, 2.4); });
+      if (selected.has('ai')) sel.forEach(d => { if (d !== 'ai') bridges.push([gC.ai, gC[d], 1]); });
       const chain = sel.filter(d => d !== 'ai');
-      for (let i = 0; i + 1 < chain.length; i++) seg(anchor(chain[i]), anchor(chain[i + 1]), 0.35, 0.68, 0.64, 0.35, 0.68, 0.64, 2.2);
-      if (k === 6 && chain.length > 2) seg(anchor(chain[chain.length - 1]), anchor(chain[0]), 0.35, 0.68, 0.64, 0.35, 0.68, 0.64, 2.2);
+      for (let i = 0; i + 1 < chain.length; i++) bridges.push([gC[chain[i]], gC[chain[i + 1]], 0]);
+      if (k === 6 && chain.length > 2) bridges.push([gC[chain[chain.length - 1]], gC[chain[0]], 0]);
+    }
+    const bOp = Math.min(1, (t - lastChange) / 1.6);
+    for (const [a, b, warm] of bridges) {
+      const SEG = 14; let prev = arcPt(a, b, 0, tmpA);
+      for (let q = 1; q <= SEG; q++) {
+        const u = q / SEG, cur = arcPt(a, b, u, q % 2 ? tmpB : tmpA2);
+        const f0 = Math.sin((u - 1 / SEG) * Math.PI), f1 = Math.sin(u * Math.PI);  /* ярче в середине, гаснут к концам */
+        const c = warm ? [0.95, 0.62, 0.5] : [0.4, 0.78, 0.74], m = 0.55 * bOp;
+        seg(prev, cur, c[0] * f0 * m, c[1] * f0 * m, c[2] * f0 * m, c[0] * f1 * m, c[1] * f1 * m, c[2] * f1 * m, 1.7);
+        prev = (prev === tmpA ? tmpA3 : tmpA).copy(cur);
+      }
     }
     lGeo.setDrawRange(0, n * 6); ['position', 'aEnd', 'aCol', 'aW'].forEach(k2 => (lGeo.attributes[k2].needsUpdate = true));
 
@@ -3998,6 +4098,11 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       const q = pulses[i], j = DUST + i;
       q.f += dt * q.sp;
       let e = E[q.e];
+      if (i < 14 && bridges.length) { /* искры бегут по дугам между подходами */
+        if (q.f > 1) q.f = 0;
+        const br = bridges[i % bridges.length]; arcPt(br[0], br[1], q.f, tv);
+        pp.set([tv.x, tv.y, tv.z], j * 3); const a = Math.sin(q.f * Math.PI) * 1.1; pc.set(br[2] ? [1 * a, 0.7 * a, 0.58 * a] : [0.6 * a, 1 * a, 0.95 * a], j * 3); ps[j] = 3.2; continue;
+      }
       if (q.f > 1 || !e.organised || !e.L1) { q.f = 0; q.e = Math.floor(Math.random() * N); e = E[q.e]; }
       if (e.organised && e.L1) {
         tv.lerpVectors(e.P, e.L1.P, q.f);
@@ -4007,6 +4112,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     }
     pGeo.attributes.position.needsUpdate = true; pGeo.attributes.aColor.needsUpdate = true; pGeo.attributes.aSize.needsUpdate = true;
 
+    for (let i = 0; i < BK; i++) { const b = bk[i]; bkPos.set([b.x + Math.sin(t * b.sp + b.ph) * 0.4, b.y + Math.cos(t * b.sp * 1.3 + b.ph) * 0.25, b.z], i * 3); }
+    bkGeo.attributes.position.needsUpdate = true;
     renderFrame();
 
     /* подписи подходов в общей композиции */
