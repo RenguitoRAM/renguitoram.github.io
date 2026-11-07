@@ -119,7 +119,7 @@ a{color:inherit}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:0;transition:opacity 1.6s var(--ease)}
 .hero.gl-ready canvas{opacity:1}
 .hero.gl-ready .hero-fallback{opacity:0}
-.hero-fallback{position:absolute;right:6%;top:18%;width:min(44vw,520px);aspect-ratio:1;z-index:-1;transition:opacity 1.2s}
+.hero-fallback{position:absolute;right:6%;top:18%;width:min(44vw,520px);aspect-ratio:1;z-index:-1;border-radius:50%;transition:opacity 1.2s}
 .hero::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;z-index:-1;background:linear-gradient(to top, rgba(10,14,15,.6), transparent);pointer-events:none}
 .hero-inner{padding-top:150px;padding-bottom:clamp(40px,7vh,84px);display:grid;gap:clamp(36px,6vh,72px)}
 .hero-copy{max-width:min(860px,62%);display:grid;gap:28px}
@@ -419,8 +419,9 @@ fieldset.field{border:0;margin:0;padding:0}
 .club .go{font-size:.9rem;color:var(--ai-1);font-weight:600}
 .footer-legal{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(217,210,206,.08);font-size:.82rem}
 .footer-legal p{max-width:62em}
-/* ---------- модальные окна ---------- */
-.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(5,9,10,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:fadeIn .5s var(--ease) both}
+/* ---------- модальные окна: скрыты, пока скрипт не добавит класс is-open ---------- */
+.modal.is-open{display:grid}
+.modal{position:fixed;inset:0;z-index:80;display:none;place-items:center;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(5,9,10,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:fadeIn .5s var(--ease) both}
 .modal-card{position:relative;width:min(560px,100%);max-height:100%;overflow:auto;border-radius:28px;padding:clamp(28px,5vw,48px);color:var(--on-dark);
   background:radial-gradient(80% 60% at 100% 0%,rgba(12,69,76,.95),transparent 70%),radial-gradient(60% 50% at 0% 100%,rgba(41,180,174,.16),transparent 70%),#0C1315;box-shadow:inset 0 0 0 1px rgba(160,227,216,.16),0 60px 120px -40px rgba(0,0,0,.8);animation:rise .8s var(--ease) both}
 .modal-close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;color:var(--on-dark);background:rgba(217,210,206,.07);font-size:1.4rem;line-height:1}
@@ -1036,12 +1037,12 @@ fieldset.field{border:0;margin:0;padding:0}
   var FALLBACK='Напишите напрямую: <a href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener">Telegram @Alexey_Kotsuba</a> или <a href="mailto:studio@kocuba-aa.ru">studio@kocuba-aa.ru</a>.';
   function setStatus(html,err){status.innerHTML=html;status.classList.toggle('err',!!err)}
   var lastFocus=null;
-  function openModal(m){lastFocus=document.activeElement;m.hidden=false;document.body.style.overflow='hidden';var b=m.querySelector('[data-close]');b&&b.focus()}
-  function closeModal(m){m.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus&&lastFocus.focus()}
+  function openModal(m){lastFocus=document.activeElement;m.hidden=false;m.classList.add('is-open');document.body.style.overflow='hidden';var b=m.querySelector('[data-close]');b&&b.focus()}
+  function closeModal(m){m.hidden=true;m.classList.remove('is-open');document.body.style.overflow='';lastFocus&&lastFocus.focus&&lastFocus.focus()}
   document.querySelectorAll('.modal').forEach(function(m){
     m.addEventListener('click',function(e){if(e.target===m||e.target.closest('[data-close]'))closeModal(m)});
   });
-  addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal:not([hidden])').forEach(closeModal)});
+  addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.is-open').forEach(closeModal)});
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var missing=[].filter.call(form.querySelectorAll('[required]'),function(el){return el.type==='checkbox'?!el.checked:!el.value.trim()});
@@ -1072,7 +1073,7 @@ fieldset.field{border:0;margin:0;padding:0}
 </script>
 
 <script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+{"imports":{"three":"./assets/three.module.min.js"}}
 </script>
 <script type="module">
 /* HERO: стеклянная композиция на WebGL.
