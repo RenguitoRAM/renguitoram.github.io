@@ -614,11 +614,19 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 </div>
 <script>
 /* Заставка. Прогресс отражает реальную готовность: разметка, шрифты, логотип, полная загрузка, 3D первого экрана.
-   Первое открытие: сцена 3–4 с, не больше 5 с. Повторно в той же вкладке: короткое проявление. Аварийный выход через 6 с. */
+   Первое открытие: сцена 3–4 с, не больше 5 с. Аварийный выход через 6 с. */
 (function(){
   var intro=document.getElementById('intro'); if(!intro) return;
   var root=document.documentElement, t0=performance.now(), seen=false;
-  try{ seen=sessionStorage.getItem('aioasis-intro')==='1'; sessionStorage.setItem('aioasis-intro','1'); }catch(e){}
+  /* сайт всегда открывается с первого экрана: браузер не восстанавливает прокрутку, якорь из адреса убираем */
+  function toTop(){ try{ window.scrollTo(0,0); }catch(e){} }
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+  toTop();
+  document.addEventListener('DOMContentLoaded',toTop);
+  addEventListener('load',toTop);
+  addEventListener('pageshow',function(e){ if(e.persisted) toTop(); });
+  /* полная заставка при каждой загрузке и каждом обновлении страницы (решение заказчика) */
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(seen) root.classList.add('intro-short');
   root.classList.add('intro-lock');
@@ -640,7 +648,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   function finish(){
     done=true; status(2); bar.style.width='100%';
     setTimeout(function(){
-      intro.classList.add('phase-3','is-leaving'); root.classList.remove('intro-lock');
+      toTop(); intro.classList.add('phase-3','is-leaving'); root.classList.remove('intro-lock');
       setTimeout(function(){ intro.classList.add('is-gone'); }, 1700);
     }, seen?0:200);
   }
