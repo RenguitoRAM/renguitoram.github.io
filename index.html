@@ -3508,7 +3508,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   if (!renderer) { root.classList.add('no-gl'); return; }
 
   const mobile = Math.min(screen.width, screen.height) < 600;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.75 : 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 2.5 : 2));
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace; renderer.setClearColor(0, 0);
   const V = THREE.Vector3, Q = THREE.Quaternion, TAU = Math.PI * 2;
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
@@ -3603,7 +3603,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
         gl_FragColor=vec4(col,.95);
       }`
   });
-  const geo = window.AIO_ROUNDED_BOX(1, 1, 1, 0.14, 4);
+  const geo = window.AIO_ROUNDED_BOX(1, 1, 1, 0.14, 8);
   const mesh = new THREE.InstancedMesh(geo, mat, N);
   mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.frustumCulled = false; world.add(mesh);
   const aFace = new THREE.InstancedBufferAttribute(new Float32Array(N), 1).setUsage(THREE.DynamicDrawUsage);
@@ -3841,9 +3841,10 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     tmpO.link2 = lk2 >= 0 && lk2 < g.members.length ? g.members[lk2] : null;
   }
 
+  let SS = 1, quality = 0; /* quality: 0 — максимум; каждая ступень снижает внутреннее разрешение */
   /* ---------- постобработка: мягкое свечение ярких бликов, виньетка, тонкое зерно ---------- */
   const HF = THREE.HalfFloatType;
-  const rtMain = new THREE.WebGLRenderTarget(1, 1, { type: HF, samples: mobile ? 2 : 4 });
+  const rtMain = new THREE.WebGLRenderTarget(1, 1, { type: HF, samples: 4 });
   const rtA = new THREE.WebGLRenderTarget(1, 1, { type: HF }), rtB = new THREE.WebGLRenderTarget(1, 1, { type: HF });
   const post = new THREE.Scene(), postCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2)); quad.frustumCulled = false; post.add(quad);
@@ -3856,21 +3857,24 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       c+=(texture2D(t,vUv+dir*1.3846153846).rgb+texture2D(t,vUv-dir*1.3846153846).rgb)*.3162162162;
       c+=(texture2D(t,vUv+dir*3.2307692308).rgb+texture2D(t,vUv-dir*3.2307692308).rgb)*.0702702703;
       gl_FragColor=vec4(c,1.);}` });
-  const compMat = new THREE.ShaderMaterial({ uniforms: { tBase: { value: rtMain.texture }, tBloom: { value: rtA.texture }, uTime: U.uTime, uStr: { value: 0.65 } }, vertexShader: VQ, depthTest: false,
-    fragmentShader: `uniform sampler2D tBase;uniform sampler2D tBloom;uniform float uTime;uniform float uStr;varying vec2 vUv;
+  const compMat = new THREE.ShaderMaterial({ uniforms: { tBase: { value: rtMain.texture }, tBloom: { value: rtA.texture }, uTime: U.uTime, uStr: { value: 0.65 }, uOut: { value: new THREE.Vector2(1, 1) }, uSS: { value: 1 } }, vertexShader: VQ, depthTest: false,
+    fragmentShader: `uniform sampler2D tBase;uniform sampler2D tBloom;uniform float uTime;uniform float uStr;uniform vec2 uOut;uniform float uSS;varying vec2 vUv;
       float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
       void main(){
-        vec3 c=texture2D(tBase,vUv).rgb+texture2D(tBloom,vUv).rgb*uStr;
+        vec3 base;
+        if(uSS>1.01){ vec2 o=.25/uOut; base=(texture2D(tBase,vUv+vec2(-o.x,-o.y)).rgb+texture2D(tBase,vUv+vec2(o.x,-o.y)).rgb+texture2D(tBase,vUv+vec2(-o.x,o.y)).rgb+texture2D(tBase,vUv+vec2(o.x,o.y)).rgb)*.25; }
+        else base=texture2D(tBase,vUv).rgb;
+        vec3 c=base+texture2D(tBloom,vUv).rgb*uStr;
         c=c/(1.+c*.22)*1.12;                       /* мягкое сжатие бликов без пересвета */
         c=mix(vec3(dot(c,vec3(.299,.587,.114))),c,1.08); /* немного сочности */
         float v=length((vUv-.5)*vec2(1.,1.1)); c*=1.-.28*smoothstep(.45,.95,v);
-        c+=(h(vUv*1000.+fract(uTime))-.5)*.012;   /* тонкое зерно против полос в градиентах */
+        c+=(h(gl_FragCoord.xy)-.5)/255.;   /* невидимый дизеринг против полос в градиентах */
         gl_FragColor=vec4(c,1.);}` });
   function renderFrame() {
     renderer.setRenderTarget(rtMain); renderer.clear(); renderer.render(scene, camera);
     quad.material = brightMat; brightMat.uniforms.t.value = rtMain.texture; renderer.setRenderTarget(rtA); renderer.render(post, postCam);
     const bw = rtA.width, bh = rtA.height;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       quad.material = blurMat;
       blurMat.uniforms.t.value = rtA.texture; blurMat.uniforms.dir.value.set((1 + i) / bw, 0); renderer.setRenderTarget(rtB); renderer.render(post, postCam);
       blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, (1 + i) / bh); renderer.setRenderTarget(rtA); renderer.render(post, postCam);
@@ -3886,10 +3890,18 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     const dist = Math.max(2.55 / (tanH * camera.aspect), 1.75 / tanH);
     camera.position.set(0, dist * 0.12, dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
-    U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db);
-    pMat.uniforms.uPR.value = renderer.getPixelRatio(); pMat.uniforms.uH.value = H;
-    lMat.uniforms.uView.value.copy(db);
-    rtMain.setSize(db.x, db.y); rtA.setSize(Math.max(1, db.x >> 2), Math.max(1, db.y >> 2)); rtB.setSize(Math.max(1, db.x >> 2), Math.max(1, db.y >> 2));
+    U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db);
+    /* суперсэмплинг: на экранах с плотностью ниже 2 сцена считается в увеличенном размере и уменьшается при выводе */
+    const pr = renderer.getPixelRatio();
+    SS = mobile || quality > 0 ? 1 : Math.min(2 / pr, Math.sqrt(4.2e6 / (db.x * db.y)));
+    SS = Math.max(1, SS);
+    const rw = Math.round(db.x * SS), rh = Math.round(db.y * SS);
+    U.uRes.value.set(rw, rh);
+    pMat.uniforms.uPR.value = pr * SS; pMat.uniforms.uH.value = H;
+    lMat.uniforms.uView.value.set(rw, rh);
+    rtMain.setSize(rw, rh);
+    const bw = Math.max(1, rw >> 1), bh = Math.max(1, rh >> 1); rtA.setSize(bw, bh); rtB.setSize(bw, bh);
+    compMat.uniforms.uOut.value.copy(db); compMat.uniforms.uSS.value = SS;
     Object.values(labels).forEach(L => (L.w = 0));
   }
 
@@ -3927,7 +3939,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     mesh.instanceMatrix.needsUpdate = true; mesh.instanceColor.needsUpdate = true; aFace.needsUpdate = true; aGlow.needsUpdate = true;
 
     /* связи: незавершённые в хаосе, полные и яркие в собранных структурах, мосты между подходами */
-    let n = 0; const PR = renderer.getPixelRatio();
+    let n = 0; const PR = renderer.getPixelRatio() * SS;
     const seg = (a, b, r, g, bl, r2, g2, b2, w) => {
       if (n >= MAXL) return; const v = n * 4; w = (w || 1.5) * PR;
       for (let q = 0; q < 4; q++) { lA.start.set([a.x, a.y, a.z], (v + q) * 3); lA.end.set([b.x, b.y, b.z], (v + q) * 3); lA.w[v + q] = w; }
@@ -3938,9 +3950,9 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
         const p = E[e.partner]; if (p.dir) continue;
         const d = e.P.distanceTo(p.P); if (d > 1.3) continue;
         const a = Math.max(0, 1 - d / 1.3) * 0.5; tv.lerpVectors(e.P, p.P, 0.35 + 0.25 * Math.sin(t * 0.6 + e.ph));
-        seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0, 1.3);
+        seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0, 1.5);
       } else if (e.organised) {
-        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.3, 0.62, 0.58, 0.3, 0.62, 0.58, 1.6);
+        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.3, 0.62, 0.58, 0.3, 0.62, 0.58, 1.9);
       }
     }
     /* мосты: при сочетании подходов связываем группы между собой, ИИ — с каждым */
@@ -4000,7 +4012,19 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
 
   /* ---------- цикл: только когда блок на экране ---------- */
   let raf = 0, running = false, last = 0, visible = false;
-  function loop(now) { const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now; frame(dt); raf = requestAnimationFrame(loop); }
+  /* автоподстройка: если кадры стабильно дольше ~25 мс, снижаем внутреннее разрешение (сначала суперсэмплинг, затем плотность) */
+  let acc = 0, cnt = 0;
+  function adapt(dt) {
+    acc += dt; cnt++;
+    if (cnt < 90) return;
+    const avg = acc / cnt; acc = 0; cnt = 0;
+    if (avg > 0.025 && quality < 3) {
+      quality++;
+      if (quality > 1) renderer.setPixelRatio(Math.max(1.25, renderer.getPixelRatio() - 0.5));
+      resize();
+    }
+  }
+  function loop(now) { const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now; frame(dt); adapt(dt); raf = requestAnimationFrame(loop); }
   function start() { if (running || reduce) return; running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
   function stop() { running = false; cancelAnimationFrame(raf); }
   function settle() { E.forEach(e => (e.t0 = -99)); }
