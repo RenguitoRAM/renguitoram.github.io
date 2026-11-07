@@ -736,6 +736,17 @@ fieldset.field{border:0;margin:0;padding:0}
 .hero-seq.hero-go .hero .principles div+div{border-left-color:var(--line-dark);transition:opacity .9s var(--ease) var(--d,0ms),transform .9s var(--ease) var(--d,0ms),filter .9s var(--ease) var(--d,0ms),border-color 1s var(--ease) var(--d,0ms)}
 @media (max-width:860px){.hero-seq .hero .hs{transform:translate3d(0,16px,0)}}
 
+
+/* ---------- «Сначала задача»: тот же приём управляемого чтения ---------- */
+.philosophy.seq-ready{--sq-step:170ms}
+.philosophy.seq-ready .sq{opacity:0;transform:translate3d(0,var(--sq-y,20px),0);filter:contrast(.8) saturate(.7);
+  transition:opacity .8s var(--ease),transform .8s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--i,0) * var(--sq-step,170ms))}
+.philosophy.seq-ready .sq-block.sq-in .sq,.philosophy.seq-ready .sq-tail.sq-in,.philosophy.seq-ready.tail-in .sq-tail{opacity:1;transform:none;filter:none}
+.philosophy.seq-ready .sq-self{opacity:0;transform:translate3d(0,24px,0) scale(.985);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.philosophy.seq-ready .sq-self.sq-in{opacity:1;transform:none}
+.sq-line{display:block}
+@media (max-width:860px){.philosophy.seq-ready{--sq-step:120ms}.philosophy.seq-ready .sq{--sq-y:16px}}
+
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
 .direct p{font-size:.92rem;color:var(--on-dark-2)}
@@ -1119,35 +1130,35 @@ strong.hl{font-weight:500}
   <section class="dark section philosophy" id="approach" aria-labelledby="approach-title">
     <div class="light-leak" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="manifest reveal">
-        <p class="eyebrow">Наш принцип</p>
-        <h2 id="approach-title">Сначала задача.<span class="b">Потом технология.</span></h2>
+      <div class="manifest sq-block" data-sq="section">
+        <p class="eyebrow sq" style="--i:0">Наш принцип</p>
+        <h2 id="approach-title"><span class="sq sq-line" style="--i:1">Сначала задача.</span><span class="b sq" style="--i:3">Потом технология.</span></h2>
       </div>
-      <div class="manifest-body reveal d1">
-        <p>Мы не начинаем с выбора нейросети. Мы начинаем с вопроса: <strong class="hl">что нужно человеку и что должно измениться</strong> в его работе.</p>
-        <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. <span class="hl">Результат для человека — цель.</span></strong></p>
+      <div class="manifest-body sq-block" data-sq="section">
+        <p class="sq" style="--i:6">Мы не начинаем с выбора нейросети. Мы начинаем с вопроса: <strong class="hl">что нужно человеку и что должно измениться</strong> в его работе.</p>
+        <p class="sq" style="--i:9">Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. <span class="hl">Результат для человека — цель.</span></strong></p>
       </div>
 
-      <div class="chaos reveal d2" id="chaos">
-        <div class="cx-head">
-          <h3>От хаоса к решению</h3>
-          <p>Каждая задача начинается с неопределённости. Мы помогаем найти структуру.</p>
+      <div class="chaos" id="chaos">
+        <div class="cx-head sq-block">
+          <h3 class="sq" style="--i:0">От хаоса к решению</h3>
+          <p class="sq" style="--i:2">Каждая задача начинается с неопределённости. Мы помогаем найти структуру.</p>
         </div>
-        <div class="cx-scene">
+        <div class="cx-scene sq-block sq-self">
           <canvas aria-hidden="true"></canvas>
           <div class="cx-labels" aria-hidden="true"></div>
           <p class="cx-input"><span class="eyebrow">На входе</span><b>Есть задача. Пока нет ясного решения.</b></p>
           <p class="cx-system" aria-hidden="true">Все инструменты — в одной системе</p>
         </div>
-        <div class="cx-controls">
-          <div class="cx-options" role="group" aria-label="Подходы к решению. Можно выбрать несколько"><button type="button" class="cx-opt" data-dir="method" data-desc="Выстраиваем логику, структуру и последовательность действий." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button type="button" class="cx-opt" data-dir="process" data-desc="Перестраиваем процессы так, чтобы работа стала понятнее и эффективнее." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button type="button" class="cx-opt" data-dir="data" data-desc="Структурируем информацию, находим взаимосвязи и превращаем данные в основу решений." aria-pressed="false"><i aria-hidden="true"></i><span>Работа с данными и аналитика</span></button><button type="button" class="cx-opt" data-dir="auto" data-desc="Передаём повторяющиеся операции цифровым инструментам и освобождаем время." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button type="button" class="cx-opt" data-dir="soft" data-desc="Создаём сайты, сервисы, приложения и специализированные цифровые инструменты." aria-pressed="false"><i aria-hidden="true"></i><span>Разработка цифровых решений</span></button><button type="button" class="cx-opt" data-dir="ai" data-desc="Используем ИИ для анализа, создания контента, поиска решений и интеллектуальной обработки задач." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button type="button" class="cx-opt cx-all" data-dir="all" data-desc="Методология, порядок работы, данные, автоматизация, цифровые инструменты и ИИ работают вместе. Это схема подхода: в реальном проекте сочетание подбирается под задачу." aria-pressed="false"><i aria-hidden="true"></i><span>Комплексное решение</span></button></div>
-          <button type="button" class="cx-reset" disabled>Начать заново</button>
+        <div class="cx-controls sq-block" style="--sq-step:85ms">
+          <div class="cx-options" role="group" aria-label="Подходы к решению. Можно выбрать несколько"><button style="--i:0" type="button" class="sq cx-opt" data-dir="method" data-desc="Выстраиваем логику, структуру и последовательность действий." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button style="--i:1" type="button" class="sq cx-opt" data-dir="process" data-desc="Перестраиваем процессы так, чтобы работа стала понятнее и эффективнее." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button style="--i:2" type="button" class="sq cx-opt" data-dir="data" data-desc="Структурируем информацию, находим взаимосвязи и превращаем данные в основу решений." aria-pressed="false"><i aria-hidden="true"></i><span>Работа с данными и аналитика</span></button><button style="--i:3" type="button" class="sq cx-opt" data-dir="auto" data-desc="Передаём повторяющиеся операции цифровым инструментам и освобождаем время." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button style="--i:4" type="button" class="sq cx-opt" data-dir="soft" data-desc="Создаём сайты, сервисы, приложения и специализированные цифровые инструменты." aria-pressed="false"><i aria-hidden="true"></i><span>Разработка цифровых решений</span></button><button style="--i:5" type="button" class="sq cx-opt" data-dir="ai" data-desc="Используем ИИ для анализа, создания контента, поиска решений и интеллектуальной обработки задач." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button style="--i:6" type="button" class="sq cx-opt cx-all" data-dir="all" data-desc="Методология, порядок работы, данные, автоматизация, цифровые инструменты и ИИ работают вместе. Это схема подхода: в реальном проекте сочетание подбирается под задачу." aria-pressed="false"><i aria-hidden="true"></i><span>Комплексное решение</span></button></div>
+          <button type="button" class="sq cx-reset" style="--i:7" disabled>Начать заново</button>
         </div>
-        <div class="cx-desc" aria-live="polite"><b>Выберите подход — или несколько</b><span>Иногда достаточно методологии или нового порядка работы. Иногда нужны данные, автоматизация, отдельная программа или ИИ. Часто лучший результат даёт сочетание.</span></div>
+        <div class="cx-desc sq sq-tail" style="--i:0" aria-live="polite"><b>Выберите подход — или несколько</b><span>Иногда достаточно методологии или нового порядка работы. Иногда нужны данные, автоматизация, отдельная программа или ИИ. Часто лучший результат даёт сочетание.</span></div>
         <div class="cx-final">
-          <p><span class="hl">Вам не обязательно знать, какая технология нужна.</span> Достаточно рассказать, какую задачу нужно решить.</p>
-          <p class="cx-final-sub">Мы поможем разобраться и спроектировать подходящее решение.</p>
-          <a class="btn btn-primary" href="#contact">Рассказать о задаче <span class="arr" aria-hidden="true">→</span></a>
+          <p class="sq sq-tail" style="--i:2"><span class="hl">Вам не обязательно знать, какая технология нужна.</span> Достаточно рассказать, какую задачу нужно решить.</p>
+          <p class="cx-final-sub sq sq-tail" style="--i:3">Мы поможем разобраться и спроектировать подходящее решение.</p>
+          <a class="btn btn-primary sq sq-tail" style="--i:5" href="#contact">Рассказать о задаче <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -1785,6 +1796,29 @@ strong.hl{font-weight:500}
     addEventListener('scroll',function f(){ if(scrollY>innerHeight*0.6){ root.classList.add('hero-go'); removeEventListener('scroll',f); } },{passive:true});
   })();
 
+  /* «Сначала задача»: тексты стартуют, когда тёмный раздел поднялся до 30% сверху экрана;
+     дальше каждый блок — при достижении середины экрана. После появления служебные классы снимаются,
+     чтобы не мешать наведению на кнопки. */
+  (function(){
+    var sec=document.getElementById('approach'); if(!sec || reduce || !('IntersectionObserver' in window)) return;
+    sec.classList.add('seq-ready');
+    function done(b){ setTimeout(function(){ [].forEach.call(b.querySelectorAll('.sq'),function(x){x.classList.remove('sq')}); if(b.classList.contains('sq-self')) b.classList.remove('sq-self'); }, 3200); }
+    function lightHl(b){ [].forEach.call(b.querySelectorAll('.hl'),function(h){ setTimeout(function(){ h.classList.add('on'); }, 2000); }); }
+    function show(b){ if(b.classList.contains('sq-in')) return; b.classList.add('sq-in'); lightHl(b); done(b); }
+    var head=[].slice.call(sec.querySelectorAll('[data-sq="section"]'));
+    var ioS=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting||e.boundingClientRect.top<0){ head.forEach(show); ioS.disconnect(); } }); },{rootMargin:'0px 0px -70% 0px'});
+    ioS.observe(sec);
+    var rest=[].slice.call(sec.querySelectorAll('.sq-block:not([data-sq="section"])'));
+    var tail=sec.querySelector('.cx-desc');
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!(e.isIntersecting||e.boundingClientRect.bottom<0)) return;
+      var b=e.target; io.unobserve(b);
+      if(b===tail){ sec.classList.add('tail-in'); lightHl(sec.querySelector('.cx-final')); setTimeout(function(){ [].forEach.call(sec.querySelectorAll('.sq-tail'),function(x){x.classList.remove('sq','sq-tail')}); },3200); }
+      else show(b);
+    }); },{rootMargin:'0px 0px -50% 0px'});
+    rest.forEach(function(b){ io.observe(b); }); if(tail) io.observe(tail);
+  })();
+
   /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
   (function(){
     var hs=[].slice.call(document.querySelectorAll('.hl'));
@@ -1793,7 +1827,7 @@ strong.hl{font-weight:500}
       var shown=0;
       es.forEach(function(e){ if(e.isIntersecting){ var el=e.target; setTimeout(function(){ el.classList.add('on'); }, 250+shown++*180); io.unobserve(el); } });
     },{threshold:.9, rootMargin:'0px 0px -12% 0px'});
-    hs.forEach(function(h){ if(!h.closest('.recognize.seq-ready') && !(h.closest('.hero') && document.documentElement.classList.contains('hero-seq'))) io.observe(h); });
+    hs.forEach(function(h){ if(!h.closest('.seq-ready') && !(h.closest('.hero') && document.documentElement.classList.contains('hero-seq'))) io.observe(h); });
   })();
 
   /* ---------- форма обратной связи ----------
