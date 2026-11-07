@@ -683,6 +683,27 @@ fieldset.field{border:0;margin:0;padding:0}
   .sv-hint{text-align:center}
 }
 
+
+/* ---------- «Знакомые ситуации»: последовательный рассказ при прокрутке ----------
+   Скрытое состояние действует только когда скрипт добавил .seq-ready, поэтому без JS всё видно. */
+.recognize.seq-ready .sq{opacity:0;transform:translate3d(var(--sq-x,0),var(--sq-y,20px),0);filter:contrast(.8) saturate(.7);
+  transition:opacity .75s var(--ease),transform .75s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--i,0) * var(--sq-step,130ms))}
+.recognize.seq-ready .sq-l{--sq-x:-14px}
+.recognize.seq-ready .sq-block.sq-in .sq{opacity:1;transform:none;filter:none}
+.recognize.seq-ready .thought{border-top-color:transparent;transition:border-color .8s var(--ease)}
+.recognize.seq-ready .thought.sq-in{border-top-color:var(--line)}
+.recognize.seq-ready .thought:last-child{border-bottom-color:transparent}
+.recognize.seq-ready .thought:last-child.sq-in{border-bottom-color:var(--line)}
+/* финальный акцент: текст проявляется по фразам, за ним мягко разгорается свет */
+.relief{position:relative;isolation:isolate}
+.relief::before{content:"";position:absolute;z-index:-1;left:-6%;right:-6%;top:-70%;bottom:-70%;pointer-events:none;
+  background:radial-gradient(40% 60% at 22% 50%,rgba(41,180,174,.16),transparent 70%),radial-gradient(30% 50% at 80% 50%,rgba(225,164,146,.18),transparent 70%)}
+.recognize.seq-ready .relief::before{opacity:0;transform:scale(.92);transition:opacity 1.4s var(--ease) .2s,transform 1.6s var(--ease) .2s}
+.recognize.seq-ready .relief.sq-in::before{opacity:1;transform:none}
+.recognize.seq-ready .sq-t{opacity:0;transition:opacity .9s var(--ease);transition-delay:calc(var(--i,0) * var(--sq-step,130ms))}
+.recognize.seq-ready .sq-in .sq-t{opacity:1}
+@media (max-width:860px){.recognize.seq-ready{--sq-step:100ms}.recognize.seq-ready .sq{--sq-y:16px}.recognize.seq-ready .sq-l{--sq-x:0}}
+
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
 .direct p{font-size:.92rem;color:var(--on-dark-2)}
@@ -1028,35 +1049,35 @@ strong.hl{font-weight:500}
   <!-- 2. УЗНАВАНИЕ -->
   <section class="light section recognize" id="recognize" aria-labelledby="recognize-title">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Знакомые ситуации</p>
-        <h2 id="recognize-title">Сложность не всегда в самой задаче. Иногда в том, что непонятно, с чего начать.</h2>
+      <div class="section-head sq-block">
+        <p class="eyebrow sq" style="--i:0">Знакомые ситуации</p>
+        <h2 id="recognize-title" class="sq" style="--i:1">Сложность не всегда в самой задаче. Иногда в том, что непонятно, с чего начать.</h2>
       </div>
       <div class="thoughts">
-        <article class="thought reveal">
-          <q>Работы всё больше, а времени на то, чтобы разобраться в новом, не остаётся.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С того, что <span class="hl">отнимает больше всего часов</span>. Часто часть рутины можно упростить или передать инструментам.</p></div>
+        <article class="thought sq-block">
+          <q class="sq sq-l" style="--i:0">Работы всё больше, а времени на то, чтобы разобраться в новом, не остаётся.</q>
+          <div class="reply"><p class="eyebrow sq" style="--i:1">С чего можно начать</p><p class="sq" style="--i:2">С того, что <span class="hl">отнимает больше всего часов</span>. Часто часть рутины можно упростить или передать инструментам.</p></div>
         </article>
-        <article class="thought reveal">
-          <q>Инструментов десятки. Какой из них нужен мне, непонятно.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Выбор начинается не с инструмента. Сначала разбираем задачу, затем подбираем то, что ей подходит. <span class="hl">Иногда это вовсе не нейросеть.</span></p></div>
+        <article class="thought sq-block">
+          <q class="sq sq-l" style="--i:0">Инструментов десятки. Какой из них нужен мне, непонятно.</q>
+          <div class="reply"><p class="eyebrow sq" style="--i:1">С чего можно начать</p><p class="sq" style="--i:2">Выбор начинается не с инструмента. Сначала разбираем задачу, затем подбираем то, что ей подходит. <span class="hl">Иногда это вовсе не нейросеть.</span></p></div>
         </article>
-        <article class="thought reveal">
-          <q>Идея есть. Как превратить её в результат, неясно.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Разложим идею на шаги, определим ресурсы и <span class="hl">первый реальный шаг</span>, который можно сделать уже сейчас.</p></div>
+        <article class="thought sq-block">
+          <q class="sq sq-l" style="--i:0">Идея есть. Как превратить её в результат, неясно.</q>
+          <div class="reply"><p class="eyebrow sq" style="--i:1">С чего можно начать</p><p class="sq" style="--i:2">Разложим идею на шаги, определим ресурсы и <span class="hl">первый реальный шаг</span>, который можно сделать уже сейчас.</p></div>
         </article>
-        <article class="thought reveal">
-          <q>Сотрудники уже пользуются нейросетями, но каждый по-своему.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С диагностики: где технологии действительно помогают команде. Затем обучение <span class="hl">на ваших рабочих задачах</span>.</p></div>
+        <article class="thought sq-block">
+          <q class="sq sq-l" style="--i:0">Сотрудники уже пользуются нейросетями, но каждый по-своему.</q>
+          <div class="reply"><p class="eyebrow sq" style="--i:1">С чего можно начать</p><p class="sq" style="--i:2">С диагностики: где технологии действительно помогают команде. Затем обучение <span class="hl">на ваших рабочих задачах</span>.</p></div>
         </article>
-        <article class="thought reveal">
-          <q>Знаний и опыта много, а курс никак не складывается в систему.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p><span class="hl">Со структуры и методологии</span>: логика продукта, программа, учебные материалы, практика.</p></div>
+        <article class="thought sq-block">
+          <q class="sq sq-l" style="--i:0">Знаний и опыта много, а курс никак не складывается в систему.</q>
+          <div class="reply"><p class="eyebrow sq" style="--i:1">С чего можно начать</p><p class="sq" style="--i:2"><span class="hl">Со структуры и методологии</span>: логика продукта, программа, учебные материалы, практика.</p></div>
         </article>
       </div>
-      <div class="relief reveal">
-        <p>Если вы узнали себя, вы по адресу. <span>Разбираться во всех технологиях самостоятельно не обязательно.</span></p>
-        <a class="btn btn-dark" href="#contact">Рассказать о своей ситуации</a>
+      <div class="relief sq-block sq-final">
+        <p><span class="sq-t" style="--i:0">Если вы узнали себя, вы по адресу.</span> <span class="sq-t" style="--i:2">Разбираться во всех технологиях самостоятельно не обязательно.</span></p>
+        <a class="btn btn-dark sq" style="--i:4" href="#contact">Рассказать о своей ситуации</a>
       </div>
     </div>
   </section>
@@ -1691,6 +1712,24 @@ strong.hl{font-weight:500}
     setTimeout(begin,11000); /* если заставки нет или она не сообщила о завершении */
   })();
 
+  /* «Знакомые ситуации»: каждый смысловой блок проявляется, когда доходит примерно до середины экрана.
+     Показанное не скрывается при обратной прокрутке. При prefers-reduced-motion всё видно сразу. */
+  (function(){
+    var sec=document.getElementById('recognize'); if(!sec || reduce || !('IntersectionObserver' in window)) return;
+    var blocks=[].slice.call(sec.querySelectorAll('.sq-block'));
+    sec.classList.add('seq-ready');
+    function show(b){ b.classList.add('sq-in'); io.unobserve(b);
+      /* коралловые акценты внутри блока загораются после того, как текст проявился */
+      [].forEach.call(b.querySelectorAll('.hl'),function(h){ setTimeout(function(){ h.classList.add('on'); }, 1100); }); }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting) show(e.target);
+        else if(e.boundingClientRect.bottom<0) { e.target.style.transition='none'; [].forEach.call(e.target.querySelectorAll('.sq,.sq-t'),function(x){x.style.transition='none'}); show(e.target); } /* блок уже выше экрана (переход по ссылке): показываем сразу */
+      });
+    },{rootMargin:'0px 0px -50% 0px', threshold:0});
+    blocks.forEach(function(b){ io.observe(b); });
+  })();
+
   /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
   (function(){
     var hs=[].slice.call(document.querySelectorAll('.hl'));
@@ -1699,7 +1738,7 @@ strong.hl{font-weight:500}
       var shown=0;
       es.forEach(function(e){ if(e.isIntersecting){ var el=e.target; setTimeout(function(){ el.classList.add('on'); }, 250+shown++*180); io.unobserve(el); } });
     },{threshold:.9, rootMargin:'0px 0px -12% 0px'});
-    hs.forEach(function(h){ io.observe(h); });
+    hs.forEach(function(h){ if(!h.closest('.recognize.seq-ready')) io.observe(h); });
   })();
 
   /* ---------- форма обратной связи ----------
