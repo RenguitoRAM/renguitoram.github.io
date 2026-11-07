@@ -638,6 +638,45 @@ fieldset.field{border:0;margin:0;padding:0}
 .club.small b{font-size:1.1rem}
 @media (max-width:860px){.footer > .wrap{grid-template-columns:minmax(0,1fr)}}
 
+
+/* ---------- «От задачи к решению»: интерактивная модель ---------- */
+.solver{margin-top:clamp(56px,7vw,104px)}
+.solver-title{font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem);letter-spacing:-.03em;max-width:22em}
+.solver-title span{color:var(--ai-1)}
+.solver-grid{position:relative;margin-top:28px;display:grid;grid-template-columns:200px minmax(0,1fr) 300px;grid-template-areas:"task stage side" "desc desc desc";gap:20px 24px;align-items:center;min-height:500px}
+.sv-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1s var(--ease)}
+.solver.gl-ready .sv-canvas{opacity:1}
+.sv-task{grid-area:task;position:relative;z-index:1}
+.sv-stage{grid-area:stage;align-self:stretch;min-height:440px}
+.sv-side{grid-area:side;position:relative;z-index:1;display:grid;gap:12px}
+.sv-hint{font-size:.78rem;color:var(--on-dark-2);letter-spacing:.02em}
+.sv-options{display:grid;gap:6px}
+.sv-opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;font:500 1rem/1.25 var(--f-display);color:var(--on-dark);letter-spacing:-.01em;
+  background:rgba(234,247,244,.03);box-shadow:inset 0 0 0 1px rgba(217,210,206,.08);transition:background .35s,box-shadow .35s,color .35s,transform .35s var(--ease)}
+.sv-opt i{flex:none;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--mint) 40%,var(--aqua));box-shadow:0 0 10px rgba(160,227,216,.6);transition:transform .35s var(--ease),background .35s,box-shadow .35s}
+.sv-opt:hover,.sv-opt:focus-visible,.sv-opt.preview{background:rgba(95,223,222,.08);box-shadow:inset 0 0 0 1px rgba(95,223,222,.35);transform:translateX(-3px)}
+.sv-opt:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
+.sv-opt[aria-pressed="true"]{background:linear-gradient(100deg,rgba(225,164,146,.16),rgba(95,223,222,.08));box-shadow:inset 0 0 0 1px rgba(225,164,146,.6);color:#FFF4EC}
+.sv-opt[aria-pressed="true"] i{transform:scale(1.35);background:radial-gradient(circle at 35% 30%,#fff,#F3C9BC 40%,var(--coral));box-shadow:0 0 14px rgba(225,164,146,.85)}
+.sv-all{margin-top:6px;border-top:0;font-weight:600}
+.sv-all span::after{content:" ⟳";color:var(--coral);font-weight:400}
+.sv-desc{grid-area:desc;position:relative;z-index:1;justify-self:center;width:100%;max-width:640px;min-height:6.6em;align-content:center;text-align:center;display:grid;gap:6px;padding:16px 22px;border-radius:18px;
+  background:rgba(10,14,15,.55);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sv-desc b{font:500 1.05rem/1.3 var(--f-display);color:var(--coral)}
+.sv-desc span{font-size:.94rem;color:var(--on-dark-2);line-height:1.55}
+.solver + .prism-caption{margin-top:18px}
+@media (max-width:960px){
+  .solver-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"task" "stage" "side" "desc";gap:14px;min-height:0}
+  .sv-desc{min-height:10.5em;align-content:start}
+  .sv-task{justify-self:center;text-align:center}
+  .sv-stage{min-height:340px}
+  .sv-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sv-opt{font-size:.9rem;padding:11px 12px}
+  .sv-opt:hover,.sv-opt.preview{transform:none}
+  .sv-all{grid-column:1/-1;justify-content:center}
+  .sv-hint{text-align:center}
+}
+
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
 .direct p{font-size:.92rem;color:var(--on-dark-2)}
@@ -1029,37 +1068,20 @@ strong.hl{font-weight:500}
         <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. <span class="hl">Результат для человека — цель.</span></strong></p>
       </div>
 
-      <div class="prism-scene reveal d2" aria-label="Схема: одна задача раскладывается на несколько возможных решений">
-        <div class="task-node"><span class="eyebrow">На входе</span><b>Ваша задача</b></div>
-        <div class="rays" aria-hidden="true">
-          <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="beamGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#A0E3D8" stop-opacity=".2"/><stop offset="1" stop-color="#E9FBF7"/></linearGradient>
-              <linearGradient id="rayGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E9FBF7"/><stop offset="1" stop-color="#29B4AE" stop-opacity=".55"/></linearGradient>
-            </defs>
-            <line class="beam" x1="0" y1="30" x2="15" y2="30" vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 5"  vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 15" vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 25" vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 35" vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 45" vector-effect="non-scaling-stroke"/>
-            <path class="ray" d="M21 30 L100 55" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <div class="prism">
-            <div class="glass"></div>
-            <svg class="edge" viewBox="0 0 132 150" preserveAspectRatio="none"><polygon points="66,1 131,149 1,149" fill="none" stroke="rgba(234,247,244,.7)" stroke-width="1"/></svg>
+      <div class="solver reveal d2" id="solver">
+        <h3 class="solver-title">Не выбираем технологию заранее. <span>Проектируем решение.</span></h3>
+        <div class="solver-grid">
+          <canvas class="sv-canvas" aria-hidden="true"></canvas>
+          <div class="task-node sv-task"><span class="eyebrow">На входе</span><b>ваша задача</b></div>
+          <div class="sv-stage" aria-hidden="true"></div>
+          <div class="sv-side">
+            <p class="sv-hint">Выберите один или несколько способов</p>
+            <div class="sv-options" role="group" aria-label="Способы решения. Можно выбрать несколько"><button type="button" class="sv-opt" data-dir="method" data-desc="Когда нужна ясная логика: цели, этапы и критерии результата. Сначала договариваемся, что и зачем делаем." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button type="button" class="sv-opt" data-dir="process" data-desc="Иногда достаточно перестроить процесс: убрать лишние шаги, распределить роли, задать понятную последовательность." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button type="button" class="sv-opt" data-dir="tables" data-desc="Когда данные разбросаны: собираем их в понятную структуру, считаем и видим картину целиком." aria-pressed="false"><i aria-hidden="true"></i><span>Таблицы и Excel</span></button><button type="button" class="sv-opt" data-dir="auto" data-desc="Повторяющиеся действия передаём системе, чтобы люди занимались тем, что требует их участия." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button type="button" class="sv-opt" data-dir="soft" data-desc="Когда задаче нужен свой инструмент: модули, интерфейс и связи с тем, что уже используется." aria-pressed="false"><i aria-hidden="true"></i><span>Программное решение</span></button><button type="button" class="sv-opt" data-dir="ai" data-desc="Для работы с текстами, большими объёмами информации и поиском решений. Только там, где AI действительно полезен." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button type="button" class="sv-opt sv-all" data-dir="all" data-desc="Комплексное решение может сочетать методологию, изменение процессов, аналитику, автоматизацию, программные инструменты и AI. Это схема подхода, а не одна готовая система." aria-pressed="false"><i aria-hidden="true"></i><span>Вся система</span></button></div>
           </div>
+          <div class="sv-desc" aria-live="polite"><b>На входе — ваша задача</b><span>Сначала разбираемся, что нужно изменить. Затем подбираем способ решения: один или несколько.</span></div>
         </div>
-        <ul class="options">
-          <li>Методика</li>
-          <li>Новый порядок работы</li>
-          <li>Таблицы и Excel</li>
-          <li>Автоматизация</li>
-          <li>Программное решение</li>
-          <li>Искусственный интеллект</li>
-        </ul>
       </div>
-      <p class="prism-caption">Решение подбирается под задачу. Иногда подходит один из вариантов, чаще их сочетание.</p>
+      <p class="prism-caption">Решение подбирается под задачу. Иногда подходит один из вариантов, чаще — их сочетание.</p>
     </div>
   </section>
 
@@ -3286,6 +3308,312 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       };
     }
   });
+})();
+</script>
+<script type="module" id="scene-solver-js">
+/* «От задачи к решению» — интерактивная модель проектирования решения.
+   Луч задачи входит в стеклянную призму. Выбор направления перестраивает 48 стеклянных ячеек
+   в архитектуру этого подхода: уровни методологии, цепочку процесса, сетку данных, конвейер автоматизации,
+   модули программы, сеть AI. Несколько направлений собираются в общую композицию; «Вся система» — все шесть.
+   Это художественная метафора подхода, а не изображение готовой системы. */
+(function () {
+  const root = document.getElementById('solver');
+  const THREE = window.AIO_THREE;
+  if (!root) return;
+  /* без WebGL кнопки и описания работают, просто без модели */
+  let relayout = () => {}, wake = () => {};
+  const grid = root.querySelector('.solver-grid'), canvas = root.querySelector('.sv-canvas');
+  const stageEl = root.querySelector('.sv-stage'), taskEl = root.querySelector('.sv-task');
+  const opts = [...root.querySelectorAll('.sv-opt')], dirOpts = opts.filter(o => o.dataset.dir !== 'all'), allBtn = opts.find(o => o.dataset.dir === 'all');
+  const desc = root.querySelector('.sv-desc'), descB = desc.querySelector('b'), descS = desc.querySelector('span');
+  const DEFAULT = [descB.textContent, descS.textContent];
+  const DIRS = ['method', 'process', 'tables', 'auto', 'soft', 'ai'];
+  const NAMES = Object.fromEntries(opts.map(o => [o.dataset.dir, o.querySelector('span').textContent]));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- состояние выбора ---------- */
+  const selected = new Set(); let preview = null;
+  function showDesc(dir) {
+    if (!dir) {
+      if (selected.size === 0) { descB.textContent = DEFAULT[0]; descS.textContent = DEFAULT[1]; return; }
+      if (selected.size === 6) dir = 'all';
+      else if (selected.size > 1) { descB.textContent = 'Сочетание: ' + DIRS.filter(d => selected.has(d)).map(d => NAMES[d]).join(' + '); descS.textContent = 'Чаще всего решение складывается из нескольких подходов. Модель показывает, как они собираются вместе.'; return; }
+      else dir = [...selected][0];
+    }
+    descB.textContent = NAMES[dir]; descS.textContent = opts.find(o => o.dataset.dir === dir).dataset.desc;
+  }
+  function syncButtons() {
+    dirOpts.forEach(o => o.setAttribute('aria-pressed', selected.has(o.dataset.dir)));
+    allBtn.setAttribute('aria-pressed', selected.size === 6);
+  }
+  opts.forEach(o => {
+    const d = o.dataset.dir;
+    o.addEventListener('click', () => {
+      if (d === 'all') { if (selected.size === 6) selected.clear(); else DIRS.forEach(x => selected.add(x)); }
+      else if (selected.has(d)) selected.delete(d); else selected.add(d);
+      syncButtons(); showDesc(null); relayout(); wake();
+    });
+    const on = () => { preview = d; o.classList.add('preview'); showDesc(d); wake(); };
+    const off = () => { if (preview === d) preview = null; o.classList.remove('preview'); showDesc(null); wake(); };
+    o.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') on(); });
+    o.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') off(); });
+    o.addEventListener('focus', on); o.addEventListener('blur', off);
+  });
+
+  /* ---------- WebGL ---------- */
+  if (!THREE) return;
+  let renderer = null;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) {}
+  if (!renderer) return; // без WebGL блок остаётся понятным списком с описаниями
+  const mobile = Math.min(screen.width, screen.height) < 600;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.5));
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace; renderer.setClearColor(0, 0);
+  const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
+  const V = THREE.Vector3, TAU = Math.PI * 2;
+  const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) }, uCenter: { value: new THREE.Vector2(0.5, 0.5) } };
+  const BG = `
+    uniform float uTime; uniform float uAspect; uniform vec2 uCenter;
+    vec3 bg(vec2 uv){
+      vec2 a = uAspect<1. ? vec2(1.,1./uAspect) : vec2(uAspect,1.);
+      vec3 col=vec3(.039,.055,.059);
+      vec2 d=(uv-uCenter)*a; col=mix(col,vec3(.05,.27,.3),.9*exp(-5.*dot(d,d)));
+      vec2 d2=(uv-uCenter-vec2(-.08,.06))*a; col+=vec3(.88,.64,.57)*.07*exp(-14.*dot(d2,d2));
+      float stripes=.5+.5*sin((uv.x*a.x*1.2+uv.y*.6)*40.+uTime*.2); col+=vec3(.6,.9,.86)*.018*stripes*exp(-6.*dot(d,d));
+      return col;
+    }`;
+
+  /* призма: стеклянная треугольная, многослойная */
+  const glass = (tint, flat, op) => window.AIO_GLASS(BG, U, tint, { flat, opacity: op ?? 1 });
+  const core = new THREE.Group(); scene.add(core);
+  const prismOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.7, 3, 1), glass([0.85, 1, 0.97], true, 0.9));
+  prismOuter.rotation.set(Math.PI / 2, Math.PI, 0); core.add(prismOuter);
+  const prismInner = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.9, 3, 1), glass([1, 0.82, 0.74], true, 0.95));
+  prismInner.rotation.set(Math.PI / 2, 0, 0); core.add(prismInner);
+  const glowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+    const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.3, 'rgba(255,255,255,.4)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: new THREE.Color().setRGB(0.4, 0.95, 0.9), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.55 }));
+  glow.scale.setScalar(1.4); core.add(glow);
+
+  /* ячейки: инстансированное стекло с собственным оттенком */
+  const N = 48;
+  const cellMat = new THREE.ShaderMaterial({
+    uniforms: U, transparent: true,
+    vertexShader: `varying vec3 vN; varying vec3 vP; varying vec3 vC;
+      void main(){ vC=instanceColor; vec4 mv=modelViewMatrix*instanceMatrix*vec4(position,1.); vP=mv.xyz; vN=normalize(normalMatrix*mat3(instanceMatrix)*normal); gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: BG + `uniform vec2 uRes; varying vec3 vN; varying vec3 vP; varying vec3 vC;
+      void main(){ vec3 N=normalize(vN); vec3 Vv=normalize(-vP); if(dot(N,Vv)<0.) N=-N;
+        float ndv=clamp(dot(N,Vv),0.,1.), fres=pow(1.-ndv,3.);
+        vec2 suv=gl_FragCoord.xy/uRes; float k=.12*(.6+(1.-ndv));
+        vec3 col=vec3(bg(suv+refract(-Vv,N,1./1.4).xy*k).r,bg(suv+refract(-Vv,N,1./1.46).xy*k).g,bg(suv+refract(-Vv,N,1./1.53).xy*k).b);
+        col=col*vC*1.5+.05*vC; vec3 R=reflect(-Vv,N);
+        col+=vec3(.95,1.,.98)*(smoothstep(.6,.9,R.y)*.45+pow(max(dot(R,normalize(vec3(-.7,.4,.6))),0.),18.)*.55)*(.4+fres);
+        col+=vC*fres*.8+vC*pow(1.-ndv,6.)*.6;
+        gl_FragColor=vec4(col,.96); }`
+  });
+  const cells = new THREE.InstancedMesh(window.AIO_ROUNDED_BOX(0.2, 0.2, 0.2, 0.05, 3), cellMat, N);
+  cells.instanceMatrix.setUsage(THREE.DynamicDrawUsage); cells.frustumCulled = false; scene.add(cells);
+  const TINT = { method: [0.95, 0.93, 0.9], process: [0.68, 1, 0.9], tables: [0.42, 0.92, 0.82], auto: [0.5, 1, 1], soft: [0.72, 0.88, 1], ai: [1, 0.76, 0.66], idle: [0.6, 0.95, 0.9] };
+  const C = [];
+  for (let i = 0; i < N; i++) { C.push({ P: new V(), S: new V(0.001, 0.001, 0.001), Q: new THREE.Quaternion(), col: new V(...TINT.idle), fP: new V(), fS: new V(0.001, 0.001, 0.001), fQ: new THREE.Quaternion(), fC: new V(...TINT.idle), delay: (i % 12) * 0.03 + Math.floor(i / 12) * 0.05, link: -1, link2: -1, dir: 'idle' }); cells.setColorAt(i, new THREE.Color(0.6, 0.95, 0.9)); }
+
+  /* связи, сигналы, лучи */
+  const linkGeo = new THREE.BufferGeometry(); linkGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 2 * 6), 3).setUsage(THREE.DynamicDrawUsage));
+  const links = new THREE.LineSegments(linkGeo, new THREE.LineBasicMaterial({ color: new THREE.Color().setRGB(0.55, 0.9, 0.86), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+  links.frustumCulled = false; scene.add(links);
+  const PN = 40;
+  const pulseGeo = new THREE.BufferGeometry(); pulseGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PN * 3), 3).setUsage(THREE.DynamicDrawUsage));
+  const pulses = new THREE.Points(pulseGeo, new THREE.PointsMaterial({ map: glowTex, size: 0.16, color: new THREE.Color().setRGB(1, 0.72, 0.6), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+  pulses.frustumCulled = false; scene.add(pulses);
+  const P = []; for (let i = 0; i < PN; i++) P.push({ seg: i % N, f: Math.random(), sp: 0.4 + Math.random() * 0.5 });
+  const rayGeo = new THREE.BufferGeometry();
+  rayGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(7 * 6), 3).setUsage(THREE.DynamicDrawUsage));
+  rayGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(7 * 6), 3).setUsage(THREE.DynamicDrawUsage));
+  const rays = new THREE.LineSegments(rayGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false }));
+  rays.frustumCulled = false; scene.add(rays);
+  const rayLvl = new Array(7).fill(0.2);
+
+  /* ---------- раскладки направлений (локально, радиус ~1.2) ---------- */
+  const tv = new V(), te = new THREE.Euler();
+  function layout(dir, i, n, t, out) { // возвращает [позиция, масштаб(xyz), поворот], ссылки задаются в links()
+    te.set(0, 0, 0); out.s.set(1, 1, 1);
+    if (dir === 'method') { // уровни архитектуры
+      let lv = 0, start = 0, cnt = 1; while (i >= start + cnt) { start += cnt; lv++; cnt += 2; }
+      const levels = (() => { let s = 0, c = 1, l = 0; while (s < n) { s += c; c += 2; l++; } return l; })();
+      const k = i - start, rowN = Math.min(cnt, n - start), sp = Math.min(0.34, 2.6 / Math.max(rowN, 1));
+      out.p.set((k - (rowN - 1) / 2) * sp, 1.0 - lv * (2.1 / Math.max(levels - 1, 1)), Math.sin(k * 1.7) * 0.06);
+      out.s.set(0.9, 0.55, 0.9);
+    } else if (dir === 'process') { // перестроенная последовательность
+      const u = n > 1 ? i / (n - 1) : 0.5;
+      out.p.set(-1.45 + 2.9 * u, 0.5 * Math.sin(u * TAU), 0.35 * Math.cos(u * TAU));
+      te.set(0, 0, Math.cos(u * TAU) * 0.6); out.s.set(0.85, 0.85, 0.85);
+    } else if (dir === 'tables') { // сетка данных с аналитическими «столбцами»
+      const cols = Math.ceil(Math.sqrt(n * 1.5)), rows = Math.ceil(n / cols), c = i % cols, r = Math.floor(i / cols);
+      const x = (c - (cols - 1) / 2) * 0.3, y = (r - (rows - 1) / 2) * 0.3, tilt = -0.75;
+      const h = 0.6 + 2.2 * (0.5 + 0.5 * Math.sin(c * 1.3 + 0.6)) * (r === 0 ? 1 : 0.25);
+      out.p.set(x, y * Math.cos(tilt), y * Math.sin(tilt) + 0.0); te.set(tilt, 0, 0); out.s.set(1.1, 1.1, h * 0.4);
+    } else if (dir === 'auto') { // конвейер операций, передающий действия системе
+      const a = i / n * TAU + t * 0.35;
+      out.p.set(Math.cos(a) * 1.45, Math.sin(a) * 0.55, Math.sin(a) * 0.4); te.set(0, 0, a);
+      const op = i % 6 === 0; out.s.setScalar(op ? 1.35 : 0.7);
+    } else if (dir === 'soft') { // модули цифрового инструмента
+      const m = i % 4, j = Math.floor(i / 4), per = Math.ceil(n / 4);
+      const mc = [[-0.72, 0.5], [0.72, 0.5], [-0.72, -0.5], [0.72, -0.5]][m];
+      const cc = Math.ceil(Math.sqrt(per)), x = (j % cc - (cc - 1) / 2) * 0.22, y = (Math.floor(j / cc) - (cc - 1) / 2) * 0.22;
+      out.p.set(mc[0] + x, mc[1] + y, m === 0 ? 0.25 : 0); out.s.set(1, 1, m === 0 ? 0.35 : 0.9);
+    } else if (dir === 'ai') { // интеллектуальная сеть: вход → обработка → результат
+      const L = [0.17, 0.29, 0.29, 0.17, 0.08].map(f => Math.max(1, Math.round(f * n)));
+      let acc = 0, l = 0; while (l < L.length - 1 && i >= acc + L[l]) { acc += L[l]; l++; }
+      const k = i - acc, cntL = L[l];
+      out.p.set(-1.4 + l * 0.7, ((k - (cntL - 1) / 2) * Math.min(0.28, 2.2 / cntL)), Math.sin(k * 2.1 + l) * 0.25);
+      out.s.setScalar(l === L.length - 1 ? 1.2 : 0.75);
+    } else { // ожидание: ячейки спрятаны внутри призмы
+      out.p.set(Math.cos(i) * 0.1, Math.sin(i * 1.3) * 0.1, 0); out.s.setScalar(0.001);
+    }
+    out.q.setFromEuler(te);
+  }
+  function linkOf(dir, i, n) {
+    if (dir === 'method') { let lv = 0, start = 0, cnt = 1; while (i >= start + cnt) { start += cnt; lv++; cnt += 2; } if (!lv) return [-1, -1]; const ps = start - (cnt - 2), pc = cnt - 2; const k = i - start; return [Math.min(n - 1, ps + Math.round(k * (pc - 1) / Math.max(cnt - 1, 1))), -1]; }
+    if (dir === 'process') return [i + 1 < n ? i + 1 : -1, -1];
+    if (dir === 'tables') { const cols = Math.ceil(Math.sqrt(n * 1.5)); return [i < cols - 1 ? i + 1 : -1, -1]; }
+    if (dir === 'auto') return [(i + 1) % n, -1];
+    if (dir === 'soft') { const m = i % 4; if (i < 4) return [(i + 1) % 4, -1]; return [m, -1]; }
+    if (dir === 'ai') { const L = [0.17, 0.29, 0.29, 0.17, 0.08].map(f => Math.max(1, Math.round(f * n))); let acc = 0, l = 0; while (l < L.length - 1 && i >= acc + L[l]) { acc += L[l]; l++; } if (l === L.length - 1) return [-1, -1]; const nxt = acc + L[l]; return [Math.min(n - 1, nxt + (i * 3) % L[l + 1]), Math.min(n - 1, nxt + (i * 7 + 2) % L[l + 1])]; }
+    return [-1, -1];
+  }
+
+  /* распределение ячеек между выбранными направлениями */
+  let plan = []; // [{dir, start, n, cx, cy, sc}]
+  relayout = function () {
+    const sel = DIRS.filter(d => selected.has(d));
+    plan = [];
+    if (sel.length === 0) plan.push({ dir: 'idle', start: 0, n: N, cx: 0, cy: 0, sc: 1 });
+    else if (sel.length === 1) plan.push({ dir: sel[0], start: 0, n: N, cx: 0, cy: 0, sc: 1 });
+    else {
+      const per = Math.floor(N / sel.length);
+      sel.forEach((d, k) => { const a = k / sel.length * TAU + Math.PI / 2; plan.push({ dir: d, start: k * per, n: k === sel.length - 1 ? N - k * per : per, cx: Math.cos(a) * 1.55, cy: Math.sin(a) * 1.0, sc: sel.length > 3 ? 0.36 : 0.45 }); });
+    }
+    C.forEach(c => { c.fP.copy(c.P); c.fS.copy(c.S); c.fQ.copy(c.Q); c.fC.copy(c.col); });
+    for (const g of plan) for (let j = 0; j < g.n; j++) {
+      const c = C[g.start + j]; c.dir = g.dir; const [a, b] = linkOf(g.dir, j, g.n);
+      c.link = a >= 0 ? g.start + a : -1; c.link2 = b >= 0 ? g.start + b : -1;
+      if (plan.length > 1 && j === 0) c.link2 = -2; // -2: связь с центральной призмой
+    }
+    transT = 0;
+  };
+
+  /* ---------- раскладка экрана: 1 мировая единица = 100 px ---------- */
+  let W = 1, H = 1, center = new V(), S = 1, raysOn = true;
+  const optPts = [], taskPt = new V();
+  function toWorld(px, py, out) { return out.set((px - W / 2) / 100, -(py - H / 2) / 100, 0); }
+  function measure() {
+    W = grid.clientWidth; H = grid.clientHeight;
+    renderer.setSize(W, H, false); camera.aspect = W / H;
+    camera.position.set(0, 0, (H / 100) / 2 / Math.tan(THREE.MathUtils.degToRad(15))); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+    const g = grid.getBoundingClientRect(), st = stageEl.getBoundingClientRect(), tk = taskEl.getBoundingClientRect();
+    toWorld(st.left - g.left + st.width / 2, st.top - g.top + st.height / 2, center);
+    S = Math.min(st.width / 2 / 1.65, st.height / 2 / 1.3) / 100;
+    U.uCenter.value.set((st.left - g.left + st.width / 2) / W, 1 - (st.top - g.top + st.height / 2) / H);
+    const side = tk.right < st.left + 4; // задача слева от модели
+    toWorld(side ? tk.right - g.left : tk.left - g.left + tk.width / 2, side ? tk.top - g.top + tk.height / 2 : tk.bottom - g.top, taskPt);
+    optPts.length = 0;
+    opts.forEach(o => { const r = o.querySelector('i').getBoundingClientRect(); optPts.push(toWorld(r.left - g.left + r.width / 2, r.top - g.top + r.height / 2, new V())); });
+    raysOn = optPts[0].x > center.x + 0.5;
+    U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db);
+  }
+
+  /* ---------- кадр ---------- */
+  let t = 0, transT = 9, hoverPrep = 0;
+  const lp = { p: new V(), s: new V(), q: new THREE.Quaternion() }, m4 = new THREE.Matrix4(), tmp = new V(), col = new THREE.Color();
+  const ease = x => (x <= 0 ? 0 : x >= 1 ? 1 : x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  function frame(dt) {
+    t += dt; transT += dt; U.uTime.value = t;
+    hoverPrep += ((preview ? 1 : 0) - hoverPrep) * Math.min(1, dt * 4);
+    const nSel = selected.size;
+    /* призма */
+    const coreScale = (nSel === 0 ? 1 : nSel === 1 ? 0.42 : 0.6) * S * (1 + hoverPrep * 0.06);
+    core.scale.setScalar(core.scale.x + (coreScale - core.scale.x) * Math.min(1, dt * 3) || coreScale);
+    core.position.copy(center);
+    const spin = reduce ? 0 : (0.25 + hoverPrep * 0.9 + (nSel ? 0.2 : 0));
+    /* объёмное вращение вокруг вертикали: вершина призмы всегда смотрит вверх */
+    core.userData.a = (core.userData.a || 0) + dt * spin;
+    core.rotation.y = Math.sin(core.userData.a) * 0.9; core.rotation.x = Math.sin(t * 0.3) * 0.12 * (reduce ? 0 : 1);
+    prismInner.rotation.z = -core.userData.a * 0.8;
+    const gl = nSel === 6 ? [1, 0.7, 0.6] : nSel ? (TINT[[...selected][nSel - 1]] || TINT.idle) : [0.4, 0.95, 0.9];
+    glow.material.color.lerp(col.setRGB(gl[0] * 0.8, gl[1] * 0.8, gl[2] * 0.8), Math.min(1, dt * 3));
+    glow.material.opacity = 0.45 + hoverPrep * 0.35 + (reduce ? 0 : Math.sin(t * 2) * 0.05);
+    /* ячейки */
+    for (const g of plan) for (let j = 0; j < g.n; j++) {
+      const i = g.start + j, c = C[i];
+      layout(g.dir, j, g.n, t, lp);
+      lp.p.multiplyScalar(g.sc).add(tmp.set(g.cx, g.cy, 0)).multiplyScalar(S).add(center);
+      lp.s.multiplyScalar(g.sc * S);
+      const k = ease(Math.min(1, Math.max(0, (transT - c.delay) / 1.2)));
+      c.P.lerpVectors(c.fP, lp.p, k); c.S.lerpVectors(c.fS, lp.s, k); c.Q.slerpQuaternions(c.fQ, lp.q, k);
+      const tn = TINT[g.dir]; c.col.lerpVectors(c.fC, tmp.set(tn[0], tn[1], tn[2]), k);
+      if (!reduce && g.dir !== 'idle') c.P.y += Math.sin(t * 1.1 + i) * 0.012 * S;
+      m4.compose(c.P, c.Q, c.S); cells.setMatrixAt(i, m4); cells.setColorAt(i, col.setRGB(c.col.x, c.col.y, c.col.z));
+    }
+    cells.instanceMatrix.needsUpdate = true; cells.instanceColor.needsUpdate = true;
+    /* связи */
+    const arr = linkGeo.attributes.position.array; let n = 0;
+    for (let i = 0; i < N; i++) {
+      const c = C[i];
+      for (const L of [c.link, c.link2]) {
+        if (L === -1) continue; const b = L === -2 ? core.position : C[L].P;
+        arr.set([c.P.x, c.P.y, c.P.z, b.x, b.y, b.z], n * 6); n++;
+      }
+    }
+    linkGeo.setDrawRange(0, n * 2); linkGeo.attributes.position.needsUpdate = true;
+    links.material.opacity += ((nSel ? 0.42 : 0) * Math.min(1, transT / 1.2) - links.material.opacity) * Math.min(1, dt * 3);
+    /* сигналы бегут по связям: процесс, автоматизация, AI и сочетания */
+    const flow = [...selected].some(d => d === 'process' || d === 'auto' || d === 'ai') || nSel > 1;
+    pulses.material.opacity += ((flow && !reduce ? 0.9 : 0) - pulses.material.opacity) * Math.min(1, dt * 3);
+    pulses.material.size = 0.16 * S;
+    if (pulses.material.opacity > 0.02) {
+      const pa = pulseGeo.attributes.position.array;
+      P.forEach((p, k) => {
+        p.f += dt * p.sp; if (p.f > 1) { p.f = 0; p.seg = Math.floor(Math.random() * N); }
+        const c = C[p.seg]; const L = c.link >= 0 ? C[c.link].P : c.link2 === -2 ? core.position : null;
+        if (!L) { pa.set([0, 0, -50], k * 3); return; }
+        tmp.lerpVectors(c.P, L, p.f); pa.set([tmp.x, tmp.y, tmp.z], k * 3);
+      });
+      pulseGeo.attributes.position.needsUpdate = true;
+    }
+    /* луч задачи и лучи к способам решения */
+    const ra = rayGeo.attributes.position.array, rc = rayGeo.attributes.color.array;
+    const inEnd = tmp.copy(center).add(new V(raysOn ? -0.62 * S : 0, raysOn ? 0 : 0.55 * S, 0));
+    ra.set([taskPt.x, taskPt.y, 0, inEnd.x, inEnd.y, inEnd.z], 0);
+    rc.set([0.35, 0.6, 0.58, 1, 0.92, 0.86], 0);
+    for (let k = 0; k < 6; k++) {
+      const d = DIRS[k], on = selected.has(d), pv = preview === d || preview === 'all';
+      const target = raysOn ? (on ? 1 : pv ? 0.65 : 0.14) : 0;
+      rayLvl[k] += (target - rayLvl[k]) * Math.min(1, dt * 5);
+      const o = optPts[k], st = new V(center.x + 0.35 * S, center.y, 0);
+      ra.set([st.x, st.y, 0, o.x - 0.12, o.y, 0], (k + 1) * 6);
+      const l = rayLvl[k];
+      rc.set(on ? [1 * l, 0.75 * l, 0.65 * l, 0.37 * l, 0.87 * l, 0.87 * l] : [0.85 * l, 0.95 * l, 0.92 * l, 0.25 * l, 0.7 * l, 0.68 * l], (k + 1) * 6);
+    }
+    rayGeo.attributes.position.needsUpdate = true; rayGeo.attributes.color.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+
+  /* ---------- цикл: только на экране; при reduced motion — по требованию ---------- */
+  let raf = 0, running = false, last = 0, visible = false;
+  function loop(now) { const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now; frame(dt); raf = requestAnimationFrame(loop); }
+  function start() { if (running) return; running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  function still() { transT = 99; for (let i = 0; i < 4; i++) frame(0.5); }
+  wake = function () { if (reduce) requestAnimationFrame(still); };
+  relayout(); measure(); frame(0.016);
+  addEventListener('resize', () => { measure(); if (!running) still(); });
+  if (reduce) still();
+  else {
+    new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible) { start(); setTimeout(measure, 1100); } else stop(); }), { rootMargin: '80px' }).observe(grid);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : visible && start()));
+  }
+  document.fonts && document.fonts.ready.then(() => { measure(); if (!running) still(); });
+  requestAnimationFrame(() => root.classList.add('gl-ready'));
 })();
 </script>
 
