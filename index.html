@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0E0F">
+<meta property="og:title" content="AI OASIS — искусственный интеллект, который возвращает время">
+<meta property="og:description" content="Бутиковая проектная студия. Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения.">
+<meta property="og:image" content="assets/icon-512.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<title>AI OASIS — искусственный интеллект, который возвращает время</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="AI OASIS — бутиковая проектная студия. Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения.">
+<link rel="icon" href="assets/icon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Layout concept: «прилив и отлив» — глубокие бирюзовые сцены (hero, философия, метод, финал)
+   чередуются со светлыми спокойными зонами для чтения. Асимметричная сетка 12 колонок,
+   текст держится левого края, стекло и свет живут справа и в глубине. */
+:root{
+  color-scheme: light;
+  /* Deep Transformative Teal */
+  --graphite:#0A0E0F;   /* фон логотипа и обложки: тёмный графит */
+  --ember:#451E19;      /* тёплая глубина слева на обложке */
+  --coral:#E1A492;      /* коралловый свет лент и акцент слогана — только на тёмном, точечно */
+  --coral-2:#CC988B;
+  --silk:#D9D2CE;       /* светлая середина шёлковой ленты */
+  --ai-1:#5FDFDE;       /* градиент знака «AI» */
+  --ai-2:#22B7BB;
+  --abyss:#06171B;      /* глубокая бирюза для элементов на графите */
+  --deep:#073B46;
+  --sea:#0F5C63;
+  --jade:#087E83;
+  --aqua:#29B4AE;
+  --mint:#A0E3D8;
+  --foam:#DDF4EF;
+  /* нейтрали с бирюзовым подтоном */
+  --mist:#F1F6F4;       /* фон светлых секций */
+  --paper:#FAFCFB;
+  --ink:#0A2A31;        /* текст на светлом */
+  --ink-2:#3E5F64;      /* вторичный текст на светлом */
+  --line:#CFE0DC;
+  --on-dark:#EAF7F4;    /* текст на тёмном */
+  --on-dark-2:#A9CBC6;
+  --line-dark:rgba(160,227,216,.18);
+
+  --f-display:"Onest", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body:"Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --t-hero:clamp(2.45rem, 1.2rem + 4.4vw, 5.2rem);
+  --t-h2:clamp(1.95rem, 1.2rem + 2.9vw, 3.5rem);
+  --t-h3:clamp(1.2rem, 1.05rem + .5vw, 1.5rem);
+  --t-lead:clamp(1.08rem, 1rem + .35vw, 1.3rem);
+  --t-body:1.0625rem;
+  --t-small:.875rem;
+
+  --gutter:max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(20px, env(safe-area-inset-right, 0px));
+  --wrap:1240px;
+  --ease:cubic-bezier(.22,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--graphite)}
+body{margin:0;font-family:var(--f-body);font-size:var(--t-body);line-height:1.65;color:var(--ink);background:var(--mist);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--graphite)}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.03em;line-height:1.04;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font-family:var(--f-body);font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.brand-line{height:1px;background:linear-gradient(90deg,transparent,var(--coral) 25%,var(--silk) 50%,var(--ai-2) 75%,transparent)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- кнопки ---------- */
+.btn{--h:54px;display:inline-flex;align-items:center;gap:.7em;height:var(--h);padding:0 1.6em;border-radius:999px;font:600 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;border:0;transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .3s}
+.btn-primary{color:#04181B;background:linear-gradient(135deg,#B8F4F0 0%,var(--ai-1) 45%,var(--ai-2) 100%);box-shadow:0 10px 30px -10px rgba(34,183,187,.7), inset 0 1px 0 rgba(255,255,255,.7)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(41,180,174,.85), inset 0 1px 0 rgba(255,255,255,.8)}
+.btn-primary .arr{transition:transform .4s var(--ease)}
+.btn-primary:hover .arr{transform:translateX(4px)}
+.btn-ghost{color:var(--on-dark);background:rgba(234,247,244,.06);box-shadow:inset 0 0 0 1px var(--line-dark);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:rgba(234,247,244,.12)}
+.btn-dark{color:var(--on-dark);background:var(--deep)}
+.btn-dark:hover{background:var(--sea);transform:translateY(-2px)}
+
+/* ---------- шапка ---------- */
+.header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s, box-shadow .4s, backdrop-filter .4s}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+.header.scrolled{background:rgba(10,14,15,.74);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 1px 0 var(--line-dark)}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo img{display:block;height:52px;width:auto}
+.footer .logo img{height:76px}
+.nav{display:flex;align-items:center;gap:6px}
+.nav a{color:var(--on-dark-2);text-decoration:none;font-size:.92rem;font-weight:500;padding:8px 12px;border-radius:999px;transition:color .25s, background .25s}
+.nav a:hover{color:var(--on-dark);background:rgba(234,247,244,.07)}
+.header .btn{--h:44px;font-size:.92rem;padding:0 1.2em}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(234,247,244,.08);color:var(--on-dark);cursor:pointer;box-shadow:inset 0 0 0 1px var(--line-dark)}
+.burger span{display:block;width:18px;height:1.5px;background:currentColor;margin:5px auto;transition:transform .3s var(--ease)}
+.burger[aria-expanded="true"] span:first-child{transform:translateY(3.3px) rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{transform:translateY(-3.3px) rotate(-45deg)}
+.mobile-nav{position:fixed;inset:0;z-index:45;background:radial-gradient(90% 60% at 100% 0%,rgba(12,69,76,.9),transparent 70%),radial-gradient(80% 60% at 0% 100%,rgba(69,30,25,.8),transparent 70%),var(--graphite);padding:calc(100px + env(safe-area-inset-top,0px)) var(--gutter-r) 40px var(--gutter);display:flex;flex-direction:column;gap:6px}
+.mobile-nav[hidden]{display:none}
+.mobile-nav a{color:var(--on-dark);text-decoration:none;font:500 1.7rem/1.2 var(--f-display);letter-spacing:-.02em;padding:10px 0;border-bottom:1px solid var(--line-dark)}
+.mobile-nav .btn{margin-top:24px;align-self:flex-start;font:600 1rem/1 var(--f-body)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:min(100svh, 980px);display:flex;flex-direction:column;justify-content:flex-end;color:var(--on-dark);overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(50% 60% at 85% 45%, rgba(12,69,76,.95), transparent 70%),
+    radial-gradient(45% 55% at 0% 55%, rgba(69,30,25,.95), transparent 70%),
+    var(--graphite);}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:0;transition:opacity 1.6s var(--ease)}
+.hero.gl-ready canvas{opacity:1}
+.hero.gl-ready .hero-fallback{opacity:0}
+.hero-fallback{position:absolute;right:6%;top:18%;width:min(44vw,520px);aspect-ratio:1;z-index:-1;transition:opacity 1.2s}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;z-index:-1;background:linear-gradient(to top, rgba(10,14,15,.6), transparent);pointer-events:none}
+.hero-inner{padding-top:150px;padding-bottom:clamp(40px,7vh,84px);display:grid;gap:clamp(36px,6vh,72px)}
+.hero-copy{max-width:min(860px,62%);display:grid;gap:28px}
+.hero .eyebrow{color:var(--silk);display:flex;align-items:center;gap:12px}
+.hero .eyebrow::before{content:"";width:48px;height:1px;background:linear-gradient(90deg,var(--coral),var(--ai-2))}
+.hero h1{font-size:var(--t-hero);font-weight:500;letter-spacing:-.045em;line-height:.98}
+.hero h1 .soft{display:block;background:linear-gradient(100deg,#F3C9BC 0%,var(--coral) 45%,var(--coral-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-lead{font-size:var(--t-lead);line-height:1.55;color:var(--on-dark-2);max-width:36em}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-dark)}
+.principles div{padding:22px 24px 0 0;display:grid;gap:4px}
+.principles div + div{padding-left:24px;border-left:1px solid var(--line-dark)}
+.principles b{font:500 1.06rem/1.3 var(--f-display);color:var(--on-dark);letter-spacing:-.01em}
+.principles span{font-size:.86rem;color:var(--on-dark-2);line-height:1.5}
+
+/* ---------- светлые секции ---------- */
+.light{background:var(--mist);color:var(--ink)}
+.section{padding-block:clamp(88px,12vw,168px)}
+.section-head{display:grid;gap:22px;max-width:860px}
+.section-head .eyebrow{color:var(--jade)}
+.section-head h2{font-size:var(--t-h2)}
+.section-head p:not(.eyebrow){font-size:var(--t-lead);color:var(--ink-2);max-width:40em;line-height:1.6}
+
+/* Узнавание проблемы: «мысль посетителя» → «спокойный ответ» */
+.recognize{position:relative;overflow:hidden}
+.recognize::before{content:"";position:absolute;width:900px;height:900px;right:-380px;top:-300px;border-radius:50%;background:radial-gradient(circle,rgba(160,227,216,.55),transparent 62%);pointer-events:none}
+.thoughts{margin-top:clamp(56px,7vw,96px);display:grid;gap:0;position:relative}
+.thought{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start;padding-block:clamp(28px,3.4vw,44px);border-top:1px solid var(--line)}
+.thought:last-child{border-bottom:1px solid var(--line)}
+.thought q{quotes:"«" "»";font:500 clamp(1.35rem,1.05rem + 1.25vw,2.15rem)/1.18 var(--f-display);letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
+.thought .reply{display:grid;gap:8px;padding-top:6px}
+.thought .reply .eyebrow{color:var(--jade);font-size:.7rem}
+.thought .reply p{color:var(--ink-2)}
+.thought:nth-child(even) q{padding-left:clamp(0px,4vw,64px)}
+.relief{margin-top:clamp(48px,6vw,80px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px}
+.relief p{font:500 clamp(1.2rem,1rem + .8vw,1.65rem)/1.35 var(--f-display);letter-spacing:-.015em;max-width:30em;color:var(--ink)}
+.relief p span{color:var(--jade)}
+
+/* ---------- ФИЛОСОФИЯ ---------- */
+.dark{color:var(--on-dark);position:relative;overflow:hidden;isolation:isolate}
+.philosophy{background:
+   radial-gradient(45% 50% at 0% 20%, rgba(69,30,25,.85), transparent 70%),
+   radial-gradient(55% 60% at 100% 75%, rgba(12,69,76,.9), transparent 70%),
+   var(--graphite);}
+.philosophy .light-leak{position:absolute;inset:-20%;z-index:-1;background:conic-gradient(from 200deg at 30% 40%, transparent 0deg, rgba(41,180,174,.16) 40deg, transparent 90deg, rgba(160,227,216,.1) 160deg, transparent 220deg);filter:blur(40px);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(6%, -4%, 0) rotate(8deg)}}
+.manifest{display:grid;gap:12px}
+.manifest .eyebrow{color:var(--coral)}
+.manifest h2{font-size:clamp(2.7rem,1.3rem + 6.2vw,7.2rem);letter-spacing:-.05em;line-height:.95;font-weight:500}
+.manifest h2 .b{display:block;color:transparent;-webkit-text-stroke:1px rgba(160,227,216,.55);text-stroke:1px rgba(160,227,216,.55)}
+.manifest-body{margin-top:clamp(32px,4vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);max-width:1040px}
+.manifest-body p{color:var(--on-dark-2);font-size:var(--t-lead);line-height:1.6}
+.manifest-body p strong{color:var(--on-dark);font-weight:500}
+
+/* Призма: задача входит одним лучом и раскладывается на варианты решения */
+.prism-scene{margin-top:clamp(64px,8vw,112px);display:grid;grid-template-columns:200px minmax(0,1fr) 270px;align-items:stretch;min-height:380px}
+.task-node{align-self:center;display:grid;gap:6px;padding:22px 22px;border-radius:22px;background:linear-gradient(150deg,rgba(234,247,244,.12),rgba(234,247,244,.03));box-shadow:inset 0 0 0 1px var(--line-dark), 0 30px 60px -30px rgba(0,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.task-node .eyebrow{color:var(--mint);font-size:.68rem}
+.task-node b{font:500 1.2rem/1.25 var(--f-display);letter-spacing:-.01em}
+.rays{position:relative;min-width:0}
+.rays svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rays .beam{stroke:url(#beamGrad);stroke-width:2.5;fill:none}
+.rays .ray{stroke:url(#rayGrad);stroke-width:1.3;fill:none;stroke-dasharray:3 7;animation:flow 3.5s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-50}}
+.prism{position:absolute;left:18%;top:50%;width:132px;height:150px;transform:translate(-50%,-50%)}
+.prism .glass{position:absolute;inset:0;clip-path:polygon(50% 0, 100% 100%, 0 100%);background:
+  linear-gradient(115deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 28%),
+  linear-gradient(200deg, rgba(160,227,216,.55), rgba(41,180,174,.25) 45%, rgba(8,126,131,.55));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.prism .edge{position:absolute;inset:0;width:100%;height:100%}
+.prism::after{content:"";position:absolute;left:50%;top:60%;width:210px;height:210px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(41,180,174,.45),transparent 65%);z-index:-1;filter:blur(8px)}
+.options{list-style:none;margin:0;padding:0;display:grid;grid-template-rows:repeat(6,1fr);align-items:center}
+.options li{display:flex;align-items:center;gap:12px;font:500 1.05rem/1.25 var(--f-display);color:var(--on-dark);letter-spacing:-.01em}
+.options li::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--mint) 40%,var(--aqua));box-shadow:0 0 12px rgba(160,227,216,.7)}
+.prism-caption{margin-top:28px;max-width:44em;color:var(--on-dark-2);font-size:.98rem;margin-left:auto;text-align:right}
+
+/* ---------- НАПРАВЛЕНИЯ ---------- */
+.directions-grid{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px,6vw,96px);align-items:start}
+.directions-aside{position:sticky;top:110px;display:grid;gap:20px}
+.consult{position:relative;border-radius:28px;padding:30px;color:var(--on-dark);overflow:hidden;isolation:isolate;background:radial-gradient(90% 90% at 100% 0%, var(--jade), var(--deep) 60%, var(--abyss));box-shadow:0 40px 80px -40px rgba(7,59,70,.7)}
+.consult::after{content:"";position:absolute;width:220px;height:220px;right:-70px;bottom:-80px;border-radius:50%;z-index:-1;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(160,227,216,.2) 30%,rgba(41,180,174,.15) 60%,transparent 70%);box-shadow:inset 0 0 40px rgba(160,227,216,.25)}
+.consult h3{font-size:1.45rem;margin:10px 0 12px}
+.consult p{color:var(--on-dark-2);font-size:.98rem}
+.consult .btn{margin-top:22px;--h:48px}
+.consult .eyebrow{color:var(--mint)}
+.dir{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding-block:34px;border-top:1px solid var(--line)}
+.dir:last-child{border-bottom:1px solid var(--line)}
+.dir h3{font-size:var(--t-h3);letter-spacing:-.02em}
+.dir-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.dir-pair div{display:grid;gap:6px;align-content:start}
+.dir-pair .eyebrow{font-size:.68rem;color:var(--ink-2)}
+.dir-pair .res .eyebrow{color:var(--jade)}
+.dir-pair p{color:var(--ink-2);font-size:.98rem}
+.dir-pair .res p{color:var(--ink)}
+
+/* ---------- МЕТОД ---------- */
+.method{background:
+   radial-gradient(60% 60% at 10% 0%, rgba(12,69,76,.95), transparent 70%),
+   radial-gradient(40% 50% at 100% 100%, rgba(69,30,25,.6), transparent 70%),
+   linear-gradient(180deg, #0B2A2F 0%, var(--graphite) 75%);}
+.method .section-head .eyebrow{color:var(--mint)}
+.method .section-head p{color:var(--on-dark-2)}
+.cycle{margin-top:clamp(56px,7vw,96px);position:relative}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.phase{padding:0 20px 18px 0;display:flex;align-items:baseline;gap:10px;font:500 .78rem/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+.phase i{font-style:normal;color:var(--on-dark-2);letter-spacing:.04em;text-transform:none;font-weight:400}
+.track{position:relative;height:40px}
+.track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,var(--mint),rgba(160,227,216,.25))}
+.track .node{position:absolute;top:50%;width:13px;height:13px;margin:-6.5px 0 0 -1px;border-radius:50%;background:var(--abyss);box-shadow:inset 0 0 0 1.5px var(--mint);transition:background .4s, box-shadow .4s}
+.track .node.on{background:var(--mint);box-shadow:0 0 0 5px rgba(160,227,216,.15),0 0 18px rgba(160,227,216,.8)}
+.bead{position:absolute;top:50%;left:0;width:34px;height:34px;margin:-17px 0 0 -11px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0 7%,rgba(255,255,255,.15) 24%,transparent 40%),radial-gradient(circle at 60% 72%,rgba(160,227,216,.9),rgba(41,180,174,.35) 45%,rgba(8,126,131,.2) 70%);
+  box-shadow:inset 0 0 0 1px rgba(234,247,244,.5),inset -4px -6px 12px rgba(3,34,42,.4),0 0 30px rgba(41,180,174,.6);will-change:left}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));counter-reset:s}
+.step{padding:26px 22px 0 0;display:grid;gap:10px;align-content:start;transition:opacity .5s}
+.step .num{font:500 .85rem/1 var(--f-display);color:var(--mint);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.step h3{font-size:1.22rem;letter-spacing:-.015em}
+.step p{font-size:.93rem;color:var(--on-dark-2);line-height:1.55}
+.loop{margin-top:44px;display:flex;align-items:center;gap:18px;color:var(--on-dark-2);font-size:.95rem}
+.loop svg{flex:none;width:52px;height:52px}
+.loop b{color:var(--on-dark);font-weight:500}
+
+/* ---------- ПРОЕКТЫ ---------- */
+.cases{background:var(--paper)}
+.legend{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.84rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.tag{display:inline-flex;align-items:center;gap:7px;font:600 .7rem/1 var(--f-body);letter-spacing:.1em;text-transform:uppercase;padding:7px 11px 7px 9px;border-radius:999px;background:var(--foam);color:var(--deep);white-space:nowrap}
+.tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--jade))}
+.tag.t-done{--c:var(--jade)}
+.tag.t-method{--c:#5B8FD6}
+.tag.t-demo{--c:#C9A24A}
+.featured{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);border-radius:32px;overflow:hidden;background:var(--mist);box-shadow:0 1px 0 var(--line), 0 50px 100px -60px rgba(7,59,70,.45)}
+.featured-body{padding:clamp(28px,4vw,56px);display:grid;gap:22px;align-content:start}
+.featured h3{font-size:clamp(1.55rem,1.2rem + 1.2vw,2.3rem);letter-spacing:-.03em}
+.featured .client{color:var(--ink-2);font-size:.95rem}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.fact{display:grid;gap:4px}
+.fact b{font:500 2.6rem/1 var(--f-display);letter-spacing:-.04em;color:var(--deep);font-variant-numeric:tabular-nums}
+.fact span{font-size:.88rem;color:var(--ink-2);line-height:1.45}
+.case-rows{display:grid;gap:14px}
+.case-rows div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;font-size:.97rem}
+.case-rows dt,.case-rows .k{font:600 .7rem/1.7 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--jade)}
+.case-rows p{color:var(--ink)}
+details.more{border-top:1px solid var(--line);padding-top:16px}
+details.more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--deep)}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--foam);font-weight:500;transition:transform .3s var(--ease)}
+details.more[open] summary::after{transform:rotate(45deg)}
+details.more ul{margin:16px 0 0;padding-left:1.1em;color:var(--ink-2);display:grid;gap:6px;font-size:.95rem}
+details.more .note{margin-top:14px;font-size:.88rem;color:var(--ink-2);padding:12px 14px;border-radius:12px;background:var(--foam)}
+.featured-visual{position:relative;min-height:340px;background:radial-gradient(80% 70% at 70% 30%, var(--jade), var(--deep) 60%, var(--abyss));display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.featured-visual .orb{position:absolute;border-radius:50%}
+.featured-visual .o1{width:62%;aspect-ratio:1;left:14%;top:12%}
+.featured-visual .o2{width:30%;aspect-ratio:1;right:8%;bottom:10%}
+.placeholder-note{position:absolute;left:20px;right:20px;bottom:20px;font-size:.78rem;color:var(--on-dark-2);border:1px dashed rgba(160,227,216,.35);border-radius:12px;padding:10px 12px;background:rgba(3,34,42,.35)}
+.project-list{margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,4vw,64px)}
+.project{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:start;padding-block:22px;border-top:1px solid var(--line)}
+.project h4{margin:0;font:500 1.12rem/1.3 var(--f-display);letter-spacing:-.01em}
+.project p{grid-column:1/-1;font-size:.92rem;color:var(--ink-2)}
+
+/* общий «стеклянный» объект для CSS-сцен */
+.orb{background:
+   radial-gradient(circle at 30% 26%, rgba(255,255,255,.9) 0 4%, rgba(255,255,255,.25) 12%, transparent 28%),
+   radial-gradient(circle at 70% 78%, rgba(160,227,216,.55), transparent 45%),
+   radial-gradient(circle at 50% 50%, rgba(41,180,174,.18), rgba(8,126,131,.32) 70%, rgba(160,227,216,.5) 100%);
+  box-shadow:inset 0 0 0 1px rgba(234,247,244,.35), inset -18px -24px 50px rgba(3,34,42,.45), inset 14px 18px 40px rgba(234,247,244,.18), 0 40px 80px -30px rgba(0,0,0,.55)}
+
+
+/* ---------- ОСНОВАТЕЛЬ ---------- */
+.founder{background:
+   radial-gradient(40% 55% at 0% 40%, rgba(69,30,25,.9), transparent 70%),
+   radial-gradient(45% 60% at 60% 30%, rgba(12,69,76,.75), transparent 70%),
+   var(--graphite);}
+.founder-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px);align-items:start}
+@media (min-width:861px){.founder-photo{position:sticky;top:96px}}
+.founder-photo{margin:0;display:grid;gap:18px;max-width:520px;width:100%}
+.founder-photo img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;
+  /* края фотографии растворяются в фоне секции; сам кадр не меняется */
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 10%,#000 82%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 10%,#000 82%,transparent);mask-composite:intersect}
+.founder-photo figcaption{display:grid;gap:8px;justify-items:start;margin-top:-56px;position:relative;padding-left:14%}
+.founder-photo .brand-line{width:120px}
+.name-todo{font:500 1.05rem/1.3 var(--f-display);color:var(--on-dark);border:1px dashed var(--line-dark);border-radius:10px;padding:6px 10px;background:rgba(10,14,15,.55)}
+.founder-photo figcaption span{font-size:.86rem;color:var(--on-dark-2)}
+.founder-text{display:grid;gap:28px;align-content:center}
+.founder-text .eyebrow{color:var(--coral)}
+.founder-text blockquote{margin:0;font:500 clamp(1.7rem,1.1rem + 2.2vw,3rem)/1.1 var(--f-display);letter-spacing:-.035em;text-wrap:balance}
+.founder-text blockquote span{color:var(--ai-1)}
+.founder-text > p{color:var(--on-dark-2);font-size:var(--t-lead);max-width:36em}
+.founder-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px;padding-top:28px;border-top:1px solid rgba(217,210,206,.12)}
+.founder-cols h3{font:600 .72rem/1.4 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--silk);margin-bottom:12px}
+.founder-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.95rem;color:var(--on-dark-2)}
+.founder-cols li{padding-left:16px;position:relative}
+.founder-cols li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--ai-2))}
+.pubs li{color:var(--on-dark)}
+.pubs small{display:block;color:var(--on-dark-2);font-size:.82rem}
+.status{display:inline-block;margin-left:6px;font:600 .66rem/1 var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--coral);border:1px solid rgba(225,164,146,.4);border-radius:999px;padding:4px 8px;vertical-align:2px}
+
+/* ---------- ФИНАЛ ---------- */
+.final{background:
+   radial-gradient(50% 55% at 100% 15%, rgba(12,69,76,.95), transparent 70%),
+   radial-gradient(50% 60% at 0% 85%, rgba(69,30,25,.85), transparent 70%),
+   var(--graphite);}
+.silk{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.final .orb.f1{position:absolute;width:min(46vw,560px);aspect-ratio:1;right:-8%;top:-10%;z-index:-1;animation:float 14s ease-in-out infinite alternate}
+.final .orb.f2{position:absolute;width:min(16vw,170px);aspect-ratio:1;right:30%;top:42%;z-index:-1;animation:float 11s ease-in-out infinite alternate-reverse}
+@keyframes float{to{transform:translate3d(-18px,26px,0)}}
+.final-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:start}
+.final h2{font-size:clamp(2.2rem,1.3rem + 3.6vw,4.4rem);letter-spacing:-.04em;line-height:1}
+.final h2 span{color:var(--coral)}
+.start-steps{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:0;counter-reset:st}
+.start-steps li{counter-increment:st;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding-block:16px;border-top:1px solid var(--line-dark);color:var(--on-dark-2)}
+.start-steps li::before{content:counter(st);font:500 .9rem/1.6 var(--f-display);color:var(--mint);font-variant-numeric:tabular-nums}
+.start-steps li b{color:var(--on-dark);font-weight:500}
+.form{border-radius:28px;padding:clamp(24px,3vw,36px);display:grid;gap:18px;background:linear-gradient(160deg,rgba(234,247,244,.13),rgba(234,247,244,.04));box-shadow:inset 0 0 0 1px var(--line-dark),0 50px 100px -50px rgba(0,0,0,.6);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3)}
+.form h3{font-size:1.4rem}
+.field{display:grid;gap:8px}
+.field label,.field legend{font-size:.84rem;font-weight:500;color:var(--on-dark-2)}
+.field input[type=text],.field textarea{width:100%;font:inherit;font-size:1rem;color:var(--on-dark);background:rgba(3,34,42,.45);border:1px solid var(--line-dark);border-radius:14px;padding:13px 15px;transition:border-color .25s, background .25s}
+.field textarea{min-height:120px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:rgba(169,203,198,.6)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--aqua);background:rgba(3,34,42,.65)}
+fieldset.field{border:0;margin:0;padding:0}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills input{position:absolute;opacity:0;pointer-events:none}
+.pills label{cursor:pointer;padding:9px 14px;border-radius:999px;font-size:.9rem;color:var(--on-dark);box-shadow:inset 0 0 0 1px var(--line-dark);transition:background .25s, box-shadow .25s}
+.pills input:checked + label{background:rgba(160,227,216,.18);box-shadow:inset 0 0 0 1px var(--mint)}
+.pills input:focus-visible + label{outline:2px solid var(--aqua);outline-offset:2px}
+.consent{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;font-size:.84rem;color:var(--on-dark-2);line-height:1.5}
+.consent input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--aqua)}
+.consent a{color:var(--mint)}
+.form .btn{justify-self:start}
+.form-status{font-size:.88rem;color:var(--mint);min-height:1.4em}
+
+.footer-brand{display:grid;gap:12px;justify-items:start}
+.footer .brand-line{width:140px}
+.footer{background:var(--graphite);border-top:1px solid rgba(217,210,206,.08);color:var(--on-dark-2);padding-block:56px calc(40px + env(safe-area-inset-bottom,0px));font-size:.9rem}
+.footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+.footer .todo{border:1px dashed var(--line-dark);border-radius:12px;padding:12px 16px;max-width:520px}
+
+.proto-badge{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;font:600 .68rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--abyss);background:var(--mint);padding:8px 12px;border-radius:999px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+
+/* появление: элемент видим в покое; анимация проигрывается, когда он въезжает в кадр */
+.reveal.in{animation:rise 1s var(--ease) both}
+.reveal.in.d1{animation-delay:.08s}.reveal.in.d2{animation-delay:.16s}.reveal.in.d3{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:none}}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  .nav{display:none}
+  .burger{display:block}
+  .header .btn{display:none}
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:36px}
+  .phases,.track{display:none}
+  .prism-scene{grid-template-columns:170px minmax(0,1fr) 230px}
+}
+@media (max-width:860px){
+  .principles{grid-template-columns:minmax(0,1fr)}
+  .principles div,.principles div + div{padding:16px 0;border-left:0;border-top:1px solid var(--line-dark)}
+  .principles div:first-child{border-top:0}
+  .thought{grid-template-columns:minmax(0,1fr);gap:14px}
+  .thought:nth-child(even) q{padding-left:0}
+  .manifest-body{grid-template-columns:minmax(0,1fr)}
+  .prism-scene{grid-template-columns:minmax(0,1fr);min-height:0;gap:0}
+  .task-node{justify-self:start}
+  .rays{height:150px}
+  .rays svg{display:none}
+  .rays::before{content:"";position:absolute;left:40px;top:0;bottom:0;width:2px;background:linear-gradient(var(--mint),var(--aqua))}
+  .prism{left:41px;width:96px;height:110px}
+  .options{grid-template-rows:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;padding:24px;border-radius:22px;background:rgba(234,247,244,.05);box-shadow:inset 0 0 0 1px var(--line-dark)}
+  .options li{font-size:.98rem}
+  .prism-caption{text-align:left;margin-left:0}
+  .directions-grid{grid-template-columns:minmax(0,1fr)}
+  .directions-aside{position:static}
+  .dir-pair{grid-template-columns:minmax(0,1fr);gap:16px}
+  .steps{grid-template-columns:minmax(0,1fr);row-gap:0;border-left:1px solid rgba(160,227,216,.35);margin-left:6px}
+  .step{padding:0 0 30px 26px;position:relative}
+  .step::before{content:"";position:absolute;left:-7px;top:2px;width:13px;height:13px;border-radius:50%;background:var(--abyss);box-shadow:inset 0 0 0 1.5px var(--mint)}
+  .featured{grid-template-columns:minmax(0,1fr)}
+  .featured-visual{min-height:260px;order:-1}
+  .project-list{grid-template-columns:minmax(0,1fr)}
+  .final-grid{grid-template-columns:minmax(0,1fr)}
+  .founder-grid{grid-template-columns:minmax(0,1fr)}
+  .founder-photo figcaption{margin-top:-28px;padding-left:0}
+  .founder-cols{grid-template-columns:minmax(0,1fr)}
+  .final .orb.f1{width:80vw;right:-40%;top:-6%}
+  .final .orb.f2{display:none}
+  .hero-fallback{width:64vw;right:-6vw;top:90px}
+  .hero-copy{max-width:none}
+  .hero-inner{padding-top:min(52vh,400px)}
+}
+@media (max-width:520px){
+  .hero-actions .btn{width:100%;justify-content:center}
+  .case-rows div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .options{grid-template-columns:minmax(0,1fr)}
+  .facts b{font-size:2.2rem}
+  .relief .btn{width:100%;justify-content:center}
+  .proto-badge{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+</head>
+<body>
+<header class="header" id="top-header">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="AI OASIS — на главную">
+      <img src="assets/logo-wordmark-112.png" width="58" height="52" alt="AI OASIS">
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#approach">Подход</a>
+      <a href="#directions">Направления</a>
+      <a href="#method">Как мы работаем</a>
+      <a href="#projects">Проекты</a>
+      <a href="#founder">Основатель</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="#contact">Обсудить задачу</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" hidden aria-label="Мобильная навигация">
+  <a href="#approach">Подход</a>
+  <a href="#directions">Направления</a>
+  <a href="#method">Как мы работаем</a>
+  <a href="#projects">Проекты</a>
+  <a href="#founder">Основатель</a>
+  <a href="#contact">Контакты</a>
+  <a class="btn btn-primary" href="#contact">Обсудить мою задачу <span class="arr">→</span></a>
+</nav>
+
+<main id="top">
+  <!-- 1. HERO -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <canvas id="hero-gl" aria-hidden="true"></canvas>
+    <div class="hero-fallback orb" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Бутиковая проектная студия</p>
+        <h1 id="hero-title">Искусственный интеллект, <span class="soft">который возвращает время</span></h1>
+        <p class="hero-lead">Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения, инструменты и работающие продукты.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Обсудить мою задачу <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#method">Как мы работаем</a>
+        </div>
+      </div>
+      <div class="principles">
+        <div><b>Сначала задача. Потом технология.</b><span>Инструменты подбираем под вашу ситуацию, а не наоборот.</span></div>
+        <div><b>Сложное делаем простым.</b><span>Разбираемся сами, чтобы вам не пришлось изучать всё в одиночку.</span></div>
+        <div><b>Личное участие.</b><span>Над задачей работает основатель студии, профильных специалистов подключаем по необходимости.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. УЗНАВАНИЕ -->
+  <section class="light section recognize" id="recognize" aria-labelledby="recognize-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Знакомые ситуации</p>
+        <h2 id="recognize-title">Сложность не всегда в самой задаче. Иногда в том, что непонятно, с чего начать.</h2>
+      </div>
+      <div class="thoughts">
+        <article class="thought reveal">
+          <q>Работы всё больше, а времени на то, чтобы разобраться в новом, не остаётся.</q>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С того, что отнимает больше всего часов. Часто часть рутины можно упростить или передать инструментам.</p></div>
+        </article>
+        <article class="thought reveal">
+          <q>Инструментов десятки. Какой из них нужен мне, непонятно.</q>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Выбор начинается не с инструмента. Сначала разбираем задачу, затем подбираем то, что ей подходит. Иногда это вовсе не нейросеть.</p></div>
+        </article>
+        <article class="thought reveal">
+          <q>Идея есть. Как превратить её в результат, неясно.</q>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Разложим идею на шаги, определим ресурсы и первый реальный шаг, который можно сделать уже сейчас.</p></div>
+        </article>
+        <article class="thought reveal">
+          <q>Сотрудники уже пользуются нейросетями, но каждый по-своему.</q>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С диагностики: где технологии действительно помогают команде. Затем обучение на ваших рабочих задачах.</p></div>
+        </article>
+        <article class="thought reveal">
+          <q>Знаний и опыта много, а курс никак не складывается в систему.</q>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Со структуры и методологии: логика продукта, программа, учебные материалы, практика.</p></div>
+        </article>
+      </div>
+      <div class="relief reveal">
+        <p>Если вы узнали себя, вы по адресу. <span>Разбираться во всех технологиях самостоятельно не обязательно.</span></p>
+        <a class="btn btn-dark" href="#contact">Рассказать о своей ситуации</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ФИЛОСОФИЯ -->
+  <section class="dark section philosophy" id="approach" aria-labelledby="approach-title">
+    <div class="light-leak" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="manifest reveal">
+        <p class="eyebrow">Наш принцип</p>
+        <h2 id="approach-title">Сначала задача.<span class="b">Потом технология.</span></h2>
+      </div>
+      <div class="manifest-body reveal d1">
+        <p>Мы не начинаем с выбора нейросети. Мы начинаем с вопроса: <strong>что нужно человеку и что должно измениться</strong> в его работе.</p>
+        <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. Результат для человека — цель.</strong></p>
+      </div>
+
+      <div class="prism-scene reveal d2" aria-label="Схема: одна задача раскладывается на несколько возможных решений">
+        <div class="task-node"><span class="eyebrow">На входе</span><b>Ваша задача</b></div>
+        <div class="rays" aria-hidden="true">
+          <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="beamGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#A0E3D8" stop-opacity=".2"/><stop offset="1" stop-color="#E9FBF7"/></linearGradient>
+              <linearGradient id="rayGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E9FBF7"/><stop offset="1" stop-color="#29B4AE" stop-opacity=".55"/></linearGradient>
+            </defs>
+            <line class="beam" x1="0" y1="30" x2="15" y2="30" vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 5"  vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 15" vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 25" vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 35" vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 45" vector-effect="non-scaling-stroke"/>
+            <path class="ray" d="M21 30 L100 55" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="prism">
+            <div class="glass"></div>
+            <svg class="edge" viewBox="0 0 132 150" preserveAspectRatio="none"><polygon points="66,1 131,149 1,149" fill="none" stroke="rgba(234,247,244,.7)" stroke-width="1"/></svg>
+          </div>
+        </div>
+        <ul class="options">
+          <li>Методика</li>
+          <li>Новый порядок работы</li>
+          <li>Таблицы и Excel</li>
+          <li>Автоматизация</li>
+          <li>Программное решение</li>
+          <li>Искусственный интеллект</li>
+        </ul>
+      </div>
+      <p class="prism-caption">Решение подбирается под задачу. Иногда подходит один из вариантов, чаще их сочетание.</p>
+    </div>
+  </section>
+
+  <!-- 4. НАПРАВЛЕНИЯ -->
+  <section class="light section" id="directions" aria-labelledby="directions-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Что мы можем сделать</p>
+        <h2 id="directions-title">От ситуации, с которой вы пришли, к результату, который останется с вами</h2>
+      </div>
+      <div class="directions-grid">
+        <aside class="directions-aside reveal">
+          <div class="consult">
+            <p class="eyebrow">Точка входа</p>
+            <h3>Не знаете, что из этого вам нужно?</h3>
+            <p>Это нормально. Начните с консультации: опишите ситуацию своими словами, а подходящий формат помощи определим вместе.</p>
+            <a class="btn btn-primary" href="#contact">Обсудить задачу <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+        <div>
+          <article class="dir reveal">
+            <h3>Искусственный интеллект в работе и бизнесе</h3>
+            <div class="dir-pair">
+              <div><p class="eyebrow">Когда</p><p>Хочется понять, где AI действительно сэкономит время, а где он не нужен.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Сценарии применения под ваши задачи, подобранные инструменты, рабочие инструкции и обучение команды.</p></div>
+            </div>
+          </article>
+          <article class="dir reveal">
+            <h3>Корпоративное обучение</h3>
+            <div class="dir-pair">
+              <div><p class="eyebrow">Когда</p><p>Сотрудники пользуются технологиями бессистемно, и результат зависит от случая.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Программа по итогам диагностики, практика на рабочих материалах, учебные модули и оценка результатов.</p></div>
+            </div>
+          </article>
+          <article class="dir reveal">
+            <h3>Образовательные продукты и методология</h3>
+            <div class="dir-pair">
+              <div><p class="eyebrow">Когда</p><p>Есть экспертиза и идея курса, но нет структуры и понятной логики обучения.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Образовательная программа, учебно-методический комплекс, интерактивные задания, сопровождение автора.</p></div>
+            </div>
+          </article>
+          <article class="dir reveal">
+            <h3>Цифровые решения и автоматизация</h3>
+            <div class="dir-pair">
+              <div><p class="eyebrow">Когда</p><p>Рабочий процесс отнимает слишком много ручных операций.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Схема упрощения процесса, подбор инструментов, концепция или прототип решения и сопровождение реализации.</p></div>
+            </div>
+          </article>
+          <article class="dir reveal">
+            <h3>Проектирование и сопровождение проектов</h3>
+            <div class="dir-pair">
+              <div><p class="eyebrow">Когда</p><p>Цель понятна, но неясно, как организовать работу и измерить результат.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Концепция, цели и показатели, этапы, команда, контроль результатов.</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. МЕТОД -->
+  <section class="dark section method" id="method" aria-labelledby="method-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Как мы работаем</p>
+        <h2 id="method-title">Шесть шагов от проблемы к результату</h2>
+        <p>Каждый шаг отвечает на свой вопрос. Поэтому к выбору технологий мы приходим только на четвёртом.</p>
+      </div>
+      <div class="cycle" id="cycle">
+        <div class="phases" aria-hidden="true">
+          <div class="phase">Понять <i>шаги 1–2</i></div>
+          <div class="phase">Спроектировать <i>шаги 3–4</i></div>
+          <div class="phase">Сделать и проверить <i>шаги 5–6</i></div>
+        </div>
+        <div class="track" aria-hidden="true">
+          <span class="node" style="left:0%"></span><span class="node" style="left:16.66%"></span><span class="node" style="left:33.33%"></span>
+          <span class="node" style="left:50%"></span><span class="node" style="left:66.66%"></span><span class="node" style="left:83.33%"></span>
+          <span class="bead" id="bead"></span>
+        </div>
+        <ol class="steps">
+          <li class="step"><span class="num">01</span><h3>Диагностика</h3><p>Разбираемся, что происходит сейчас, в чём проблема и почему привычный способ работы не даёт нужного результата.</p></li>
+          <li class="step"><span class="num">02</span><h3>Постановка задачи</h3><p>Формулируем конкретную цель и определяем, что должно измениться.</p></li>
+          <li class="step"><span class="num">03</span><h3>Проектирование решения</h3><p>Разрабатываем сценарий действий: ресурсы, инструменты, этапы.</p></li>
+          <li class="step"><span class="num">04</span><h3>Выбор технологий</h3><p>Подбираем инструменты исходя из задачи, а не наоборот.</p></li>
+          <li class="step"><span class="num">05</span><h3>Реализация</h3><p>Создаём, адаптируем или внедряем решение. При необходимости привлекаем профильных специалистов.</p></li>
+          <li class="step"><span class="num">06</span><h3>Оценка результата</h3><p>Проверяем, насколько решение соответствует поставленной цели.</p></li>
+        </ol>
+        <p class="loop">
+          <svg viewBox="0 0 52 52" aria-hidden="true"><path d="M40 16a17 17 0 1 0 3 16" fill="none" stroke="#A0E3D8" stroke-width="1.5" stroke-linecap="round"/><path d="M33 15h8V7" fill="none" stroke="#A0E3D8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b>Это цикл.</b> Оценка показывает, что работает и что стоит улучшить, и при необходимости работа идёт на следующий круг.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ПРОЕКТЫ (фрагмент) -->
+  <section class="section cases" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Проекты и практика</p>
+        <h2 id="projects-title">Что уже сделано, и какую роль в этом играла студия</h2>
+        <p>Мы отделяем выполненные проекты от методологического консультирования и демонстраций, чтобы было видно, за что отвечали мы, а за что партнёры.</p>
+      </div>
+      <div class="legend" aria-label="Обозначения">
+        <span class="tag t-done">Выполненный проект</span>
+        <span class="tag t-method">Методологическое сопровождение</span>
+        <span class="tag t-demo">Семинар или демонстрация</span>
+      </div>
+
+      <article class="featured reveal">
+        <div class="featured-body">
+          <span class="tag t-done" style="justify-self:start">Выполненный проект</span>
+          <h3>Корпоративное обучение работе с AI для производственного предприятия</h3>
+          <p class="client">Лесохимическое предприятие. Название клиента не публикуется.</p>
+          <div class="facts">
+            <div class="fact"><b>12</b><span>сотрудников участвовали в диагностике потребностей</span></div>
+            <div class="fact"><b>17</b><span>человек прошли обучение в разных форматах</span></div>
+          </div>
+          <div class="case-rows">
+            <div><span class="k">Задача</span><p>Понять, где AI полезен сотрудникам в их реальной работе, и научить применять его системно.</p></div>
+            <div><span class="k">Подход</span><p>Опрос и диагностика, затем индивидуальная программа вокруг приоритетных направлений.</p></div>
+            <div><span class="k">Результат</span><p>Проведено обучение по индивидуальной программе. Создан специализированный инструмент для построения промптов.</p></div>
+          </div>
+          <details class="more">
+            <summary>Подробнее о проекте</summary>
+            <ul>
+              <li>Приоритетные направления: исследование рынка и технологий, анализ больших объёмов информации, работа с документами, Excel и аналитика, подготовка рабочих материалов.</li>
+              <li>Обучение работе с информацией и документами, применение AI для исследований и аналитики.</li>
+              <li>Практические задания на рабочих материалах.</li>
+            </ul>
+            <p class="note">Проект представлен как корпоративное обучение и проектирование практического применения AI. Экономия времени не измерялась, поэтому мы её не указываем.</p>
+          </details>
+        </div>
+        <div class="featured-visual" aria-hidden="true">
+          <div class="orb o1"></div><div class="orb o2"></div>
+          <p class="placeholder-note">Место для материала проекта. Ждём файлы из реестра изображений.</p>
+        </div>
+      </article>
+
+      <div class="project-list">
+        <article class="project reveal"><h4>Методологическое консультирование аптечной сети</h4><span class="tag t-method">Сопровождение</span><p>Проектирование корпоративного образовательного продукта и годового цикла обучения вместе с отраслевым экспертом.</p></article>
+        <article class="project reveal"><h4>Цифровые обучающие игры для логопеда</h4><span class="tag t-done">Выполнен</span><p>Созданы несколько игр, и специалист освоила способ самостоятельно делать новые задания с помощью AI.</p></article>
+        <article class="project reveal"><h4>«Синергия»: курс stop-motion анимации</h4><span class="tag t-done">Выполнен</span><p>Полный методический комплекс на 20 академических часов. Принят сетью и допущен к тиражированию.</p></article>
+        <article class="project reveal"><h4>ITLab29</h4><span class="tag t-done">Выполнен</span><p>Инженерно-творческое направление для школьников: 166 учащихся, 5 направлений, 32 цифровых продукта.</p></article>
+        <article class="project reveal"><h4>Семинар для НКО: AI и грантовые заявки</h4><span class="tag t-demo">Семинар</span><p>Проверка требований, логики проекта, бюджета и оценка зрелости заявки.</p></article>
+        <article class="project reveal"><h4>«МедиаЛаб: Профессия в кадре»</h4><span class="tag t-done">Выполнен</span><p>30 участников обучено, 7 видеороликов, 14 интервью, охват более 5 000 человек. Бюджет исполнен полностью.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ОСНОВАТЕЛЬ -->
+  <section class="dark section founder" id="founder" aria-labelledby="founder-title">
+    <div class="wrap founder-grid">
+      <figure class="founder-photo reveal">
+        <img src="assets/founder-1200.webp" width="1200" height="1800" alt="Основатель студии AI OASIS" loading="lazy" decoding="async">
+        <figcaption><span class="name-todo">[Имя и фамилия основателя]</span><span>Основатель AI OASIS</span><span class="brand-line" aria-hidden="true"></span></figcaption>
+      </figure>
+      <div class="founder-text reveal d1">
+        <p class="eyebrow">Основатель</p>
+        <blockquote id="founder-title">За технологиями всегда стоит человек. <span>И именно человек понимает, какую задачу необходимо решить.</span></blockquote>
+        <p>Студия работает на личном профессиональном участии основателя. В работе соединяются методология, образовательная практика, технологии и проектное управление. Когда задаче нужна другая экспертиза, подключаются профильные специалисты и партнёры.</p>
+        <div class="founder-cols">
+          <div>
+            <h3>Профессиональные направления</h3>
+            <ul>
+              <li>Проектирование образовательных продуктов</li>
+              <li>Методология и педагогический дизайн</li>
+              <li>Цифровая трансформация образования</li>
+              <li>Практическое применение искусственного интеллекта</li>
+              <li>Проектное управление, формирование и координация команд</li>
+              <li>Обучение специалистов и преподавателей</li>
+              <li>Экспертная деятельность</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Опыт</h3>
+            <ul>
+              <li>Преподавание искусственного интеллекта</li>
+              <li>Преподавание цифровой педагогики и онлайн-обучения</li>
+              <li>Робототехника и программирование</li>
+              <li>Методическая работа с педагогами</li>
+              <li>Экспертная работа в профессиональном образовании</li>
+              <li>Образовательные и медиапроекты</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Публикации</h3>
+            <ul class="pubs">
+              <li>«Искусственный интеллект как помощник начинающего учителя: практики внедрения и этические аспекты»</li>
+              <li>«К вопросу о методике использования технологий искусственного интеллекта в процессе создания презентаций»<small>Выходные данные уточняются</small></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Обучение</h3>
+            <ul>
+              <li>«Продюсер онлайн-курсов», Академия Edison <span class="status">в процессе</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. ФИНАЛ + ФОРМА -->
+  <section class="dark section final" id="contact" aria-labelledby="contact-title">
+    <canvas class="silk" id="final-silk" aria-hidden="true"></canvas>
+    <div class="wrap final-grid">
+      <div class="reveal">
+        <p class="eyebrow" style="color:var(--coral)">Как начать</p>
+        <h2 id="contact-title" style="margin-top:20px">Необязательно заранее знать, как решить задачу. <span>Достаточно начать с разговора.</span></h2>
+        <ol class="start-steps">
+          <li><span><b>Вы описываете задачу</b> своими словами. Техническое задание не нужно.</span></li>
+          <li><span><b>Мы знакомимся с ситуацией</b> и задаём уточняющие вопросы.</span></li>
+          <li><span><b>Определяем, какая помощь действительно нужна</b>, и нужна ли она вообще.</span></li>
+          <li><span><b>Обсуждаем формат</b> и следующие шаги.</span></li>
+        </ol>
+      </div>
+      <form class="form reveal d1" id="lead-form" novalidate>
+        <h3>Расскажите о задаче</h3>
+        <div class="field"><label for="f-name">Как к вам обращаться</label><input type="text" id="f-name" name="name" autocomplete="name" required placeholder="Имя"></div>
+        <div class="field"><label for="f-contact">Как с вами связаться</label><input type="text" id="f-contact" name="contact" required placeholder="Телефон, почта или ник в мессенджере"></div>
+        <fieldset class="field">
+          <legend>Удобный способ связи</legend>
+          <div class="pills">
+            <input type="radio" name="channel" id="ch-tg" value="telegram" checked><label for="ch-tg">Telegram</label>
+            <input type="radio" name="channel" id="ch-vk" value="vk"><label for="ch-vk">ВКонтакте</label>
+            <input type="radio" name="channel" id="ch-mail" value="email"><label for="ch-mail">Почта</label>
+            <input type="radio" name="channel" id="ch-phone" value="phone"><label for="ch-phone">Звонок</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="f-task">Что происходит и что хотелось бы изменить</label><textarea id="f-task" name="task" required placeholder="Можно коротко и своими словами"></textarea></div>
+        <label class="consent"><input type="checkbox" id="f-consent" name="consent" required><span>Я даю согласие на обработку персональных данных в соответствии с <a href="#privacy">политикой конфиденциальности</a>. Данные используются только для ответа на обращение.</span></label>
+        <button class="btn btn-primary" type="submit">Отправить <span class="arr" aria-hidden="true">→</span></button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="privacy">
+  <div class="wrap">
+    <div class="footer-brand"><a class="logo" href="#top"><img src="assets/logo-wordmark-112.png" width="84" height="76" alt="AI OASIS"></a><p>Бутиковая проектная студия</p><p class="brand-line" aria-hidden="true"></p></div>
+    <p class="todo">Контакты, ссылка на сообщество ВКонтакте, юридические сведения и политика конфиденциальности появятся здесь, когда вы их пришлёте. Мы их не придумываем.</p>
+  </div>
+</footer>
+<div class="proto-badge" aria-hidden="true">Прототип концепции</div>
+
+<script>
+(function(){
+  /* шапка и мобильное меню */
+  var header=document.getElementById('top-header');
+  var onScroll=function(){header.classList.toggle('scrolled', window.scrollY>40)};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var burger=document.getElementById('burger'), mnav=document.getElementById('mobile-nav');
+  function setMenu(open){burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');mnav.hidden=!open;document.body.style.overflow=open?'hidden':''}
+  burger.addEventListener('click',function(){setMenu(burger.getAttribute('aria-expanded')!=='true')});
+  mnav.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
+  addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+
+  /* появление секций: элементы видимы в покое, анимация играет только для тех, что въезжают снизу */
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){if(el.getBoundingClientRect().top>innerHeight)io.observe(el)});
+  }
+
+  /* стеклянная бусина метода движется по шагам вместе с прокруткой */
+  var cycle=document.getElementById('cycle'), bead=document.getElementById('bead'), nodes=cycle.querySelectorAll('.node'), steps=cycle.querySelectorAll('.step');
+  function updateBead(){
+    var r=cycle.getBoundingClientRect(), vh=innerHeight;
+    var p=Math.min(1,Math.max(0,(vh*0.78-r.top)/(r.height*0.9)));
+    if(reduce)p=1;
+    var idx=Math.min(5,Math.floor(p*6));
+    bead.style.left=(p*83.33)+'%';
+    nodes.forEach(function(n,i){n.classList.toggle('on',i<=idx)});
+  }
+  addEventListener('scroll',updateBead,{passive:true});addEventListener('resize',updateBead);updateBead();
+
+  /* шёлковые ленты финального экрана (canvas 2D, рисуются только когда секция на экране) */
+  (function(){
+    var c=document.getElementById('final-silk'); if(!c||!c.getContext) return;
+    var ctx=c.getContext('2d'), sec=c.parentNode, W=0,H=0, raf=0, on=false;
+    function size(){var r=Math.min(devicePixelRatio||1,2);W=sec.clientWidth;H=sec.clientHeight;c.width=W*r;c.height=H*r;ctx.setTransform(r,0,0,r,0,0)}
+    function draw(t){
+      ctx.clearRect(0,0,W,H);
+      var g=ctx.createLinearGradient(0,0,W,0);
+      g.addColorStop(0,'rgba(225,164,146,0)');g.addColorStop(.12,'rgba(225,164,146,.55)');g.addColorStop(.5,'rgba(217,210,206,.6)');g.addColorStop(.88,'rgba(123,191,192,.55)');g.addColorStop(1,'rgba(123,191,192,0)');
+      ctx.strokeStyle=g; ctx.globalCompositeOperation='lighter';
+      var m=Math.min(W,H), base=H-(W<860?.06:.1)*H, s=t*.00011;
+      for(var i=0;i<22;i++){
+        var f=i/21; ctx.lineWidth=.6+.6*(1-Math.abs(f-.5)*2); ctx.beginPath();
+        for(var x=0;x<=W;x+=8){
+          var u=x/m*2.4;
+          var y=base-m*.06*(x/W) + m*.05*Math.sin(u*1.1+s*6+f*.9)*(.7+.3*f) + m*.02*Math.sin(u*2.1-s*4+f*2.2) + (f-.5)*m*.07;
+          x?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        }
+        ctx.stroke();
+      }
+      ctx.globalCompositeOperation='source-over';
+    }
+    function loop(t){draw(t);raf=requestAnimationFrame(loop)}
+    size(); draw(0);
+    addEventListener('resize',function(){size();draw(performance.now())});
+    if(!reduce && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!on){on=true;raf=requestAnimationFrame(loop)}else if(!e.isIntersecting&&on){on=false;cancelAnimationFrame(raf)}})}).observe(sec);
+    }
+  })();
+
+  /* форма: в прототипе честно сообщаем, что отправка не подключена */
+  var form=document.getElementById('lead-form'), status=document.getElementById('form-status');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var missing=[].filter.call(form.querySelectorAll('[required]'),function(el){return el.type==='checkbox'?!el.checked:!el.value.trim()});
+    if(missing.length){status.textContent=missing[0].id==='f-consent'?'Чтобы отправить обращение, отметьте согласие на обработку данных.':'Заполните, пожалуйста, имя, способ связи и пару слов о задаче.';missing[0].focus();return}
+    status.textContent='Форма заполнена верно. В прототипе отправка не подключена: на рабочем сайте обращение уйдёт в выбранный вами канал.';
+  });
+})();
+</script>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+/* HERO: стеклянная композиция на WebGL.
+   Фон — процедурная «вода» со светом и контурными линиями. Стекло преломляет этот же фон
+   в собственном шейдере (с лёгкой дисперсией), поэтому выглядит одинаково на любом GPU.
+   Без WebGL остаётся CSS-сцена с тем же светом. */
+import * as THREE from 'three';
+
+const hero=document.getElementById('hero');
+const canvas=document.getElementById('hero-gl');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let renderer=null;
+try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'}); }catch(e){}
+if(renderer){
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  renderer.outputColorSpace=THREE.LinearSRGBColorSpace; // цвета задаём прямо в sRGB внутри шейдеров
+
+  const U={uTime:{value:0},uRes:{value:new THREE.Vector2(1,1)},uAspect:{value:1},uFocus:{value:new THREE.Vector2(.76,.55)},uRib:{value:new THREE.Vector4(.36,.06,.4,.45)}};
+
+  const BG=`
+    uniform float uTime; uniform float uAspect; uniform vec2 uFocus; uniform vec4 uRib;
+    float gSoft=1.;
+    const vec3 GR=vec3(.039,.055,.059), EM=vec3(.271,.118,.098), TG=vec3(.047,.271,.298),
+               CO=vec3(.882,.643,.573), SI=vec3(.85,.82,.81), TW=vec3(.482,.749,.753), AI=vec3(.133,.718,.733);
+    /* шёлковая лента: пучок тонких волн, как на логотипе и обложке */
+    vec3 silk(vec2 uv,float t){
+      float acc=0., glow=0.;
+      for(int i=0;i<14;i++){
+        float fi=float(i)/13.;
+        float x=uv.x*uAspect;
+        float y=uRib.x+uRib.z*(uv.x-.5)
+               +uRib.y*sin(x*1.9+t*.11+fi*.8)*(.7+.3*fi)
+               +.03*sin(x*3.7-t*.08+fi*2.3)
+               +(fi-.5)*.13*(.55+.45*sin(x*1.1+t*.05+fi*.6));
+        float d=(uv.y-y)/((.0016+.001*fi)*gSoft);
+        acc+=exp(-d*d)*(.35+.65*(1.-abs(fi-.5)*2.))/gSoft;
+        float dg=(uv.y-y)/.045; glow+=exp(-dg*dg);
+      }
+      float k=smoothstep(0.,1.,uv.x);
+      vec3 c=k<.5? mix(CO,SI,smoothstep(.0,.5,k)) : mix(SI,TW,smoothstep(.5,1.,k));
+      float dim=mix(uRib.w,1.,smoothstep(.25,.7,uv.x));
+      return (c*acc*.46+mix(c,AI,.3)*glow*.03)*dim;
+    }
+    vec3 bg(vec2 uv){
+      float t=uTime; vec2 a=uAspect<1.? vec2(1.,1./uAspect) : vec2(uAspect,1.);
+      vec3 col=GR;
+      vec2 d1=(uv-vec2(.0,.5))*a; col=mix(col,EM,.9*exp(-2.6*dot(d1,d1)));
+      vec2 fo=uFocus+vec2(.03*sin(t*.11),.02*cos(t*.13));
+      vec2 d2=(uv-fo)*a; col=mix(col,TG,.95*exp(-2.2*dot(d2,d2)));
+      vec2 d3=(uv-fo-vec2(.05,.08))*a; col+=AI*.10*exp(-9.*dot(d3,d3));
+      col+=silk(uv,t);
+      vec2 v=(uv-vec2(.6,.5))*vec2(1.1,1.5);
+      col*=1.-.35*smoothstep(.55,1.3,length(v));
+      return col;
+    }`;
+
+  // полноэкранный фон
+  const bgMat=new THREE.ShaderMaterial({uniforms:U,depthTest:false,depthWrite:false,
+    vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`,
+    fragmentShader:BG+`varying vec2 vUv;void main(){gl_FragColor=vec4(bg(vUv),1.);}`});
+  const bgMesh=new THREE.Mesh(new THREE.PlaneGeometry(2,2),bgMat); bgMesh.frustumCulled=false; bgMesh.renderOrder=-1;
+
+  // стекло: преломление фона + дисперсия + френель + мягкие «студийные» блики
+  const glassMat=(o={})=>new THREE.ShaderMaterial({uniforms:{...U,uRough:{value:o.rough||0},uTint:{value:o.tint||new THREE.Vector3(.92,1.,.98)},uStrength:{value:o.strength||.22}},
+    vertexShader:`varying vec3 vN;varying vec3 vP;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vP=mv.xyz;vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*mv;}`,
+    fragmentShader:BG+`
+      uniform vec2 uRes; uniform float uRough; uniform vec3 uTint; uniform float uStrength;
+      varying vec3 vN; varying vec3 vP;
+      vec3 sampleBg(vec2 uv){
+        if(uRough<.01) return bg(uv);
+        vec3 s=vec3(0.); float r=uRough*.035;
+        s+=bg(uv+vec2(r,0.));s+=bg(uv-vec2(r,0.));s+=bg(uv+vec2(0.,r));s+=bg(uv-vec2(0.,r));s+=bg(uv);
+        return s/5.;
+      }
+      void main(){
+        gSoft=3.5;
+        vec3 N=normalize(vN); vec3 V=normalize(-vP);
+        float ndv=clamp(dot(N,V),0.,1.);
+        float fres=pow(1.-ndv,3.);
+        vec2 suv=gl_FragCoord.xy/uRes;
+        float k=uStrength*(.55+1.1*(1.-ndv));
+        vec3 rR=refract(-V,N,1./1.40), rG=refract(-V,N,1./1.46), rB=refract(-V,N,1./1.53);
+        vec3 col=vec3(sampleBg(suv+rR.xy*k).r, sampleBg(suv+rG.xy*k).g, sampleBg(suv+rB.xy*k).b);
+        col=col*uTint*1.06+.015;
+        vec3 R=reflect(-V,N);
+        float box=smoothstep(.62,.9,R.y)*smoothstep(-.2,.4,R.z);                              // верхний софтбокс
+        float side=pow(max(dot(R,normalize(vec3(-.75,.35,.55))),0.),24.);                    // боковой
+        float spec=pow(max(dot(R,normalize(vec3(.5,.6,.65))),0.),180.);                      // точечный блик
+        vec3 mint=vec3(.627,.890,.847), aqua=vec3(.161,.706,.682);
+        col+=vec3(.92,1.,.98)*(box*.38+side*.55)*(.35+fres)+vec3(1.)*spec*1.4;
+        col+=mix(aqua,mint,.5)*fres*.55;
+        col+=mint*pow(1.-ndv,7.)*.5;                                                          // светящийся контур
+        gl_FragColor=vec4(col,1.);
+      }`});
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(32,1,.1,100); camera.position.set(0,0,9);
+  scene.add(bgMesh);
+  const clear=glassMat(), soft=glassMat({rough:1,tint:new THREE.Vector3(.8,1.,.95),strength:.1});
+  const group=new THREE.Group(); scene.add(group);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(1.32,.44,96,220),clear); ring.rotation.set(.55,-.5,.2); group.add(ring);
+  const drop=new THREE.Mesh(new THREE.SphereGeometry(.68,96,96),clear); drop.position.set(-.55,-.95,1.05); group.add(drop);
+  const pebble=new THREE.Mesh(new THREE.CapsuleGeometry(.22,.95,24,64),soft); pebble.position.set(1.45,1.25,-.6); pebble.rotation.set(.3,.2,-.9); group.add(pebble);
+  const bead=new THREE.Mesh(new THREE.SphereGeometry(.2,48,48),clear); bead.position.set(1.7,-1.25,.6); group.add(bead);
+
+  let w=0,h=0;
+  function layout(){
+    w=hero.clientWidth; h=hero.clientHeight;
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    const db=new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db); U.uAspect.value=w/h;
+    const visH=2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*camera.position.z, visW=visH*camera.aspect;
+    const screenFrac=Math.min(innerHeight,h)/h; // доля hero, видимая на первом экране
+    if(w<860){
+      const y=visH*.5-screenFrac*visH*.24;
+      group.position.set(visW*.12,y,0); group.scale.setScalar(Math.min(.62,visW/5.6));
+      U.uFocus.value.set(.62,1.-screenFrac*.24);
+      U.uRib.value.set(1.-screenFrac*.36,.03,.1,1.);
+    }else{
+      group.position.set(visW*.27,visH*.04,0); group.scale.setScalar(Math.min(.95,visH/6.2));
+      U.uFocus.value.set(.77,.54);
+      U.uRib.value.set(.22,.05,.4,.55);
+    }
+  }
+  let lastT=0, running=false, raf=0;
+  addEventListener('resize',()=>{layout(); if(!running) render(lastT);});
+  layout();
+
+  let mx=0,my=0,tx=0,ty=0;
+  addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5; ty=e.clientY/innerHeight-.5;},{passive:true});
+
+  function render(t){
+    lastT=t; const s=t*.001; U.uTime.value=s;
+    mx+=(tx-mx)*.04; my+=(ty-my)*.04;
+    ring.rotation.x=.55+Math.sin(s*.21)*.18+my*.25;
+    ring.rotation.y=-.5+s*.07+mx*.35;
+    drop.position.y=-.95+Math.sin(s*.45)*.08;
+    pebble.rotation.z=-.9+Math.sin(s*.3)*.12;
+    bead.position.y=-1.25+Math.cos(s*.5)*.1;
+    group.rotation.y=mx*.12; group.rotation.x=my*.08;
+    renderer.render(scene,camera);
+  }
+  function loop(t){ render(t); raf=requestAnimationFrame(loop); }
+  function start(){ if(running||reduce) return; running=true; raf=requestAnimationFrame(loop); }
+  function stop(){ running=false; cancelAnimationFrame(raf); }
+  new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop())).observe(hero);
+  document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+
+  render(0);
+  requestAnimationFrame(()=>hero.classList.add('gl-ready'));
+}
+</script>
+
+</body>
+</html>
