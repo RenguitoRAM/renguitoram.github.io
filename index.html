@@ -704,6 +704,19 @@ fieldset.field{border:0;margin:0;padding:0}
 .recognize.seq-ready .sq-in .sq-t{opacity:1}
 @media (max-width:860px){.recognize.seq-ready{--sq-step:100ms}.recognize.seq-ready .sq{--sq-y:16px}.recognize.seq-ready .sq-l{--sq-x:0}}
 
+
+/* ---------- первый экран: управляемое чтение после заставки ----------
+   Скрытое состояние только при html.hero-seq (ставит скрипт заставки). Через 2 с после заставки — .hero-go. */
+.hs-line{display:block}
+.hero-seq .hero .hs{opacity:0;transform:translate3d(0,22px,0);filter:blur(6px)}
+.hero-seq.hero-go .hero .hs{opacity:1;transform:none;filter:none;
+  transition:opacity .9s var(--ease) var(--d,0ms),transform .9s var(--ease) var(--d,0ms),filter .9s var(--ease) var(--d,0ms)}
+.hero-seq .hero .principles.hs-rule{border-top-color:transparent}
+.hero-seq.hero-go .hero .principles.hs-rule{border-top-color:var(--line-dark);transition:border-color 1.2s var(--ease) var(--d,0ms)}
+.hero-seq .hero .principles div+div{border-left-color:transparent}
+.hero-seq.hero-go .hero .principles div+div{border-left-color:var(--line-dark);transition:border-color 1s var(--ease) var(--d,0ms)}
+@media (max-width:860px){.hero-seq .hero .hs{transform:translate3d(0,16px,0)}}
+
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
 .direct p{font-size:.92rem;color:var(--on-dark-2)}
@@ -948,6 +961,7 @@ strong.hl{font-weight:500}
   addEventListener('pageshow',function(e){ if(e.persisted) toTop(); });
   /* полная заставка при каждой загрузке и каждом обновлении страницы (решение заказчика) */
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce) root.classList.add('hero-seq');
   if(seen) root.classList.add('intro-short');
   root.classList.add('intro-lock');
   var MIN = seen ? 250 : (reduce ? 3000 : 6000), MAX = seen ? 1500 : 7500;
@@ -1030,18 +1044,18 @@ strong.hl{font-weight:500}
     <div class="hero-fallback orb" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow">Проектируем решения для реальных задач</p>
-        <h1 id="hero-title">Искусственный интеллект, <span class="soft">который возвращает время</span></h1>
-        <p class="hero-lead">Помогаем разобраться в технологиях и превращаем сложные задачи в <span class="hl">понятные решения</span>, инструменты и работающие продукты.</p>
+        <p class="eyebrow hs" style="--d:0ms">Проектируем решения для реальных задач</p>
+        <h1 id="hero-title"><span class="hs hs-line" style="--d:450ms">Искусственный интеллект, </span><span class="soft hs" style="--d:1150ms">который возвращает время</span></h1>
+        <p class="hero-lead hs" style="--d:2000ms">Помогаем разобраться в технологиях и превращаем сложные задачи в <span class="hl">понятные решения</span>, инструменты и работающие продукты.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Обсудить мою задачу <span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="#method">Как мы работаем</a>
+          <a class="btn btn-primary hs" style="--d:2900ms" href="#contact">Обсудить мою задачу <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost hs" style="--d:3050ms" href="#method">Как мы работаем</a>
         </div>
       </div>
-      <div class="principles">
-        <div><b>Решение под вашу задачу.</b><span>Инструменты подбираем под ситуацию, а не наоборот.</span></div>
-        <div><b>Сложное делаем простым.</b><span>Разбираемся сами, чтобы вам не пришлось изучать всё в одиночку.</span></div>
-        <div><b>Личное участие.</b><span>Над задачей работает основатель студии, профильных специалистов подключаем по необходимости.</span></div>
+      <div class="principles hs-rule" style="--d:3700ms">
+        <div class="hs" style="--d:3900ms"><b>Решение под вашу задачу.</b><span>Инструменты подбираем под ситуацию, а не наоборот.</span></div>
+        <div class="hs" style="--d:4350ms"><b>Сложное делаем простым.</b><span>Разбираемся сами, чтобы вам не пришлось изучать всё в одиночку.</span></div>
+        <div class="hs" style="--d:4800ms"><b>Личное участие.</b><span>Над задачей работает основатель студии, профильных специалистов подключаем по необходимости.</span></div>
       </div>
     </div>
   </section>
@@ -1730,6 +1744,20 @@ strong.hl{font-weight:500}
     blocks.forEach(function(b){ io.observe(b); });
   })();
 
+  /* первый экран: через 2 секунды после заставки текст проявляется по очереди */
+  (function(){
+    var root=document.documentElement; if(!root.classList.contains('hero-seq')) return;
+    var went=false;
+    function go(){ if(went) return; went=true; setTimeout(function(){
+      root.classList.add('hero-go');
+      var h=document.querySelector('.hero .hl'); if(h) setTimeout(function(){ h.classList.add('on'); }, 3100);
+    }, 2000); }
+    if(window.__introDone) go(); else document.addEventListener('aioasis:intro-done',go);
+    setTimeout(go, 11000); /* страховка: текст появится, даже если заставка не сообщила о завершении */
+    /* если посетитель сразу ушёл ниже первого экрана — не заставляем ждать */
+    addEventListener('scroll',function f(){ if(scrollY>innerHeight*0.6){ root.classList.add('hero-go'); removeEventListener('scroll',f); } },{passive:true});
+  })();
+
   /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
   (function(){
     var hs=[].slice.call(document.querySelectorAll('.hl'));
@@ -1738,7 +1766,7 @@ strong.hl{font-weight:500}
       var shown=0;
       es.forEach(function(e){ if(e.isIntersecting){ var el=e.target; setTimeout(function(){ el.classList.add('on'); }, 250+shown++*180); io.unobserve(el); } });
     },{threshold:.9, rootMargin:'0px 0px -12% 0px'});
-    hs.forEach(function(h){ if(!h.closest('.recognize.seq-ready')) io.observe(h); });
+    hs.forEach(function(h){ if(!h.closest('.recognize.seq-ready') && !(h.closest('.hero') && document.documentElement.classList.contains('hero-seq'))) io.observe(h); });
   })();
 
   /* ---------- форма обратной связи ----------
