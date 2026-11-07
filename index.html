@@ -105,7 +105,12 @@ a{color:inherit}
 .header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .4s, box-shadow .4s, backdrop-filter .4s}
 .header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
 .header.scrolled{background:rgba(10,14,15,.74);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 1px 0 var(--line-dark)}
-.logo{display:flex;align-items:center;text-decoration:none}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-sep{width:1px;height:46px;background:linear-gradient(transparent,rgba(95,223,222,.75) 30%,rgba(95,223,222,.75) 70%,transparent)}
+.logo-text{display:grid;gap:4px;color:var(--on-dark)}
+.logo-text b{font:600 .98rem/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase}
+.logo-text span{max-width:200px;font:400 .66rem/1.28 var(--f-body);color:var(--on-dark-2)}
+.footer .logo-sep,.footer .logo-text{display:none}
 .logo img{display:block;height:52px;width:auto}
 .footer .logo img{height:76px}
 .nav{display:flex;align-items:center;gap:6px}
@@ -127,6 +132,8 @@ a{color:inherit}
     radial-gradient(50% 60% at 85% 45%, rgba(12,69,76,.95), transparent 70%),
     radial-gradient(45% 55% at 0% 55%, rgba(69,30,25,.95), transparent 70%),
     var(--graphite);}
+.hero-inner{position:relative;z-index:1}
+.hero canvas.fire-wave{z-index:0;opacity:1;pointer-events:none}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:0;transition:opacity 1.6s var(--ease)}
 .hero.gl-ready canvas{opacity:1}
 .hero.gl-ready .hero-fallback{opacity:0}
@@ -402,6 +409,11 @@ fieldset.field{border:0;margin:0;padding:0}
   .cs-label{font-size:.66rem;padding:4px 8px}
 }
 @media (max-width:520px){
+  .logo{gap:10px}
+  .logo img{height:44px}
+  .logo-sep{height:38px}
+  .logo-text b{font-size:.8rem}
+  .logo-text span{max-width:150px;font-size:.56rem}
   .cs-bottom{grid-template-columns:auto minmax(0,1fr);}
   .cs-play{grid-column:1/-1;justify-self:start}
 }
@@ -515,9 +527,13 @@ fieldset.field{border:0;margin:0;padding:0}
 @keyframes glowIn{0%{opacity:0}35%{opacity:1}100%{opacity:.35}}
 .intro.is-leaving .intro-mark img{opacity:.85}
 .intro-caption{font:600 .74rem/1 var(--f-body);letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;color:var(--silk);opacity:0;animation:fadeUp 1.2s 2.2s var(--ease) forwards}
-.intro-bar{position:relative;width:min(260px,62vw);height:1px;background:rgba(160,227,216,.14);opacity:0;animation:fadeUp 1.2s 2.5s var(--ease) forwards}
-.intro-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(41,180,174,.2),var(--ai-1));transition:width .6s linear}
-.intro-bar i::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:radial-gradient(circle,rgba(234,247,244,.95),rgba(95,223,222,.4) 40%,transparent 70%)}
+.intro-bar{position:relative;width:min(300px,72vw);height:40px;opacity:0;animation:fadeUp 1.2s 2.5s var(--ease) forwards}
+.intro-bar svg{display:block;width:100%;height:100%;overflow:visible;animation:waveFloat 4s ease-in-out infinite alternate}
+@keyframes waveFloat{to{transform:translateY(-2px)}}
+.w-track{fill:none;stroke:rgba(160,227,216,.13);stroke-width:1.2}
+.w-fill{fill:none;stroke:url(#fireGrad);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .6s linear}
+.w-fill.thin{stroke-width:1;opacity:.6}
+.w-head{fill:#FFF4EC;filter:drop-shadow(0 0 6px rgba(255,155,74,.9));opacity:0;transition:opacity .4s}
 .intro-status{position:relative;height:1.2em;width:100%;font-size:.8rem;color:var(--on-dark-2);opacity:0;animation:fadeUp 1.2s 2.7s var(--ease) forwards}
 .intro-status span{position:absolute;left:0;right:0;opacity:0;transition:opacity .6s var(--ease)}
 .intro-status span.on{opacity:1}
@@ -534,13 +550,18 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   .intro-veil{transition:none}
 }
 
+.hl{color:inherit;font-weight:inherit;background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/0 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding-bottom:1px;
+  transition:color 1.1s var(--ease), background-size 1.4s var(--ease) .15s}
+.hl.on{color:var(--coral);background-size:100% 1px}
+.light .hl.on,.cases .hl.on{color:#A84E39}
+strong.hl{font-weight:500}
 /* появление: элемент видим в покое; анимация проигрывается, когда он въезжает в кадр */
 .reveal.in{animation:rise 1s var(--ease) both}
 .reveal.in.d1{animation-delay:.08s}.reveal.in.d2{animation-delay:.16s}.reveal.in.d3{animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:none}}
 
 /* ---------- адаптив ---------- */
-@media (max-width:1080px){
+@media (max-width:1180px){
   .nav{display:none}
   .burger{display:block}
   .header .btn{display:none}
@@ -608,7 +629,20 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   <div class="intro-center">
     <div class="intro-mark"><div class="intro-glow"></div><img src="assets/logo-wordmark-240.png" width="266" height="240" alt=""></div>
     <p class="intro-caption">Пространство решений</p>
-    <div class="intro-bar"><i id="intro-progress"></i></div>
+    <div class="intro-bar">
+      <svg viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="fireGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF5A1F"/><stop offset=".3" stop-color="#FF9B4A"/><stop offset=".5" stop-color="#FFE0C8"/><stop offset=".68" stop-color="#8FE9E4"/><stop offset="1" stop-color="#22B7BB"/></linearGradient>
+          <filter id="fireGlow" x="-10%" y="-80%" width="120%" height="260%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path class="w-track" d="M4 22 C 40 8, 70 34, 108 21 S 176 6, 214 20 S 272 33, 296 17"/>
+        <g filter="url(#fireGlow)">
+          <path class="w-fill" id="intro-progress" pathLength="100" d="M4 22 C 40 8, 70 34, 108 21 S 176 6, 214 20 S 272 33, 296 17"/>
+          <path class="w-fill thin" id="intro-progress-2" pathLength="100" d="M4 24 C 42 12, 72 32, 110 23 S 178 9, 216 22 S 270 30, 296 20"/>
+        </g>
+        <circle class="w-head" id="intro-head" r="3" cx="4" cy="22"/>
+      </svg>
+    </div>
     <p class="intro-status"><span class="on">Подготавливаем пространство</span><span>Открываем возможности</span><span>Готово</span></p>
   </div>
 </div>
@@ -631,24 +665,31 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   if(seen) root.classList.add('intro-short');
   root.classList.add('intro-lock');
   var MIN = seen ? 250 : (reduce ? 3000 : 6000), MAX = seen ? 1500 : 7500;
-  var bar=document.getElementById('intro-progress'), st=intro.querySelectorAll('.intro-status span');
+  var bar=document.getElementById('intro-progress'), bar2=document.getElementById('intro-progress-2'), head=document.getElementById('intro-head'), st=intro.querySelectorAll('.intro-status span');
   var steps={dom:0,fonts:0,logo:0,load:0,gl:0}, W={dom:.25,fonts:.2,logo:.15,load:.25,gl:.15}, done=false, shown=0;
+  /* волна-индикатор: заливка идёт от огненного к бирюзовому, светящаяся точка на переднем крае */
+  var plen=bar.getTotalLength?bar.getTotalLength():0;
+  function setWave(v){
+    bar.style.strokeDashoffset=(100-v*100).toFixed(2); bar2.style.strokeDashoffset=(100-v*100).toFixed(2);
+    if(plen && v>0.01 && v<0.995){ var pt=bar.getPointAtLength(plen*v); head.setAttribute('cx',pt.x); head.setAttribute('cy',pt.y); head.style.opacity=1; } else head.style.opacity=0;
+  }
   function progress(){ var p=0; for(var k in steps) p+=steps[k]*W[k]; return p; }
   function status(i){ for(var j=0;j<st.length;j++) st[j].classList.toggle('on', j===i); }
   function mark(k){ if(steps[k]) return; steps[k]=1; update(); }
   function update(){
     var p=progress(), el=performance.now()-t0;
     /* линия идёт в темпе сцены, но никогда не опережает реальную готовность страницы */
-    shown=Math.max(shown, Math.min(p, Math.max(0, (el-2500)/(MIN-2800)))); bar.style.width=(shown*100).toFixed(1)+'%';
+    shown=Math.max(shown, Math.min(p, Math.max(0, (el-2500)/(MIN-2800)))); setWave(shown);
     if(el>2000 && !intro.classList.contains('phase-2')) intro.classList.add('phase-2');
     if(el>4000 && !intro.classList.contains('phase-3')) intro.classList.add('phase-3');
     status(shown>=1 ? 2 : el>3800 ? 1 : 0);
     if(!done && ((p>=1 && el>=MIN) || el>=MAX || (seen && steps.dom && el>=MIN))) finish();
   }
   function finish(){
-    done=true; status(2); bar.style.width='100%';
+    done=true; status(2); setWave(1);
     setTimeout(function(){
       toTop(); intro.classList.add('phase-3','is-leaving'); root.classList.remove('intro-lock');
+      window.__introDone=true; document.dispatchEvent(new Event('aioasis:intro-done'));
       setTimeout(function(){ intro.classList.add('is-gone'); }, 1700);
     }, seen?0:200);
   }
@@ -669,6 +710,8 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   <div class="wrap">
     <a class="logo" href="#top" aria-label="AI OASIS — на главную">
       <img src="assets/logo-wordmark-112.png" width="58" height="52" alt="AI OASIS">
+      <span class="logo-sep" aria-hidden="true"></span>
+      <span class="logo-text"><b>Студия</b><span>проектирования и создания решений с применением искусственного интеллекта</span></span>
     </a>
     <nav class="nav" aria-label="Основная навигация">
       <a href="#approach">Подход</a>
@@ -696,12 +739,13 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   <!-- 1. HERO -->
   <section class="hero" id="hero" aria-labelledby="hero-title">
     <canvas id="hero-gl" aria-hidden="true"></canvas>
+    <canvas class="fire-wave" id="fire-wave" aria-hidden="true"></canvas>
     <div class="hero-fallback orb" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <p class="eyebrow">Проектируем решения для реальных задач</p>
         <h1 id="hero-title">Искусственный интеллект, <span class="soft">который возвращает время</span></h1>
-        <p class="hero-lead">Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения, инструменты и работающие продукты.</p>
+        <p class="hero-lead">Помогаем разобраться в технологиях и превращаем сложные задачи в <span class="hl">понятные решения</span>, инструменты и работающие продукты.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Обсудить мою задачу <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost" href="#method">Как мы работаем</a>
@@ -725,23 +769,23 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       <div class="thoughts">
         <article class="thought reveal">
           <q>Работы всё больше, а времени на то, чтобы разобраться в новом, не остаётся.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С того, что отнимает больше всего часов. Часто часть рутины можно упростить или передать инструментам.</p></div>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С того, что <span class="hl">отнимает больше всего часов</span>. Часто часть рутины можно упростить или передать инструментам.</p></div>
         </article>
         <article class="thought reveal">
           <q>Инструментов десятки. Какой из них нужен мне, непонятно.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Выбор начинается не с инструмента. Сначала разбираем задачу, затем подбираем то, что ей подходит. Иногда это вовсе не нейросеть.</p></div>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Выбор начинается не с инструмента. Сначала разбираем задачу, затем подбираем то, что ей подходит. <span class="hl">Иногда это вовсе не нейросеть.</span></p></div>
         </article>
         <article class="thought reveal">
           <q>Идея есть. Как превратить её в результат, неясно.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Разложим идею на шаги, определим ресурсы и первый реальный шаг, который можно сделать уже сейчас.</p></div>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Разложим идею на шаги, определим ресурсы и <span class="hl">первый реальный шаг</span>, который можно сделать уже сейчас.</p></div>
         </article>
         <article class="thought reveal">
           <q>Сотрудники уже пользуются нейросетями, но каждый по-своему.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С диагностики: где технологии действительно помогают команде. Затем обучение на ваших рабочих задачах.</p></div>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>С диагностики: где технологии действительно помогают команде. Затем обучение <span class="hl">на ваших рабочих задачах</span>.</p></div>
         </article>
         <article class="thought reveal">
           <q>Знаний и опыта много, а курс никак не складывается в систему.</q>
-          <div class="reply"><p class="eyebrow">С чего можно начать</p><p>Со структуры и методологии: логика продукта, программа, учебные материалы, практика.</p></div>
+          <div class="reply"><p class="eyebrow">С чего можно начать</p><p><span class="hl">Со структуры и методологии</span>: логика продукта, программа, учебные материалы, практика.</p></div>
         </article>
       </div>
       <div class="relief reveal">
@@ -760,8 +804,8 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
         <h2 id="approach-title">Сначала задача.<span class="b">Потом технология.</span></h2>
       </div>
       <div class="manifest-body reveal d1">
-        <p>Мы не начинаем с выбора нейросети. Мы начинаем с вопроса: <strong>что нужно человеку и что должно измениться</strong> в его работе.</p>
-        <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. Результат для человека — цель.</strong></p>
+        <p>Мы не начинаем с выбора нейросети. Мы начинаем с вопроса: <strong class="hl">что нужно человеку и что должно измениться</strong> в его работе.</p>
+        <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. <span class="hl">Результат для человека — цель.</span></strong></p>
       </div>
 
       <div class="prism-scene reveal d2" aria-label="Схема: одна задача раскладывается на несколько возможных решений">
@@ -810,7 +854,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
           <div class="consult">
             <p class="eyebrow">Точка входа</p>
             <h3>Не знаете, что из этого вам нужно?</h3>
-            <p>Это нормально. Начните с консультации: опишите ситуацию своими словами, а подходящий формат помощи определим вместе.</p>
+            <p>Это нормально. Начните <span class="hl">с консультации</span>: опишите ситуацию своими словами, а подходящий формат помощи определим вместе.</p>
             <a class="btn btn-primary" href="#contact">Обсудить задачу <span class="arr" aria-hidden="true">→</span></a>
           </div>
         </aside>
@@ -819,20 +863,20 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
             <h3>Искусственный интеллект в работе и бизнесе</h3>
             <div class="dir-pair">
               <div><p class="eyebrow">Когда</p><p>Хочется понять, где AI действительно сэкономит время, а где он не нужен.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Сценарии применения под ваши задачи, подобранные инструменты, рабочие инструкции и обучение команды.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Сценарии применения <span class="hl">под ваши задачи</span>, подобранные инструменты, рабочие инструкции и обучение команды.</p></div>
             </div>
           </article>
           <article class="dir reveal">
             <h3>Корпоративное обучение</h3>
             <div class="dir-pair">
               <div><p class="eyebrow">Когда</p><p>Сотрудники пользуются технологиями бессистемно, и результат зависит от случая.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Программа по итогам диагностики, практика на рабочих материалах, учебные модули и оценка результатов.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Программа по итогам диагностики, <span class="hl">практика на рабочих материалах</span>, учебные модули и оценка результатов.</p></div>
             </div>
           </article>
           <article class="dir reveal">
             <h3>Образовательные продукты и методология</h3>
             <div class="dir-pair">
-              <div><p class="eyebrow">Когда</p><p>Есть экспертиза и идея курса, но нет структуры и понятной логики обучения.</p></div>
+              <div><p class="eyebrow">Когда</p><p>Есть экспертиза и идея курса, но <span class="hl">нет структуры</span> и понятной логики обучения.</p></div>
               <div class="res"><p class="eyebrow">Что получится</p><p>Образовательная программа, учебно-методический комплекс, интерактивные задания, сопровождение автора.</p></div>
             </div>
           </article>
@@ -840,14 +884,14 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
             <h3>Цифровые решения и автоматизация</h3>
             <div class="dir-pair">
               <div><p class="eyebrow">Когда</p><p>Рабочий процесс отнимает слишком много ручных операций.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Схема упрощения процесса, подбор инструментов, концепция или прототип решения и сопровождение реализации.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p><span class="hl">Схема упрощения процесса</span>, подбор инструментов, концепция или прототип решения и сопровождение реализации.</p></div>
             </div>
           </article>
           <article class="dir reveal">
             <h3>Проектирование и сопровождение проектов</h3>
             <div class="dir-pair">
               <div><p class="eyebrow">Когда</p><p>Цель понятна, но неясно, как организовать работу и измерить результат.</p></div>
-              <div class="res"><p class="eyebrow">Что получится</p><p>Концепция, цели и показатели, этапы, команда, контроль результатов.</p></div>
+              <div class="res"><p class="eyebrow">Что получится</p><p>Концепция, <span class="hl">цели и показатели</span>, этапы, команда, контроль результатов.</p></div>
             </div>
           </article>
         </div>
@@ -861,7 +905,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       <div class="section-head reveal">
         <p class="eyebrow">Как мы работаем</p>
         <h2 id="method-title">Шесть шагов от проблемы к результату</h2>
-        <p>Каждый шаг отвечает на свой вопрос. Поэтому к выбору технологий мы приходим только на четвёртом.</p>
+        <p>Каждый шаг отвечает на свой вопрос. Поэтому к выбору технологий мы приходим <span class="hl">только на четвёртом</span>.</p>
       </div>
       <div class="cycle" id="cycle">
         <div class="phases" aria-hidden="true">
@@ -878,7 +922,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
           <li class="step"><span class="num">01</span><h3>Диагностика</h3><p>Разбираемся, что происходит сейчас, в чём проблема и почему привычный способ работы не даёт нужного результата.</p></li>
           <li class="step"><span class="num">02</span><h3>Постановка задачи</h3><p>Формулируем конкретную цель и определяем, что должно измениться.</p></li>
           <li class="step"><span class="num">03</span><h3>Проектирование решения</h3><p>Разрабатываем сценарий действий: ресурсы, инструменты, этапы.</p></li>
-          <li class="step"><span class="num">04</span><h3>Выбор технологий</h3><p>Подбираем инструменты исходя из задачи, а не наоборот.</p></li>
+          <li class="step"><span class="num">04</span><h3>Выбор технологий</h3><p>Подбираем инструменты <span class="hl">исходя из задачи, а не наоборот</span>.</p></li>
           <li class="step"><span class="num">05</span><h3>Реализация</h3><p>Создаём, адаптируем или внедряем решение. При необходимости привлекаем профильных специалистов.</p></li>
           <li class="step"><span class="num">06</span><h3>Оценка результата</h3><p>Проверяем, насколько решение соответствует поставленной цели.</p></li>
         </ol>
@@ -896,7 +940,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       <div class="section-head reveal">
         <p class="eyebrow">Проекты и практика</p>
         <h2 id="projects-title">Что уже сделано, и какую роль в этом играла студия</h2>
-        <p>Мы отделяем выполненные проекты от методологического консультирования и демонстраций, чтобы было видно, за что отвечали мы, а за что партнёры.</p>
+        <p>Мы отделяем выполненные проекты от методологического консультирования и демонстраций, чтобы было видно, <span class="hl">за что отвечали мы, а за что партнёры</span>.</p>
       </div>
       <div class="legend" aria-label="Обозначения">
         <span class="tag t-done">Выполненный проект</span>
@@ -916,7 +960,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
           <div class="case-rows">
             <div><span class="k">Задача</span><p>Понять, где AI полезен сотрудникам в их реальной работе, и научить применять его системно.</p></div>
             <div><span class="k">Подход</span><p>Опрос и диагностика, затем индивидуальная программа вокруг приоритетных направлений.</p></div>
-            <div><span class="k">Результат</span><p>Проведено обучение по индивидуальной программе. Создан специализированный инструмент для построения промптов.</p></div>
+            <div><span class="k">Результат</span><p>Проведено обучение по индивидуальной программе. Создан <span class="hl">специализированный инструмент для построения промптов</span>.</p></div>
           </div>
           <details class="more">
             <summary>Подробнее о проекте</summary>
@@ -953,11 +997,11 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 
       <div class="project-list">
         <article class="project reveal"><h4>Методологическое консультирование аптечной сети</h4><span class="tag t-method">Сопровождение</span><p>Проектирование корпоративного образовательного продукта и годового цикла обучения вместе с отраслевым экспертом.</p></article>
-        <article class="project reveal"><h4>Цифровые обучающие игры для логопеда</h4><span class="tag t-done">Выполнен</span><p>Созданы несколько игр, и специалист освоила способ самостоятельно делать новые задания с помощью AI.</p></article>
-        <article class="project reveal"><h4>«Синергия»: курс stop-motion анимации</h4><span class="tag t-done">Выполнен</span><p>Полный методический комплекс на 20 академических часов. Принят сетью и допущен к тиражированию.</p></article>
-        <article class="project reveal"><h4>ITLab29</h4><span class="tag t-done">Выполнен</span><p>Инженерно-творческое направление для школьников: 166 учащихся, 5 направлений, 32 цифровых продукта.</p></article>
+        <article class="project reveal"><h4>Цифровые обучающие игры для логопеда</h4><span class="tag t-done">Выполнен</span><p>Созданы несколько игр, и специалист освоила <span class="hl">способ самостоятельно делать новые задания</span> с помощью AI.</p></article>
+        <article class="project reveal"><h4>«Синергия»: курс stop-motion анимации</h4><span class="tag t-done">Выполнен</span><p>Полный методический комплекс на 20 академических часов. <span class="hl">Принят сетью и допущен к тиражированию.</span></p></article>
+        <article class="project reveal"><h4>ITLab29</h4><span class="tag t-done">Выполнен</span><p>Инженерно-творческое направление для школьников: 166 учащихся, 5 направлений, <span class="hl">32 цифровых продукта</span>.</p></article>
         <article class="project reveal"><h4>Семинар для НКО: AI и грантовые заявки</h4><span class="tag t-demo">Семинар</span><p>Проверка требований, логики проекта, бюджета и оценка зрелости заявки.</p></article>
-        <article class="project reveal"><h4>«МедиаЛаб: Профессия в кадре»</h4><span class="tag t-done">Выполнен</span><p>30 участников обучено, 7 видеороликов, 14 интервью, охват более 5 000 человек. Бюджет исполнен полностью.</p></article>
+        <article class="project reveal"><h4>«МедиаЛаб: Профессия в кадре»</h4><span class="tag t-done">Выполнен</span><p>30 участников обучено, 7 видеороликов, 14 интервью, охват более 5 000 человек. <span class="hl">Бюджет исполнен полностью.</span></p></article>
       </div>
     </div>
   </section>
@@ -972,7 +1016,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       <div class="founder-text reveal d1">
         <p class="eyebrow">Основатель</p>
         <blockquote id="founder-title">За технологиями всегда стоит человек. <span>И именно человек понимает, какую задачу необходимо решить.</span></blockquote>
-        <p>Студия работает на личном профессиональном участии основателя. В работе соединяются методология, образовательная практика, технологии и проектное управление. Когда задаче нужна другая экспертиза, подключаются профильные специалисты и партнёры.</p>
+        <p>Студия работает на <span class="hl">личном профессиональном участии</span> основателя. В работе соединяются методология, образовательная практика, технологии и проектное управление. Когда задаче нужна другая экспертиза, подключаются профильные специалисты и партнёры.</p>
         <div class="founder-cols">
           <div>
             <h3>Профессиональные направления</h3>
@@ -1027,9 +1071,9 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
         <p class="eyebrow" style="color:var(--coral)">Как начать</p>
         <h2 id="contact-title" style="margin-top:20px">Необязательно заранее знать, как решить задачу. <span>Достаточно начать с разговора.</span></h2>
         <ol class="start-steps">
-          <li><span><b>Вы описываете задачу</b> своими словами. Техническое задание не нужно.</span></li>
+          <li><span><b>Вы описываете задачу</b> своими словами. <span class="hl">Техническое задание не нужно.</span></span></li>
           <li><span><b>Мы знакомимся с ситуацией</b> и задаём уточняющие вопросы.</span></li>
-          <li><span><b>Определяем, какая помощь действительно нужна</b>, и нужна ли она вообще.</span></li>
+          <li><span><b>Определяем, какая помощь действительно нужна</b>, <span class="hl">и нужна ли она вообще</span>.</span></li>
           <li><span><b>Обсуждаем формат</b> и следующие шаги.</span></li>
         </ol>
         <div class="direct">
@@ -1163,6 +1207,77 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     if(!reduce && 'IntersectionObserver' in window){
       new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!on){on=true;raf=requestAnimationFrame(loop)}else if(!e.isIntersecting&&on){on=false;cancelAnimationFrame(raf)}})}).observe(sec);
     }
+  })();
+
+  /* ---------- огненно-бирюзовая волна первого экрана ----------
+     Прорисовывается слева направо после заставки и дальше мягко колышется. */
+  (function(){
+    var c=document.getElementById('fire-wave'); if(!c||!c.getContext) return;
+    var hero=document.getElementById('hero'), ctx=c.getContext('2d'), W=0,H=0, y0=0,y1=0, mob=false;
+    var reveal=0, revealStart=0, raf=0, onScreen=true, began=false;
+    function size(){
+      var dpr=Math.min(window.devicePixelRatio||1,2); W=hero.clientWidth; H=hero.clientHeight; mob=W<860;
+      c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+      var hr=hero.getBoundingClientRect();
+      if(mob){ var cp=hero.querySelector('.hero-copy').getBoundingClientRect(); y0=cp.top-hr.top-34; y1=y0-36; }
+      else { var pr=hero.querySelector('.principles').getBoundingClientRect(); y0=pr.top-hr.top-24; y1=pr.top-hr.top-92; }
+    }
+    function yAt(u,t,f){
+      var base=y0+(y1-y0)*u, amp=(mob?10:9)+(mob?14:20)*u;
+      return base+amp*Math.sin(u*5.2+t*0.00055+f*0.9)+(mob?5:8)*Math.sin(u*11-t*0.0008+f*2.1)+(f-0.5)*((mob?8:12)+(mob?10:26)*u);
+    }
+    function grad(){
+      var g=ctx.createLinearGradient(0,0,W,0);
+      g.addColorStop(0,'rgba(255,90,31,0)'); g.addColorStop(.06,'rgba(255,90,31,1)'); g.addColorStop(.3,'rgba(255,155,74,1)');
+      g.addColorStop(.5,'rgba(255,224,200,1)'); g.addColorStop(.68,'rgba(143,233,228,1)'); g.addColorStop(.95,'rgba(34,183,187,1)'); g.addColorStop(1,'rgba(34,183,187,0)');
+      return g;
+    }
+    function draw(t){
+      ctx.clearRect(0,0,W,H); if(reveal<=0) return;
+      var g=grad(); ctx.save(); ctx.beginPath(); ctx.rect(0,0,W*reveal+1,H); ctx.clip();
+      ctx.globalCompositeOperation='lighter'; ctx.strokeStyle=g; ctx.lineCap='round';
+      for(var pass=0;pass<2;pass++){
+        var n=pass?16:3;
+        for(var i=0;i<n;i++){
+          var f=n>1?i/(n-1):0.5; ctx.beginPath();
+          for(var x=-10;x<=W+10;x+=10){ var y=yAt(x/W,t,f); if(x===-10) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+          if(!pass){ ctx.globalAlpha=0.14; ctx.lineWidth=mob?7:10; ctx.shadowColor='rgba(255,140,70,.55)'; ctx.shadowBlur=mob?14:24; }
+          else { ctx.globalAlpha=0.2+0.5*(1-Math.abs(f-0.5)*2); ctx.lineWidth=0.9; ctx.shadowBlur=0; }
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+      if(reveal<1){ /* светящийся передний край */
+        var hx=W*reveal, hy=yAt(reveal,t,0.5), r=mob?16:22, rg=ctx.createRadialGradient(hx,hy,0,hx,hy,r);
+        rg.addColorStop(0,'rgba(255,244,236,.95)'); rg.addColorStop(.35,'rgba(255,170,110,.45)'); rg.addColorStop(1,'rgba(255,120,60,0)');
+        ctx.globalCompositeOperation='lighter'; ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(hx,hy,r,0,6.2832); ctx.fill(); ctx.globalCompositeOperation='source-over';
+      }
+    }
+    function loop(t){
+      if(revealStart){ var k=Math.min(1,(t-revealStart)/2400); reveal=1-Math.pow(1-k,3); }
+      draw(t); raf=requestAnimationFrame(loop);
+    }
+    function play(){ cancelAnimationFrame(raf); if(onScreen) raf=requestAnimationFrame(loop); }
+    function begin(){
+      if(began) return; began=true; size();
+      if(reduce){ reveal=1; draw(0); return; }
+      revealStart=performance.now()+250; play();
+    }
+    addEventListener('resize',function(){ size(); if(reduce) draw(0); });
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ onScreen=es[0].isIntersecting; if(began&&!reduce){ if(onScreen) play(); else cancelAnimationFrame(raf); } }).observe(hero);
+    if(window.__introDone) begin(); else document.addEventListener('aioasis:intro-done',begin);
+    setTimeout(begin,11000); /* если заставки нет или она не сообщила о завершении */
+  })();
+
+  /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
+  (function(){
+    var hs=[].slice.call(document.querySelectorAll('.hl'));
+    if(reduce || !('IntersectionObserver' in window)){ hs.forEach(function(h){ h.classList.add('on'); }); return; }
+    var io=new IntersectionObserver(function(es){
+      var shown=0;
+      es.forEach(function(e){ if(e.isIntersecting){ var el=e.target; setTimeout(function(){ el.classList.add('on'); }, 250+shown++*180); io.unobserve(el); } });
+    },{threshold:.9, rootMargin:'0px 0px -12% 0px'});
+    hs.forEach(function(h){ io.observe(h); });
   })();
 
   /* ---------- форма обратной связи ----------
