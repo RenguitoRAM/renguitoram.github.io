@@ -645,44 +645,63 @@ fieldset.field{border:0;margin:0;padding:0}
 @media (max-width:860px){.footer > .wrap{grid-template-columns:minmax(0,1fr)}}
 
 
-/* ---------- «От задачи к решению»: интерактивная модель ---------- */
-.solver{margin-top:clamp(56px,7vw,104px)}
-.solver-title{font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem);letter-spacing:-.03em;max-width:22em}
-.solver-title span{color:var(--ai-1)}
-.solver-grid{position:relative;margin-top:28px;display:grid;grid-template-columns:200px minmax(0,1fr) 300px;grid-template-areas:"task stage side" "desc desc desc";gap:20px 24px;align-items:center;min-height:500px}
-.sv-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1s var(--ease)}
-.solver.gl-ready .sv-canvas{opacity:1}
-.sv-task{grid-area:task;position:relative;z-index:1}
-.sv-stage{grid-area:stage;align-self:stretch;min-height:440px}
-.sv-side{grid-area:side;position:relative;z-index:1;display:grid;gap:12px}
-.sv-hint{font-size:.78rem;color:var(--on-dark-2);letter-spacing:.02em}
-.sv-options{display:grid;gap:6px}
-.sv-opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;font:500 1rem/1.25 var(--f-display);color:var(--on-dark);letter-spacing:-.01em;
-  background:rgba(234,247,244,.03);box-shadow:inset 0 0 0 1px rgba(217,210,206,.08);transition:background .35s,box-shadow .35s,color .35s,transform .35s var(--ease)}
-.sv-opt i{flex:none;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--mint) 40%,var(--aqua));box-shadow:0 0 10px rgba(160,227,216,.6);transition:transform .35s var(--ease),background .35s,box-shadow .35s}
-.sv-opt:hover,.sv-opt:focus-visible,.sv-opt.preview{background:rgba(95,223,222,.08);box-shadow:inset 0 0 0 1px rgba(95,223,222,.35);transform:translateX(-3px)}
-.sv-opt:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
-.sv-opt[aria-pressed="true"]{background:linear-gradient(100deg,rgba(225,164,146,.16),rgba(95,223,222,.08));box-shadow:inset 0 0 0 1px rgba(225,164,146,.6);color:#FFF4EC}
-.sv-opt[aria-pressed="true"] i{transform:scale(1.35);background:radial-gradient(circle at 35% 30%,#fff,#F3C9BC 40%,var(--coral));box-shadow:0 0 14px rgba(225,164,146,.85)}
-.sv-all{margin-top:6px;border-top:0;font-weight:600}
-.sv-all span::after{content:" ⟳";color:var(--coral);font-weight:400}
-.sv-desc{grid-area:desc;position:relative;z-index:1;justify-self:center;width:100%;max-width:640px;min-height:6.6em;align-content:center;text-align:center;display:grid;gap:6px;padding:16px 22px;border-radius:18px;
-  background:rgba(10,14,15,.55);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.sv-desc b{font:500 1.05rem/1.3 var(--f-display);color:var(--coral)}
-.sv-desc span{font-size:.94rem;color:var(--on-dark-2);line-height:1.55}
-.solver + .prism-caption{margin-top:18px}
+/* ---------- «От хаоса к решению» ---------- */
+.chaos{margin-top:clamp(56px,7vw,104px);display:grid;gap:22px}
+.cx-head{display:grid;gap:10px;max-width:46em}
+.cx-head h3{font-size:clamp(1.7rem,1.2rem + 2vw,2.8rem);letter-spacing:-.035em}
+.cx-head p{color:var(--on-dark-2);font-size:var(--t-lead)}
+.cx-scene{position:relative;height:clamp(440px,52vw,620px);border-radius:32px;overflow:hidden;isolation:isolate;
+  background:radial-gradient(55% 60% at 50% 50%,#0B3A40,transparent 75%),radial-gradient(40% 50% at 0% 100%,rgba(69,30,25,.65),transparent 70%),var(--graphite);
+  box-shadow:inset 0 0 0 1px rgba(160,227,216,.1),0 60px 120px -60px rgba(0,0,0,.7)}
+.cx-scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.2s var(--ease);touch-action:pan-y}
+.chaos.gl-ready .cx-scene canvas{opacity:1}
+.cx-labels{position:absolute;inset:0;pointer-events:none;z-index:1}
+.cx-input{position:absolute;z-index:2;left:22px;top:20px;display:grid;gap:4px;max-width:260px;transition:opacity .8s var(--ease)}
+.cx-input .eyebrow{color:var(--coral);font-size:.68rem}
+.cx-input b{font:500 1rem/1.3 var(--f-display);color:var(--on-dark)}
+.chaos.solved .cx-input{opacity:.45}
+.cx-system{position:absolute;z-index:2;left:50%;bottom:20px;transform:translate(-50%,8px);margin:0;padding:8px 16px;border-radius:999px;white-space:nowrap;
+  font:500 .86rem/1 var(--f-display);color:#FFF4EC;background:rgba(225,164,146,.16);box-shadow:inset 0 0 0 1px rgba(225,164,146,.5);opacity:0;transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.chaos.all .cx-system{opacity:1;transform:translate(-50%,0)}
+.no-gl .cx-scene{height:auto;min-height:160px}
+.no-gl .cx-input{position:static;padding:22px}
+.cx-controls{position:relative;display:grid;gap:12px}
+.cx-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cx-opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 14px;border-radius:16px;font:500 .95rem/1.25 var(--f-display);color:var(--on-dark);
+  background:rgba(234,247,244,.04);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1);transition:background .35s,box-shadow .35s,transform .35s var(--ease)}
+.cx-opt i{flex:none;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--mint) 40%,var(--aqua));box-shadow:0 0 10px rgba(160,227,216,.55);transition:transform .35s var(--ease),background .35s,box-shadow .35s}
+.cx-opt:hover{background:rgba(95,223,222,.08);box-shadow:inset 0 0 0 1px rgba(95,223,222,.35);transform:translateY(-2px)}
+.cx-opt:focus-visible,.cx-reset:focus-visible{outline:2px solid var(--aqua);outline-offset:3px}
+.cx-opt[aria-pressed="true"]{background:linear-gradient(120deg,rgba(225,164,146,.18),rgba(95,223,222,.08));box-shadow:inset 0 0 0 1px rgba(225,164,146,.6);color:#FFF4EC}
+.cx-opt[aria-pressed="true"] i{transform:scale(1.3);background:radial-gradient(circle at 35% 30%,#fff,#F3C9BC 40%,var(--coral));box-shadow:0 0 14px rgba(225,164,146,.85)}
+.cx-all{font-weight:600}
+.cx-reset{all:unset;box-sizing:border-box;cursor:pointer;min-height:52px;padding:10px 18px;border-radius:16px;font:500 .9rem/1 var(--f-body);color:var(--on-dark-2);box-shadow:inset 0 0 0 1px rgba(217,210,206,.16);transition:color .3s,box-shadow .3s,opacity .3s}
+.cx-controls .cx-reset{position:absolute;right:0;bottom:0;width:calc((100% - 24px) / 4);text-align:center}
+.cx-reset:hover{color:var(--on-dark);box-shadow:inset 0 0 0 1px rgba(217,210,206,.4)}
+.cx-reset:disabled{opacity:.35;cursor:default}
+.cx-desc{display:grid;gap:6px;min-height:5.6em;padding:16px 20px;border-radius:18px;background:rgba(10,14,15,.5);box-shadow:inset 0 0 0 1px rgba(217,210,206,.08)}
+.cx-desc b{font:500 1.06rem/1.3 var(--f-display);color:var(--coral)}
+.cx-desc span{font-size:.95rem;color:var(--on-dark-2);line-height:1.55;max-width:62em}
+.cx-final{display:grid;gap:10px;justify-items:start;padding-top:10px}
+.cx-final p{font:500 clamp(1.2rem,1rem + .8vw,1.6rem)/1.35 var(--f-display);letter-spacing:-.015em;color:var(--on-dark);max-width:34em}
+.cx-final .cx-final-sub{font:400 1rem/1.5 var(--f-body);color:var(--on-dark-2)}
+.cx-final .btn{margin-top:8px}
+.cx-label{position:absolute;left:0;top:0;white-space:nowrap;font:500 .72rem/1.2 var(--f-body);color:var(--silk);padding:5px 10px;border-radius:999px;background:rgba(10,14,15,.62);box-shadow:inset 0 0 0 1px rgba(225,164,146,.3);opacity:0;will-change:transform,opacity}
 @media (max-width:960px){
-  .solver-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"task" "stage" "side" "desc";gap:14px;min-height:0}
-  .sv-desc{min-height:10.5em;align-content:start}
-  .sv-task{justify-self:center;text-align:center}
-  .sv-stage{min-height:340px}
-  .sv-options{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .sv-opt{font-size:.9rem;padding:11px 12px}
-  .sv-opt:hover,.sv-opt.preview{transform:none}
-  .sv-all{grid-column:1/-1;justify-content:center}
-  .sv-hint{text-align:center}
+  .cx-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cx-all{grid-column:1/-1;justify-content:center}
+  .cx-controls .cx-reset{position:static;width:auto;justify-self:center}
+  .cx-opt:hover{transform:none}
 }
-
+@media (max-width:560px){
+  .cx-scene{height:440px;border-radius:24px}
+  .cx-input{left:16px;top:14px;max-width:210px}
+  .cx-input b{font-size:.9rem}
+  .chaos.all .cx-input{opacity:0}
+  .cx-system{bottom:auto;top:16px;font-size:.8rem}
+  .cx-opt{font-size:.86rem;padding:10px 12px}
+  .cx-label{font-size:.64rem;padding:4px 8px}
+}
 
 /* ---------- «Знакомые ситуации»: последовательный рассказ при прокрутке ----------
    Скрытое состояние действует только когда скрипт добавил .seq-ready, поэтому без JS всё видно. */
@@ -1109,20 +1128,28 @@ strong.hl{font-weight:500}
         <p>Иногда правильным решением становится искусственный интеллект. Иногда таблица, программа, методика или новый порядок работы. <strong>Технология — это средство. <span class="hl">Результат для человека — цель.</span></strong></p>
       </div>
 
-      <div class="solver reveal d2" id="solver">
-        <h3 class="solver-title">Не выбираем технологию заранее. <span>Проектируем решение.</span></h3>
-        <div class="solver-grid">
-          <canvas class="sv-canvas" aria-hidden="true"></canvas>
-          <div class="task-node sv-task"><span class="eyebrow">На входе</span><b>ваша задача</b></div>
-          <div class="sv-stage" aria-hidden="true"></div>
-          <div class="sv-side">
-            <p class="sv-hint">Выберите один или несколько способов</p>
-            <div class="sv-options" role="group" aria-label="Способы решения. Можно выбрать несколько"><button type="button" class="sv-opt" data-dir="method" data-desc="Когда нужна ясная логика: цели, этапы и критерии результата. Сначала договариваемся, что и зачем делаем." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button type="button" class="sv-opt" data-dir="process" data-desc="Иногда достаточно перестроить процесс: убрать лишние шаги, распределить роли, задать понятную последовательность." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button type="button" class="sv-opt" data-dir="tables" data-desc="Когда данные разбросаны: собираем их в понятную структуру, считаем и видим картину целиком." aria-pressed="false"><i aria-hidden="true"></i><span>Таблицы и Excel</span></button><button type="button" class="sv-opt" data-dir="auto" data-desc="Повторяющиеся действия передаём системе, чтобы люди занимались тем, что требует их участия." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button type="button" class="sv-opt" data-dir="soft" data-desc="Когда задаче нужен свой инструмент: модули, интерфейс и связи с тем, что уже используется." aria-pressed="false"><i aria-hidden="true"></i><span>Программное решение</span></button><button type="button" class="sv-opt" data-dir="ai" data-desc="Для работы с текстами, большими объёмами информации и поиском решений. Только там, где AI действительно полезен." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button type="button" class="sv-opt sv-all" data-dir="all" data-desc="Комплексное решение может сочетать методологию, изменение процессов, аналитику, автоматизацию, программные инструменты и AI. Это схема подхода, а не одна готовая система." aria-pressed="false"><i aria-hidden="true"></i><span>Вся система</span></button></div>
-          </div>
-          <div class="sv-desc" aria-live="polite"><b>На входе — ваша задача</b><span>Сначала разбираемся, что нужно изменить. Затем подбираем способ решения: один или несколько.</span></div>
+      <div class="chaos reveal d2" id="chaos">
+        <div class="cx-head">
+          <h3>От хаоса к решению</h3>
+          <p>Каждая задача начинается с неопределённости. Мы помогаем найти структуру.</p>
+        </div>
+        <div class="cx-scene">
+          <canvas aria-hidden="true"></canvas>
+          <div class="cx-labels" aria-hidden="true"></div>
+          <p class="cx-input"><span class="eyebrow">На входе</span><b>Есть задача. Пока нет ясного решения.</b></p>
+          <p class="cx-system" aria-hidden="true">Все инструменты — в одной системе</p>
+        </div>
+        <div class="cx-controls">
+          <div class="cx-options" role="group" aria-label="Подходы к решению. Можно выбрать несколько"><button type="button" class="cx-opt" data-dir="method" data-desc="Выстраиваем логику, структуру и последовательность действий." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button type="button" class="cx-opt" data-dir="process" data-desc="Перестраиваем процессы так, чтобы работа стала понятнее и эффективнее." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button type="button" class="cx-opt" data-dir="data" data-desc="Структурируем информацию, находим взаимосвязи и превращаем данные в основу решений." aria-pressed="false"><i aria-hidden="true"></i><span>Работа с данными и аналитика</span></button><button type="button" class="cx-opt" data-dir="auto" data-desc="Передаём повторяющиеся операции цифровым инструментам и освобождаем время." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button type="button" class="cx-opt" data-dir="soft" data-desc="Создаём сайты, сервисы, приложения и специализированные цифровые инструменты." aria-pressed="false"><i aria-hidden="true"></i><span>Разработка цифровых решений</span></button><button type="button" class="cx-opt" data-dir="ai" data-desc="Используем ИИ для анализа, создания контента, поиска решений и интеллектуальной обработки задач." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button type="button" class="cx-opt cx-all" data-dir="all" data-desc="Методология, порядок работы, данные, автоматизация, цифровые инструменты и ИИ работают вместе. Это схема подхода: в реальном проекте сочетание подбирается под задачу." aria-pressed="false"><i aria-hidden="true"></i><span>Комплексное решение</span></button></div>
+          <button type="button" class="cx-reset" disabled>Начать заново</button>
+        </div>
+        <div class="cx-desc" aria-live="polite"><b>Выберите подход — или несколько</b><span>Иногда достаточно методологии или нового порядка работы. Иногда нужны данные, автоматизация, отдельная программа или ИИ. Часто лучший результат даёт сочетание.</span></div>
+        <div class="cx-final">
+          <p><span class="hl">Вам не обязательно знать, какая технология нужна.</span> Достаточно рассказать, какую задачу нужно решить.</p>
+          <p class="cx-final-sub">Мы поможем разобраться и спроектировать подходящее решение.</p>
+          <a class="btn btn-primary" href="#contact">Рассказать о задаче <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </div>
-      <p class="prism-caption">Решение подбирается под задачу. Иногда подходит один из вариантов, чаще — их сочетание.</p>
     </div>
   </section>
 
@@ -3387,309 +3414,485 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   });
 })();
 </script>
-<script type="module" id="scene-solver-js">
-/* «От задачи к решению» — интерактивная модель проектирования решения.
-   Луч задачи входит в стеклянную призму. Выбор направления перестраивает 48 стеклянных ячеек
-   в архитектуру этого подхода: уровни методологии, цепочку процесса, сетку данных, конвейер автоматизации,
-   модули программы, сеть AI. Несколько направлений собираются в общую композицию; «Вся система» — все шесть.
+<script type="module" id="scene-chaos-js">
+/* AI OASIS — «От хаоса к решению».
+   В начале: живое пространство цифрового хаоса — стеклянные фрагменты, карточки данных, частицы,
+   незавершённые связи и пересекающиеся потоки. Каждый выбранный подход забирает часть элементов
+   и выстраивает из них свою архитектуру. При добавлении подхода уже собранное не рассыпается:
+   перераспределяется минимум элементов. При снятии его элементы возвращаются в хаос
+   или переходят к оставшимся подходам. «Комплексное решение» — единая композиция всех шести.
    Это художественная метафора подхода, а не изображение готовой системы. */
 (function () {
-  const root = document.getElementById('solver');
-  const THREE = window.AIO_THREE;
+  const root = document.getElementById('chaos');
   if (!root) return;
-  /* без WebGL кнопки и описания работают, просто без модели */
-  let relayout = () => {}, wake = () => {};
-  const grid = root.querySelector('.solver-grid'), canvas = root.querySelector('.sv-canvas');
-  const stageEl = root.querySelector('.sv-stage'), taskEl = root.querySelector('.sv-task');
-  const opts = [...root.querySelectorAll('.sv-opt')], dirOpts = opts.filter(o => o.dataset.dir !== 'all'), allBtn = opts.find(o => o.dataset.dir === 'all');
-  const desc = root.querySelector('.sv-desc'), descB = desc.querySelector('b'), descS = desc.querySelector('span');
+  const sceneEl = root.querySelector('.cx-scene'), canvas = sceneEl.querySelector('canvas'), labelsEl = root.querySelector('.cx-labels');
+  const opts = [...root.querySelectorAll('.cx-opt')], allBtn = opts.find(o => o.dataset.dir === 'all');
+  const resetBtn = root.querySelector('.cx-reset');
+  const desc = root.querySelector('.cx-desc'), descB = desc.querySelector('b'), descS = desc.querySelector('span');
   const DEFAULT = [descB.textContent, descS.textContent];
-  const DIRS = ['method', 'process', 'tables', 'auto', 'soft', 'ai'];
+  const DIRS = ['method', 'process', 'data', 'auto', 'soft', 'ai'];
   const NAMES = Object.fromEntries(opts.map(o => [o.dataset.dir, o.querySelector('span').textContent]));
+  const SHORT = { method: 'Методология', process: 'Порядок работы', data: 'Данные', auto: 'Автоматизация', soft: 'Цифровое решение', ai: 'ИИ' };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const selected = new Set();
+  let onChange = () => {};
 
-  /* ---------- состояние выбора ---------- */
-  const selected = new Set(); let preview = null;
-  function showDesc(dir) {
-    if (!dir) {
-      if (selected.size === 0) { descB.textContent = DEFAULT[0]; descS.textContent = DEFAULT[1]; return; }
-      if (selected.size === 6) dir = 'all';
-      else if (selected.size > 1) { descB.textContent = 'Сочетание: ' + DIRS.filter(d => selected.has(d)).map(d => NAMES[d]).join(' + '); descS.textContent = 'Чаще всего решение складывается из нескольких подходов. Модель показывает, как они собираются вместе.'; return; }
-      else dir = [...selected][0];
+  /* ---------- кнопки и тексты работают и без WebGL ---------- */
+  function ui() {
+    opts.forEach(o => o.setAttribute('aria-pressed', o.dataset.dir === 'all' ? selected.size === 6 : selected.has(o.dataset.dir)));
+    resetBtn.disabled = selected.size === 0;
+    root.classList.toggle('solved', selected.size > 0);
+    root.classList.toggle('all', selected.size === 6);
+    if (selected.size === 0) { descB.textContent = DEFAULT[0]; descS.textContent = DEFAULT[1]; }
+    else if (selected.size === 6) { descB.textContent = 'Комплексное решение. Все инструменты — в одной системе'; descS.textContent = allBtn.dataset.desc; }
+    else if (selected.size === 1) { const d = [...selected][0]; descB.textContent = NAMES[d]; descS.textContent = opts.find(o => o.dataset.dir === d).dataset.desc; }
+    else {
+      const list = DIRS.filter(d => selected.has(d));
+      descB.textContent = 'Сочетание: ' + list.map(d => SHORT[d]).join(' + ');
+      descS.textContent = 'Подходы дополняют друг друга. ' + list.map(d => opts.find(o => o.dataset.dir === d).dataset.desc).join(' ');
     }
-    descB.textContent = NAMES[dir]; descS.textContent = opts.find(o => o.dataset.dir === dir).dataset.desc;
   }
-  function syncButtons() {
-    dirOpts.forEach(o => o.setAttribute('aria-pressed', selected.has(o.dataset.dir)));
-    allBtn.setAttribute('aria-pressed', selected.size === 6);
-  }
-  opts.forEach(o => {
+  opts.forEach(o => o.addEventListener('click', () => {
     const d = o.dataset.dir;
-    o.addEventListener('click', () => {
-      if (d === 'all') { if (selected.size === 6) selected.clear(); else DIRS.forEach(x => selected.add(x)); }
-      else if (selected.has(d)) selected.delete(d); else selected.add(d);
-      syncButtons(); showDesc(null); relayout(); wake();
-    });
-    const on = () => { preview = d; o.classList.add('preview'); showDesc(d); wake(); };
-    const off = () => { if (preview === d) preview = null; o.classList.remove('preview'); showDesc(null); wake(); };
-    o.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') on(); });
-    o.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') off(); });
-    o.addEventListener('focus', on); o.addEventListener('blur', off);
-  });
+    if (d === 'all') { if (selected.size === 6) selected.clear(); else DIRS.forEach(x => selected.add(x)); }
+    else if (selected.has(d)) selected.delete(d); else selected.add(d);
+    ui(); onChange();
+  }));
+  resetBtn.addEventListener('click', () => { selected.clear(); ui(); onChange(); });
+  ui();
 
-  /* ---------- WebGL ---------- */
-  if (!THREE) return;
+  const THREE = window.AIO_THREE;
   let renderer = null;
-  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) {}
-  if (!renderer) return; // без WebGL блок остаётся понятным списком с описаниями
+  if (THREE) { try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) {} }
+  if (!renderer) { root.classList.add('no-gl'); return; }
+
   const mobile = Math.min(screen.width, screen.height) < 600;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.5));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace; renderer.setClearColor(0, 0);
-  const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
-  const V = THREE.Vector3, TAU = Math.PI * 2;
-  const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) }, uCenter: { value: new THREE.Vector2(0.5, 0.5) } };
+  const V = THREE.Vector3, Q = THREE.Quaternion, TAU = Math.PI * 2;
+  const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  const world = new THREE.Group(); scene.add(world);
+
+  /* ---------- фон, который преломляет стекло ---------- */
+  const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) }, uOrder: { value: 0 } };
   const BG = `
-    uniform float uTime; uniform float uAspect; uniform vec2 uCenter;
+    uniform float uTime; uniform float uAspect; uniform float uOrder;
     vec3 bg(vec2 uv){
       vec2 a = uAspect<1. ? vec2(1.,1./uAspect) : vec2(uAspect,1.);
-      vec3 col=vec3(.039,.055,.059);
-      vec2 d=(uv-uCenter)*a; col=mix(col,vec3(.05,.27,.3),.9*exp(-5.*dot(d,d)));
-      vec2 d2=(uv-uCenter-vec2(-.08,.06))*a; col+=vec3(.88,.64,.57)*.07*exp(-14.*dot(d2,d2));
-      float stripes=.5+.5*sin((uv.x*a.x*1.2+uv.y*.6)*40.+uTime*.2); col+=vec3(.6,.9,.86)*.018*stripes*exp(-6.*dot(d,d));
+      vec3 col=vec3(.035,.05,.055);
+      vec2 d=(uv-vec2(.5,.52))*a; col=mix(col,vec3(.045,.25,.28),.9*exp(-2.4*dot(d,d)));
+      vec2 d2=(uv-vec2(.5+.12*sin(uTime*.07),.5+.08*cos(uTime*.09)))*a; col+=vec3(.16,.7,.68)*.07*exp(-8.*dot(d2,d2));
+      vec2 d3=(uv-vec2(.06,.04))*a; col=mix(col,vec3(.3,.13,.1),.5*exp(-4.*dot(d3,d3)));
+      col+=vec3(.88,.64,.57)*.05*uOrder*exp(-10.*dot(d,d));
+      float v=length((uv-.5)*vec2(1.,1.2)); col*=1.-.45*smoothstep(.35,.95,v);
       return col;
     }`;
+  const bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: U, depthTest: false, depthWrite: false,
+    vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
+    fragmentShader: BG + 'varying vec2 vUv;void main(){gl_FragColor=vec4(bg(vUv),1.);}' }));
+  bg.frustumCulled = false; bg.renderOrder = -10; scene.add(bg);
 
-  /* призма: стеклянная треугольная, многослойная */
-  const glass = (tint, flat, op) => window.AIO_GLASS(BG, U, tint, { flat, opacity: op ?? 1 });
-  const core = new THREE.Group(); scene.add(core);
-  const prismOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.7, 3, 1), glass([0.85, 1, 0.97], true, 0.9));
-  prismOuter.rotation.set(Math.PI / 2, Math.PI, 0); core.add(prismOuter);
-  const prismInner = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.9, 3, 1), glass([1, 0.82, 0.74], true, 0.95));
-  prismInner.rotation.set(Math.PI / 2, 0, 0); core.add(prismInner);
-  const glowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
-    const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.3, 'rgba(255,255,255,.4)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-    x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
-  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: new THREE.Color().setRGB(0.4, 0.95, 0.9), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.55 }));
-  glow.scale.setScalar(1.4); core.add(glow);
-
-  /* ячейки: инстансированное стекло с собственным оттенком */
-  const N = 48;
-  const cellMat = new THREE.ShaderMaterial({
-    uniforms: U, transparent: true,
-    vertexShader: `varying vec3 vN; varying vec3 vP; varying vec3 vC;
-      void main(){ vC=instanceColor; vec4 mv=modelViewMatrix*instanceMatrix*vec4(position,1.); vP=mv.xyz; vN=normalize(normalMatrix*mat3(instanceMatrix)*normal); gl_Position=projectionMatrix*mv; }`,
-    fragmentShader: BG + `uniform vec2 uRes; varying vec3 vN; varying vec3 vP; varying vec3 vC;
-      void main(){ vec3 N=normalize(vN); vec3 Vv=normalize(-vP); if(dot(N,Vv)<0.) N=-N;
+  /* ---------- элементы: инстансированное жидкое стекло с узором на лицевой грани ---------- */
+  const N = mobile ? 72 : 108;
+  const mat = new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: true,
+    vertexShader: `
+      attribute float aFace; attribute float aGlow;
+      varying vec3 vN; varying vec3 vP; varying vec3 vC; varying vec3 vL; varying vec3 vLN; varying float vF; varying float vG; varying vec3 vS;
+      void main(){
+        vC=instanceColor; vF=aFace; vG=aGlow; vL=position; vLN=normal;
+        vS=vec3(length(instanceMatrix[0].xyz),length(instanceMatrix[1].xyz),length(instanceMatrix[2].xyz));
+        vec4 mv=modelViewMatrix*instanceMatrix*vec4(position,1.); vP=mv.xyz;
+        vN=normalize(normalMatrix*mat3(instanceMatrix)*normal); gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: BG + `
+      uniform vec2 uRes;
+      varying vec3 vN; varying vec3 vP; varying vec3 vC; varying vec3 vL; varying vec3 vLN; varying float vF; varying float vG; varying vec3 vS;
+      float box(vec2 p, vec2 a, vec2 b){ return step(a.x,p.x)*step(p.x,b.x)*step(a.y,p.y)*step(p.y,b.y); }
+      float pattern(vec2 uv, float f){
+        if(f<.5) return 0.;
+        if(f<1.5){ /* строки текста */
+          float y=uv.y*6.; float r=floor(y); float fy=fract(y); float w=.45+.4*fract(sin(r*12.9)*437.5);
+          return step(.38,fy)*step(fy,.62)*step(.14,uv.x)*step(uv.x,.14+w*.72)*step(.5,r)*step(r,4.5);
+        }
+        if(f<2.5){ /* сетка данных */
+          vec2 g=fract(uv*vec2(4.,3.)); float e=min(min(g.x,1.-g.x),min(g.y,1.-g.y)); return (1.-smoothstep(.02,.08,e))*.8;
+        }
+        if(f<3.5){ /* код: строки с отступами */
+          float y=uv.y*7.; float r=floor(y); float fy=fract(y); float ind=.12+.1*mod(r,3.); float w=.2+.45*fract(sin(r*7.3)*91.7);
+          return step(.35,fy)*step(fy,.65)*step(ind,uv.x)*step(uv.x,ind+w)*step(.5,r)*step(r,5.5);
+        }
+        /* интерфейс: шапка, колонка, карточки */
+        return max(max(box(uv,vec2(.06,.82),vec2(.94,.92)), box(uv,vec2(.06,.1),vec2(.24,.74))*.6),
+               max(box(uv,vec2(.3,.46),vec2(.6,.74))*.7, max(box(uv,vec2(.64,.46),vec2(.94,.74))*.7, box(uv,vec2(.3,.1),vec2(.94,.4))*.5)));
+      }
+      void main(){
+        vec3 N=normalize(vN); vec3 Vv=normalize(-vP); if(dot(N,Vv)<0.) N=-N;
         float ndv=clamp(dot(N,Vv),0.,1.), fres=pow(1.-ndv,3.);
-        vec2 suv=gl_FragCoord.xy/uRes; float k=.12*(.6+(1.-ndv));
+        vec2 suv=gl_FragCoord.xy/uRes; float k=.14*(.6+(1.-ndv));
         vec3 col=vec3(bg(suv+refract(-Vv,N,1./1.4).xy*k).r,bg(suv+refract(-Vv,N,1./1.46).xy*k).g,bg(suv+refract(-Vv,N,1./1.53).xy*k).b);
-        col=col*vC*1.5+.05*vC; vec3 R=reflect(-Vv,N);
-        col+=vec3(.95,1.,.98)*(smoothstep(.6,.9,R.y)*.45+pow(max(dot(R,normalize(vec3(-.7,.4,.6))),0.),18.)*.55)*(.4+fres);
-        col+=vC*fres*.8+vC*pow(1.-ndv,6.)*.6;
-        gl_FragColor=vec4(col,.96); }`
+        col=col*vC*1.45+.04*vC;
+        vec3 R=reflect(-Vv,N);
+        float soft=smoothstep(.55,.92,R.y)*smoothstep(-.3,.4,R.z);
+        float side=pow(max(dot(R,normalize(vec3(-.75,.35,.55))),0.),18.);
+        float spec=pow(max(dot(R,normalize(vec3(.45,.6,.66))),0.),140.);
+        col+=vec3(.95,1.,.98)*(soft*.42+side*.45)*(.35+fres)+vec3(1.)*spec*1.1;
+        col+=vC*fres*.75+vC*pow(1.-ndv,6.)*.55;
+        /* узор только на лицевой грани (нормаль по z в локальных координатах) */
+        float front=smoothstep(.7,.9,abs(vLN.z));
+        float pt=pattern(vL.xy+.5, vF)*front;
+        col+=mix(vec3(.85,1.,.97),vC,.3)*pt*.55;
+        col+=vec3(1.,.66,.55)*vG*(.35+fres*.9);
+        gl_FragColor=vec4(col,.94);
+      }`
   });
-  const cells = new THREE.InstancedMesh(window.AIO_ROUNDED_BOX(0.2, 0.2, 0.2, 0.05, 3), cellMat, N);
-  cells.instanceMatrix.setUsage(THREE.DynamicDrawUsage); cells.frustumCulled = false; scene.add(cells);
-  const TINT = { method: [0.95, 0.93, 0.9], process: [0.68, 1, 0.9], tables: [0.42, 0.92, 0.82], auto: [0.5, 1, 1], soft: [0.72, 0.88, 1], ai: [1, 0.76, 0.66], idle: [0.6, 0.95, 0.9] };
-  const C = [];
-  for (let i = 0; i < N; i++) { C.push({ P: new V(), S: new V(0.001, 0.001, 0.001), Q: new THREE.Quaternion(), col: new V(...TINT.idle), fP: new V(), fS: new V(0.001, 0.001, 0.001), fQ: new THREE.Quaternion(), fC: new V(...TINT.idle), delay: (i % 12) * 0.03 + Math.floor(i / 12) * 0.05, link: -1, link2: -1, dir: 'idle' }); cells.setColorAt(i, new THREE.Color(0.6, 0.95, 0.9)); }
+  const geo = window.AIO_ROUNDED_BOX(1, 1, 1, 0.14, 4);
+  const mesh = new THREE.InstancedMesh(geo, mat, N);
+  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.frustumCulled = false; world.add(mesh);
+  const aFace = new THREE.InstancedBufferAttribute(new Float32Array(N), 1).setUsage(THREE.DynamicDrawUsage);
+  const aGlow = new THREE.InstancedBufferAttribute(new Float32Array(N), 1).setUsage(THREE.DynamicDrawUsage);
+  geo.setAttribute('aFace', aFace); geo.setAttribute('aGlow', aGlow);
 
-  /* связи, сигналы, лучи */
-  const linkGeo = new THREE.BufferGeometry(); linkGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 2 * 6), 3).setUsage(THREE.DynamicDrawUsage));
-  const links = new THREE.LineSegments(linkGeo, new THREE.LineBasicMaterial({ color: new THREE.Color().setRGB(0.55, 0.9, 0.86), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-  links.frustumCulled = false; scene.add(links);
-  const PN = 40;
-  const pulseGeo = new THREE.BufferGeometry(); pulseGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PN * 3), 3).setUsage(THREE.DynamicDrawUsage));
-  const pulses = new THREE.Points(pulseGeo, new THREE.PointsMaterial({ map: glowTex, size: 0.16, color: new THREE.Color().setRGB(1, 0.72, 0.6), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-  pulses.frustumCulled = false; scene.add(pulses);
-  const P = []; for (let i = 0; i < PN; i++) P.push({ seg: i % N, f: Math.random(), sp: 0.4 + Math.random() * 0.5 });
-  const rayGeo = new THREE.BufferGeometry();
-  rayGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(7 * 6), 3).setUsage(THREE.DynamicDrawUsage));
-  rayGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(7 * 6), 3).setUsage(THREE.DynamicDrawUsage));
-  const rays = new THREE.LineSegments(rayGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false }));
-  rays.frustumCulled = false; scene.add(rays);
-  const rayLvl = new Array(7).fill(0.2);
-
-  /* ---------- раскладки направлений (локально, радиус ~1.2) ---------- */
-  const tv = new V(), te = new THREE.Euler();
-  function layout(dir, i, n, t, out) { // возвращает [позиция, масштаб(xyz), поворот], ссылки задаются в links()
-    te.set(0, 0, 0); out.s.set(1, 1, 1);
-    if (dir === 'method') { // уровни архитектуры
-      let lv = 0, start = 0, cnt = 1; while (i >= start + cnt) { start += cnt; lv++; cnt += 2; }
-      const levels = (() => { let s = 0, c = 1, l = 0; while (s < n) { s += c; c += 2; l++; } return l; })();
-      const k = i - start, rowN = Math.min(cnt, n - start), sp = Math.min(0.34, 2.6 / Math.max(rowN, 1));
-      out.p.set((k - (rowN - 1) / 2) * sp, 1.0 - lv * (2.1 / Math.max(levels - 1, 1)), Math.sin(k * 1.7) * 0.06);
-      out.s.set(0.9, 0.55, 0.9);
-    } else if (dir === 'process') { // перестроенная последовательность
-      const u = n > 1 ? i / (n - 1) : 0.5;
-      out.p.set(-1.45 + 2.9 * u, 0.5 * Math.sin(u * TAU), 0.35 * Math.cos(u * TAU));
-      te.set(0, 0, Math.cos(u * TAU) * 0.6); out.s.set(0.85, 0.85, 0.85);
-    } else if (dir === 'tables') { // сетка данных с аналитическими «столбцами»
-      const cols = Math.ceil(Math.sqrt(n * 1.5)), rows = Math.ceil(n / cols), c = i % cols, r = Math.floor(i / cols);
-      const x = (c - (cols - 1) / 2) * 0.3, y = (r - (rows - 1) / 2) * 0.3, tilt = -0.75;
-      const h = 0.6 + 2.2 * (0.5 + 0.5 * Math.sin(c * 1.3 + 0.6)) * (r === 0 ? 1 : 0.25);
-      out.p.set(x, y * Math.cos(tilt), y * Math.sin(tilt) + 0.0); te.set(tilt, 0, 0); out.s.set(1.1, 1.1, h * 0.4);
-    } else if (dir === 'auto') { // конвейер операций, передающий действия системе
-      const a = i / n * TAU + t * 0.35;
-      out.p.set(Math.cos(a) * 1.45, Math.sin(a) * 0.55, Math.sin(a) * 0.4); te.set(0, 0, a);
-      const op = i % 6 === 0; out.s.setScalar(op ? 1.35 : 0.7);
-    } else if (dir === 'soft') { // модули цифрового инструмента
-      const m = i % 4, j = Math.floor(i / 4), per = Math.ceil(n / 4);
-      const mc = [[-0.72, 0.5], [0.72, 0.5], [-0.72, -0.5], [0.72, -0.5]][m];
-      const cc = Math.ceil(Math.sqrt(per)), x = (j % cc - (cc - 1) / 2) * 0.22, y = (Math.floor(j / cc) - (cc - 1) / 2) * 0.22;
-      out.p.set(mc[0] + x, mc[1] + y, m === 0 ? 0.25 : 0); out.s.set(1, 1, m === 0 ? 0.35 : 0.9);
-    } else if (dir === 'ai') { // интеллектуальная сеть: вход → обработка → результат
-      const L = [0.17, 0.29, 0.29, 0.17, 0.08].map(f => Math.max(1, Math.round(f * n)));
-      let acc = 0, l = 0; while (l < L.length - 1 && i >= acc + L[l]) { acc += L[l]; l++; }
-      const k = i - acc, cntL = L[l];
-      out.p.set(-1.4 + l * 0.7, ((k - (cntL - 1) / 2) * Math.min(0.28, 2.2 / cntL)), Math.sin(k * 2.1 + l) * 0.25);
-      out.s.setScalar(l === L.length - 1 ? 1.2 : 0.75);
-    } else { // ожидание: ячейки спрятаны внутри призмы
-      out.p.set(Math.cos(i) * 0.1, Math.sin(i * 1.3) * 0.1, 0); out.s.setScalar(0.001);
-    }
-    out.q.setFromEuler(te);
+  let seed = 29; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const TINT = { chaos: [0.62, 0.92, 0.88], method: [0.95, 0.93, 0.9], process: [0.66, 1, 0.9], data: [0.42, 0.92, 0.82], auto: [0.5, 1, 1], soft: [0.72, 0.88, 1], ai: [1, 0.78, 0.68] };
+  /* хаос: несколько роёв и пересекающиеся потоки */
+  const SWARMS = [[-1.5, 0.55, -0.4], [1.35, 0.7, -0.6], [-0.4, -0.75, 0.3], [1.0, -0.55, 0.5], [0.1, 0.25, -1.1]];
+  const E = [];
+  for (let i = 0; i < N; i++) {
+    const kind = i % 3; // 0 осколок, 1 карточка данных, 2 узел
+    const sw = SWARMS[i % SWARMS.length];
+    E.push({
+      kind, rank: rnd(), sw, off: new V((rnd() - 0.5) * 1.3, (rnd() - 0.5) * 0.9, (rnd() - 0.5) * 0.9),
+      ph: rnd() * TAU, fr: 0.15 + rnd() * 0.25, spin: new V((rnd() - 0.5) * 0.8, (rnd() - 0.5) * 0.8, (rnd() - 0.5) * 0.5),
+      cs: kind === 0 ? new V(0.22 + rnd() * 0.2, 0.05 + rnd() * 0.05, 0.12 + rnd() * 0.18) : kind === 1 ? new V(0.2, 0.26, 0.025) : new V(0.075, 0.075, 0.075),
+      cface: kind === 1 ? 1 : 0, partner: 0,
+      dir: null, j: 0, P: new V(), Qt: new Q(), S: new V(0.001, 0.001, 0.001), C: new V(...TINT.chaos), G: 0, F: 0,
+      fP: new V(), fQ: new Q(), fS: new V(), fC: new V(), fG: 0, t0: -9, links: []
+    });
   }
-  function linkOf(dir, i, n) {
-    if (dir === 'method') { let lv = 0, start = 0, cnt = 1; while (i >= start + cnt) { start += cnt; lv++; cnt += 2; } if (!lv) return [-1, -1]; const ps = start - (cnt - 2), pc = cnt - 2; const k = i - start; return [Math.min(n - 1, ps + Math.round(k * (pc - 1) / Math.max(cnt - 1, 1))), -1]; }
-    if (dir === 'process') return [i + 1 < n ? i + 1 : -1, -1];
-    if (dir === 'tables') { const cols = Math.ceil(Math.sqrt(n * 1.5)); return [i < cols - 1 ? i + 1 : -1, -1]; }
-    if (dir === 'auto') return [(i + 1) % n, -1];
-    if (dir === 'soft') { const m = i % 4; if (i < 4) return [(i + 1) % 4, -1]; return [m, -1]; }
-    if (dir === 'ai') { const L = [0.17, 0.29, 0.29, 0.17, 0.08].map(f => Math.max(1, Math.round(f * n))); let acc = 0, l = 0; while (l < L.length - 1 && i >= acc + L[l]) { acc += L[l]; l++; } if (l === L.length - 1) return [-1, -1]; const nxt = acc + L[l]; return [Math.min(n - 1, nxt + (i * 3) % L[l + 1]), Math.min(n - 1, nxt + (i * 7 + 2) % L[l + 1])]; }
-    return [-1, -1];
-  }
+  E.forEach((e, i) => { e.partner = (i + 3 + Math.floor(e.rank * 9)) % N; });
 
-  /* распределение ячеек между выбранными направлениями */
-  let plan = []; // [{dir, start, n, cx, cy, sc}]
-  relayout = function () {
-    const sel = DIRS.filter(d => selected.has(d));
-    plan = [];
-    if (sel.length === 0) plan.push({ dir: 'idle', start: 0, n: N, cx: 0, cy: 0, sc: 1 });
-    else if (sel.length === 1) plan.push({ dir: sel[0], start: 0, n: N, cx: 0, cy: 0, sc: 1 });
-    else {
-      const per = Math.floor(N / sel.length);
-      sel.forEach((d, k) => { const a = k / sel.length * TAU + Math.PI / 2; plan.push({ dir: d, start: k * per, n: k === sel.length - 1 ? N - k * per : per, cx: Math.cos(a) * 1.55, cy: Math.sin(a) * 1.0, sc: sel.length > 3 ? 0.36 : 0.45 }); });
+  /* ---------- формации подходов (локально, радиус ~1.25) ---------- */
+  const te = new THREE.Euler();
+  const F = {};
+  /* Методология: многоуровневая архитектура — платформы, уровни, иерархия */
+  F.method = (j, n, t, o) => {
+    const w = [1, 2, 3, 4], tot = 10; let lv = 0, acc = 0; const cnt = w.map(x => Math.max(1, Math.round(x / tot * n)));
+    while (lv < 3 && j >= acc + cnt[lv]) { acc += cnt[lv]; lv++; }
+    const k = j - acc, c = lv === 3 ? n - acc : cnt[lv], cols = Math.max(1, Math.ceil(Math.sqrt(c * 1.8))), rows = Math.ceil(c / cols);
+    const x = (k % cols - (cols - 1) / 2) * 0.42, z = (Math.floor(k / cols) - (rows - 1) / 2) * 0.36;
+    o.p.set(x, 0.95 - lv * 0.62, z); o.s.set(0.36, 0.055, 0.28); te.set(0, 0, 0);
+    o.face = 0; o.glow = lv === 0 ? 0.6 : 0;
+    o.link = lv && k % 2 === 0 ? acc - Math.max(1, cnt[lv - 1]) + Math.min(cnt[lv - 1] - 1, Math.floor(k * cnt[lv - 1] / c)) : -1;
+  };
+  /* Новый порядок работы: этапы по направленной траектории, от входа к результату */
+  F.process = (j, n, t, o) => {
+    /* пять этапов по S-образной траектории: на каждом этапе карточки-операции,
+       остальные элементы — задачи, которые сами движутся от этапа к этапу, от входа к результату */
+    const st = 5, cardsPer = Math.max(1, Math.min(6, Math.floor(n / st))), cards = cardsPer * st;
+    const path = (u, out) => out.set(-1.75 + 3.5 * u, Math.sin(u * Math.PI * 2 - 0.4) * 0.48, Math.cos(u * Math.PI * 2) * 0.28);
+    if (j < cards) {
+      const s2 = Math.floor(j / cardsPer), k = j % cardsPer, cols = Math.ceil(cardsPer / 2);
+      path((s2 + 0.5) / st, o.p);
+      const cx = k % cols, ry = Math.floor(k / cols);
+      o.p.x += (cx - (cols - 1) / 2) * 0.16; o.p.y += (ry ? -0.11 : 0.11) + 0.02; o.p.z += 0.05 * ry;
+      te.set(0, -0.15, 0); o.s.set(0.13, 0.17, 0.02); o.face = 1;
+      o.glow = s2 === st - 1 ? 0.75 : 0;
+      o.link = k === cardsPer - 1 && s2 < st - 1 ? j + 1 : (k + 1 < cardsPer ? j + 1 : -1);
+    } else {
+      const m = j - cards, total = n - cards, u = ((t * 0.045 + m / Math.max(total, 1)) % 1);
+      path(u, o.p); o.p.y -= 0.32; o.p.z += 0.1;
+      const stageGlow = Math.max(0, 1 - Math.abs((u * st) % 1 - 0.5) * 4);
+      te.set(0, 0, 0); o.s.set(0.07, 0.045, 0.045); o.face = 0; o.glow = stageGlow * 0.5; o.link = -1;
     }
-    C.forEach(c => { c.fP.copy(c.P); c.fS.copy(c.S); c.fQ.copy(c.Q); c.fC.copy(c.col); });
-    for (const g of plan) for (let j = 0; j < g.n; j++) {
-      const c = C[g.start + j]; c.dir = g.dir; const [a, b] = linkOf(g.dir, j, g.n);
-      c.link = a >= 0 ? g.start + a : -1; c.link2 = b >= 0 ? g.start + b : -1;
-      if (plan.length > 1 && j === 0) c.link2 = -2; // -2: связь с центральной призмой
+  };
+  /* Данные и аналитика: матрица данных и панель показателей */
+  F.data = (j, n, t, o) => {
+    const m = Math.round(n * 0.62);
+    if (j < m) {
+      const cols = Math.ceil(Math.sqrt(m * 1.4)), r = Math.floor(j / cols), c = j % cols, rows = Math.ceil(m / cols);
+      o.p.set(-1.55 + c * 0.24, (rows - 1) / 2 * 0.24 - r * 0.24, 0); o.s.set(0.2, 0.2, 0.03); te.set(0, 0.35, 0);
+      o.face = 0; o.glow = 0; o.link = c === cols - 1 && r < n - m ? m + r : -1;
+    } else {
+      const k = j - m, c = n - m, h = 0.25 + 1.25 * (0.5 + 0.5 * Math.sin(k * 1.7 + 0.8)) * (0.6 + 0.4 * k / c);
+      o.p.set(0.45 + k * (1.25 / Math.max(c - 1, 1)), -0.75 + h / 2, 0.15); o.s.set(0.13, h, 0.13); te.set(0, -0.3, 0);
+      o.face = 0; o.glow = k === c - 1 ? 0.8 : 0; o.link = k + 1 < c ? j + 1 : -1;
     }
-    transT = 0;
+  };
+  /* Автоматизация: связанные потоки операций, которые идут сами */
+  F.auto = (j, n, t, o) => {
+    const loop = j % 2, k = Math.floor(j / 2), cnt = Math.ceil(n / 2);
+    const a = k / cnt * TAU + t * (loop ? -0.32 : 0.32);
+    const cx = loop ? 0.62 : -0.62;
+    o.p.set(cx + Math.cos(a) * 0.95, Math.sin(a) * 0.62, Math.sin(a) * 0.35 * (loop ? -1 : 1));
+    te.set(0, 0, a + Math.PI / 2);
+    const op = k % 5 === 0; o.s.set(op ? 0.22 : 0.15, op ? 0.22 : 0.07, op ? 0.05 : 0.07); o.face = op ? 1 : 0; o.glow = op ? 0.35 : 0;
+    o.link = j + 2 < n ? j + 2 : loop;
+  };
+  /* Разработка цифровых решений: экран интерфейса, модули и связи между ними */
+  F.soft = (j, n, t, o) => {
+    /* экран продукта спереди, за ним — архитектура модулей */
+    te.set(0, -0.22, 0);
+    if (j === 0) { o.p.set(0.1, 0.12, 0.25); o.s.set(1.75, 1.12, 0.04); o.face = 4; o.glow = 0; o.link = -1; return; }
+    if (j < 5) { o.p.set(-0.58 + (j - 1) * 0.46, 0.84, 0.33); o.s.set(0.4, 0.09, 0.03); o.face = 0; o.glow = j === 1 ? 0.55 : 0; o.link = -1; return; }
+    if (j < 13) { const k = j - 5; o.p.set(-0.38 + (k % 4) * 0.36, 0.36 - Math.floor(k / 4) * 0.42, 0.34); o.s.set(0.3, 0.34, 0.03); o.face = 3; o.glow = 0; o.link = -1; return; }
+    const k = j - 13, c = n - 13, cols = Math.max(2, Math.ceil(Math.sqrt(c * 1.9))), rows = Math.ceil(c / cols), sp = Math.min(0.26, 2.9 / cols);
+    const cx = k % cols, ry = Math.floor(k / cols);
+    o.p.set((cx - (cols - 1) / 2) * sp, ((rows - 1) / 2 - ry) * sp * 0.95, -0.55 - (cx + ry) % 2 * 0.12);
+    o.s.setScalar(sp * 0.6); o.s.z = sp * 0.35; o.face = 0; o.glow = 0;
+    o.link = cx + 1 < cols && k + 1 < c && ry % 2 === 0 ? j + 1 : (ry + 1 < rows && k + cols < c && cx % 3 === 0 ? j + cols : (ry === 0 && cx % 4 === 1 ? 0 : -1));
+  };
+  /* Искусственный интеллект: потоки входят в оболочку сопоставлений, на выходе — единый результат */
+  F.ai = (j, n, t, o) => {
+    const inN = Math.round(n * 0.26), outN = 3, coreN = n - inN - outN;
+    if (j < inN) {
+      const a = j / inN * TAU, r = 0.25 + (j % 3) * 0.12, f = ((t * 0.12 + j * 0.13) % 1);
+      o.p.set(-1.75 + f * 0.7, Math.sin(a) * (0.75 - f * 0.4) * r * 2.4, Math.cos(a) * 0.4); o.s.set(0.16, 0.2, 0.02); te.set(0, 0.5, 0);
+      o.face = 1; o.glow = 0; o.link = inN + (j * 5) % coreN;
+    } else if (j < inN + coreN) {
+      const k = j - inN, y = 1 - 2 * (k + 0.5) / coreN, rr = Math.sqrt(1 - y * y), th = k * 2.39996 + t * 0.15;
+      o.p.set(Math.cos(th) * rr * 0.7, y * 0.7, Math.sin(th) * rr * 0.7); o.s.set(0.07, 0.07, 0.07); te.set(th, th, 0);
+      o.face = 0; o.glow = 0; o.link = inN + (k + 1) % coreN; o.link2 = inN + (k + 7) % coreN;
+    } else {
+      const k = j - inN - coreN; o.p.set(1.35, 0.32 - k * 0.32, 0.1 - k * 0.05); o.s.set(0.4, 0.27, 0.035); te.set(0, -0.4, 0);
+      o.face = 1; o.glow = 1; o.link = inN + k * 3;
+    }
   };
 
-  /* ---------- раскладка экрана: 1 мировая единица = 100 px ---------- */
-  let W = 1, H = 1, center = new V(), S = 1, raysOn = true;
-  const optPts = [], taskPt = new V();
-  function toWorld(px, py, out) { return out.set((px - W / 2) / 100, -(py - H / 2) / 100, 0); }
-  function measure() {
-    W = grid.clientWidth; H = grid.clientHeight;
-    renderer.setSize(W, H, false); camera.aspect = W / H;
-    camera.position.set(0, 0, (H / 100) / 2 / Math.tan(THREE.MathUtils.degToRad(15))); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
-    const g = grid.getBoundingClientRect(), st = stageEl.getBoundingClientRect(), tk = taskEl.getBoundingClientRect();
-    toWorld(st.left - g.left + st.width / 2, st.top - g.top + st.height / 2, center);
-    S = Math.min(st.width / 2 / 1.65, st.height / 2 / 1.3) / 100;
-    U.uCenter.value.set((st.left - g.left + st.width / 2) / W, 1 - (st.top - g.top + st.height / 2) / H);
-    const side = tk.right < st.left + 4; // задача слева от модели
-    toWorld(side ? tk.right - g.left : tk.left - g.left + tk.width / 2, side ? tk.top - g.top + tk.height / 2 : tk.bottom - g.top, taskPt);
-    optPts.length = 0;
-    opts.forEach(o => { const r = o.querySelector('i').getBoundingClientRect(); optPts.push(toWorld(r.left - g.left + r.width / 2, r.top - g.top + r.height / 2, new V())); });
-    raysOn = optPts[0].x > center.x + 0.5;
-    U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db);
+  /* общая композиция: где стоит каждый подход, когда их несколько */
+  const SLOT = { method: [0, 1.05, -0.5], process: [-1.75, 0.15, 0], data: [-1.05, -1.0, 0.35], auto: [1.75, 0.15, 0], soft: [1.05, -1.0, 0.35], ai: [0, 0.05, 0.4] };
+
+  /* ---------- распределение элементов между подходами с минимальной перестройкой ---------- */
+  let groups = {}; // dir -> {members:[], cx, cy, cz, sc}
+  function assign() {
+    const sel = DIRS.filter(d => selected.has(d)), k = sel.length;
+    E.forEach(e => { if (e.dir && !selected.has(e.dir)) e.dir = null; });
+    if (k) {
+      const quota = {}; sel.forEach((d, i) => (quota[d] = Math.floor(N / k) + (i < N % k ? 1 : 0)));
+      const byDir = {}; sel.forEach(d => (byDir[d] = E.filter(e => e.dir === d).sort((a, b) => a.rank - b.rank)));
+      sel.forEach(d => { while (byDir[d].length > quota[d]) byDir[d].pop().dir = null; });
+      const free = E.filter(e => !e.dir).sort((a, b) => a.rank - b.rank);
+      sel.forEach(d => { while (byDir[d].length < quota[d] && free.length) { const e = free.shift(); e.dir = d; byDir[d].push(e); } });
+    }
+    groups = {};
+    /* в портретной сцене (телефон) общая композиция раскладывается по вертикали */
+    const portrait = H > W * 0.95;
+    const PSLOT = { method: [0, 1.9, -0.3], process: [-0.45, 1.1, 0], ai: [0, 0.3, 0.3], auto: [0.45, -0.5, 0], data: [-0.4, -1.3, 0.2], soft: [0.4, -2.1, 0.2] };
+    const slot = d => portrait ? PSLOT[d] : SLOT[d];
+    let cx = 0, cy = 0;
+    sel.forEach(d => { cx += slot(d)[0]; cy += slot(d)[1]; });
+    if (k) { cx /= k; cy /= k; }
+    const sc = k === 1 ? 1 : k === 2 ? 0.62 : k <= 4 ? 0.5 : 0.46;
+    const spread = k === 1 ? 0 : k === 2 ? 0.75 : 1;
+    sel.forEach(d => {
+      const members = E.filter(e => e.dir === d).sort((a, b) => a.rank - b.rank);
+      members.forEach((e, j) => (e.j = j));
+      groups[d] = { members, x: (slot(d)[0] - cx) * spread, y: (slot(d)[1] - cy) * spread - (portrait && k > 1 ? 0.2 : 0), z: slot(d)[2] * spread, sc: d === 'ai' && k > 1 ? sc * 0.9 : sc };
+    });
   }
+
+  /* ---------- связи и частицы ---------- */
+  const MAXL = N * 2 + 16;
+  const lGeo = new THREE.BufferGeometry();
+  lGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(MAXL * 6), 3).setUsage(THREE.DynamicDrawUsage));
+  lGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(MAXL * 6), 3).setUsage(THREE.DynamicDrawUsage));
+  const lines = new THREE.LineSegments(lGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+  lines.frustumCulled = false; world.add(lines);
+
+  const DUST = mobile ? 150 : 240, PUL = 70, PN = DUST + PUL;
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(PN * 3), 3).setUsage(THREE.DynamicDrawUsage));
+  pGeo.setAttribute('aColor', new THREE.BufferAttribute(new Float32Array(PN * 3), 3).setUsage(THREE.DynamicDrawUsage));
+  pGeo.setAttribute('aSize', new THREE.BufferAttribute(new Float32Array(PN), 1).setUsage(THREE.DynamicDrawUsage));
+  const pMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uPR: { value: 1 }, uH: { value: 500 } },
+    vertexShader: `attribute vec3 aColor; attribute float aSize; uniform float uPR; uniform float uH; varying vec3 vC;
+      void main(){ vC=aColor; vec4 mv=modelViewMatrix*vec4(position,1.); gl_PointSize=aSize*uPR*uH*.03/-mv.z; gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `varying vec3 vC; void main(){ float d=length(gl_PointCoord-.5); float a=(1.-smoothstep(.08,.5,d))+(1.-smoothstep(.0,.16,d))*.6; if(a<.01) discard; gl_FragColor=vec4(vC*a,a); }`
+  });
+  const pts = new THREE.Points(pGeo, pMat); pts.frustumCulled = false; world.add(pts);
+  const dust = []; for (let i = 0; i < DUST; i++) dust.push({ s: i % 4, u: rnd(), sp: 0.03 + rnd() * 0.05, r: (rnd() - 0.5) * 0.35, z: (rnd() - 0.5) * 0.4, sz: 1 + rnd() * 2.2 });
+  const pulses = []; for (let i = 0; i < PUL; i++) pulses.push({ e: Math.floor(rnd() * N), f: rnd(), sp: 0.5 + rnd() * 0.6 });
+  /* потоки хаоса: четыре пересекающиеся кривые */
+  const STREAMS = [
+    t => [-2.4 + 4.8 * t, 0.9 * Math.sin(t * 5 + 0.5) * 0.6 + 0.2, Math.cos(t * 4) * 0.6],
+    t => [-2.3 + 4.6 * t, -0.8 + Math.sin(t * 6.3) * 0.35, Math.sin(t * 3 + 1) * 0.7],
+    t => [Math.sin(t * 6.28) * 1.8, -1.3 + 2.6 * t, Math.cos(t * 6.28) * 0.8],
+    t => [2.2 - 4.4 * t, 0.5 - 1.1 * t + Math.sin(t * 9) * 0.2, -0.6 + Math.sin(t * 4) * 0.4]
+  ];
+
+  /* ---------- подписи в пространстве (при сочетании подходов) ---------- */
+  const labels = {};
+  DIRS.forEach(d => { const el = document.createElement('span'); el.className = 'cx-label'; el.textContent = SHORT[d]; labelsEl.appendChild(el); labels[d] = { el, op: 0, w: 0 }; });
+
+  /* ---------- состояние ---------- */
+  const tmpO = { p: new V(), s: new V(), face: 0, glow: 0, link: -1, link2: -1 }, tq = new Q(), tv = new V(), tc = new V();
+  let order = 0;
+  function relayout() {
+    const now = clock;
+    E.forEach(e => { e.fP.copy(e.P); e.fQ.copy(e.Qt); e.fS.copy(e.S); e.fC.copy(e.C); e.fG = e.G; e.prevDir = e.dir; e.prevJ = e.j; });
+    assign();
+    /* изменившиеся элементы перелетают с небольшим разбросом; остальные плавно смещаются вместе со своей группой */
+    E.forEach(e => { e.t0 = (e.dir !== e.prevDir || e.j !== e.prevJ) ? now + (e.dir ? e.rank * 0.45 : e.rank * 0.25) : now; });
+    if (reduce) settle();
+  }
+  onChange = () => { relayout(); kick(); };
+
+  function target(e, t) {
+    tmpO.link = -1; tmpO.link2 = -1; tmpO.glow = 0;
+    if (!e.dir) {
+      const a = t * e.fr + e.ph, sw = e.sw;
+      const swirl = t * 0.06 + sw[0];
+      tmpO.p.set(sw[0] * 1.1 + e.off.x * Math.cos(swirl) + Math.sin(a) * 0.22, sw[1] + e.off.y + Math.cos(a * 1.3) * 0.18, sw[2] + e.off.z + Math.sin(a * 0.7) * 0.2);
+      tmpO.s.copy(e.cs); tmpO.face = e.cface;
+      te.set(e.ph + t * e.spin.x, e.ph * 2 + t * e.spin.y, t * e.spin.z); tq.setFromEuler(te);
+      tc.set(...TINT.chaos);
+      return;
+    }
+    const g = groups[e.dir];
+    F[e.dir](e.j, g.members.length, t, tmpO);
+    tmpO.p.multiplyScalar(g.sc).add(tv.set(g.x, g.y, g.z));
+    tmpO.s.multiplyScalar(g.sc);
+    tq.setFromEuler(te); tc.set(...TINT[e.dir]);
+    const lk = tmpO.link, lk2 = tmpO.link2;
+    tmpO.link = lk >= 0 && lk < g.members.length ? g.members[lk] : null;
+    tmpO.link2 = lk2 >= 0 && lk2 < g.members.length ? g.members[lk2] : null;
+  }
+
+  /* ---------- размеры ---------- */
+  let W = 1, H = 1;
+  function resize() {
+    W = sceneEl.clientWidth; H = sceneEl.clientHeight;
+    renderer.setSize(W, H, false); camera.aspect = W / H;
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const dist = Math.max(2.55 / (tanH * camera.aspect), 1.75 / tanH);
+    camera.position.set(0, dist * 0.12, dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+    U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db);
+    pMat.uniforms.uPR.value = renderer.getPixelRatio(); pMat.uniforms.uH.value = H;
+    Object.values(labels).forEach(L => (L.w = 0));
+  }
+
+  /* перетаскивание: вращение композиции */
+  const drag = { rot: 0, vel: 0, on: false, x: 0 };
+  canvas.addEventListener('pointerdown', e => { drag.on = true; drag.x = e.clientX; });
+  addEventListener('pointerup', () => (drag.on = false));
+  addEventListener('pointermove', e => { if (!drag.on) return; const dx = e.clientX - drag.x; drag.x = e.clientX; drag.vel = dx * 0.005; drag.rot += drag.vel; kick(); });
 
   /* ---------- кадр ---------- */
-  let t = 0, transT = 9, hoverPrep = 0;
-  const lp = { p: new V(), s: new V(), q: new THREE.Quaternion() }, m4 = new THREE.Matrix4(), tmp = new V(), col = new THREE.Color();
+  const m4 = new THREE.Matrix4(), col = new THREE.Color(), proj = new V();
   const ease = x => (x <= 0 ? 0 : x >= 1 ? 1 : x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  let clock = 0;
   function frame(dt) {
-    t += dt; transT += dt; U.uTime.value = t;
-    hoverPrep += ((preview ? 1 : 0) - hoverPrep) * Math.min(1, dt * 4);
-    const nSel = selected.size;
-    /* призма */
-    const coreScale = (nSel === 0 ? 1 : nSel === 1 ? 0.42 : 0.6) * S * (1 + hoverPrep * 0.06);
-    core.scale.setScalar(core.scale.x + (coreScale - core.scale.x) * Math.min(1, dt * 3) || coreScale);
-    core.position.copy(center);
-    const spin = reduce ? 0 : (0.25 + hoverPrep * 0.9 + (nSel ? 0.2 : 0));
-    /* объёмное вращение вокруг вертикали: вершина призмы всегда смотрит вверх */
-    core.userData.a = (core.userData.a || 0) + dt * spin;
-    core.rotation.y = Math.sin(core.userData.a) * 0.9; core.rotation.x = Math.sin(t * 0.3) * 0.12 * (reduce ? 0 : 1);
-    prismInner.rotation.z = -core.userData.a * 0.8;
-    const gl = nSel === 6 ? [1, 0.7, 0.6] : nSel ? (TINT[[...selected][nSel - 1]] || TINT.idle) : [0.4, 0.95, 0.9];
-    glow.material.color.lerp(col.setRGB(gl[0] * 0.8, gl[1] * 0.8, gl[2] * 0.8), Math.min(1, dt * 3));
-    glow.material.opacity = 0.45 + hoverPrep * 0.35 + (reduce ? 0 : Math.sin(t * 2) * 0.05);
-    /* ячейки */
-    for (const g of plan) for (let j = 0; j < g.n; j++) {
-      const i = g.start + j, c = C[i];
-      layout(g.dir, j, g.n, t, lp);
-      lp.p.multiplyScalar(g.sc).add(tmp.set(g.cx, g.cy, 0)).multiplyScalar(S).add(center);
-      lp.s.multiplyScalar(g.sc * S);
-      const k = ease(Math.min(1, Math.max(0, (transT - c.delay) / 1.2)));
-      c.P.lerpVectors(c.fP, lp.p, k); c.S.lerpVectors(c.fS, lp.s, k); c.Q.slerpQuaternions(c.fQ, lp.q, k);
-      const tn = TINT[g.dir]; c.col.lerpVectors(c.fC, tmp.set(tn[0], tn[1], tn[2]), k);
-      if (!reduce && g.dir !== 'idle') c.P.y += Math.sin(t * 1.1 + i) * 0.012 * S;
-      m4.compose(c.P, c.Q, c.S); cells.setMatrixAt(i, m4); cells.setColorAt(i, col.setRGB(c.col.x, c.col.y, c.col.z));
-    }
-    cells.instanceMatrix.needsUpdate = true; cells.instanceColor.needsUpdate = true;
-    /* связи */
-    const arr = linkGeo.attributes.position.array; let n = 0;
+    clock += dt; const t = clock; U.uTime.value = t;
+    const k = selected.size;
+    order += ((k ? Math.min(1, 0.4 + k * 0.12) : 0) - order) * Math.min(1, dt * 1.5); U.uOrder.value = order;
+    if (!drag.on) { drag.vel *= 0.94; drag.rot += drag.vel; }
+    world.rotation.y = drag.rot + Math.sin(t * 0.09) * 0.12 * (reduce ? 0 : 1);
+    world.rotation.x = 0.06 + Math.sin(t * 0.07) * 0.03 * (reduce ? 0 : 1);
+
+    /* элементы */
     for (let i = 0; i < N; i++) {
-      const c = C[i];
-      for (const L of [c.link, c.link2]) {
-        if (L === -1) continue; const b = L === -2 ? core.position : C[L].P;
-        arr.set([c.P.x, c.P.y, c.P.z, b.x, b.y, b.z], n * 6); n++;
+      const e = E[i];
+      target(e, t);
+      const kk = ease((t - e.t0) / 1.5);
+      e.P.lerpVectors(e.fP, tmpO.p, kk); e.S.lerpVectors(e.fS, tmpO.s, kk); e.Qt.slerpQuaternions(e.fQ, tq, kk);
+      e.C.lerpVectors(e.fC, tc, kk); e.G = e.fG + (tmpO.glow - e.fG) * kk;
+      if (kk >= 1) { e.fP.copy(e.P); e.fS.copy(e.S); e.fQ.copy(e.Qt); e.fC.copy(e.C); e.fG = e.G; } /* дальше следуем за движущейся целью */
+      if (e.dir && !reduce) e.P.y += Math.sin(t * 1.2 + i) * 0.006;
+      e.L1 = tmpO.link; e.L2 = tmpO.link2; e.organised = kk > 0.6 && !!e.dir;
+      m4.compose(e.P, e.Qt, e.S); mesh.setMatrixAt(i, m4); mesh.setColorAt(i, col.setRGB(e.C.x, e.C.y, e.C.z));
+      aFace.array[i] = e.dir ? tmpO.face : e.cface; aGlow.array[i] = e.G * (0.75 + 0.25 * Math.sin(t * 2 + i));
+    }
+    mesh.instanceMatrix.needsUpdate = true; mesh.instanceColor.needsUpdate = true; aFace.needsUpdate = true; aGlow.needsUpdate = true;
+
+    /* связи: незавершённые в хаосе, полные и яркие в собранных структурах, мосты между подходами */
+    const pa = lGeo.attributes.position.array, ca = lGeo.attributes.color.array; let n = 0;
+    const seg = (a, b, r, g, bl, r2, g2, b2) => { if (n >= MAXL) return; pa.set([a.x, a.y, a.z, b.x, b.y, b.z], n * 6); ca.set([r, g, bl, r2, g2, b2], n * 6); n++; };
+    for (const e of E) {
+      if (!e.dir) {
+        const p = E[e.partner]; if (p.dir) continue;
+        const d = e.P.distanceTo(p.P); if (d > 1.3) continue;
+        const a = Math.max(0, 1 - d / 1.3) * 0.5; tv.lerpVectors(e.P, p.P, 0.35 + 0.25 * Math.sin(t * 0.6 + e.ph));
+        seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0);
+      } else if (e.organised) {
+        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.32, 0.6, 0.57, 0.32, 0.6, 0.57);
       }
     }
-    linkGeo.setDrawRange(0, n * 2); linkGeo.attributes.position.needsUpdate = true;
-    links.material.opacity += ((nSel ? 0.42 : 0) * Math.min(1, transT / 1.2) - links.material.opacity) * Math.min(1, dt * 3);
-    /* сигналы бегут по связям: процесс, автоматизация, AI и сочетания */
-    const flow = [...selected].some(d => d === 'process' || d === 'auto' || d === 'ai') || nSel > 1;
-    pulses.material.opacity += ((flow && !reduce ? 0.9 : 0) - pulses.material.opacity) * Math.min(1, dt * 3);
-    pulses.material.size = 0.16 * S;
-    if (pulses.material.opacity > 0.02) {
-      const pa = pulseGeo.attributes.position.array;
-      P.forEach((p, k) => {
-        p.f += dt * p.sp; if (p.f > 1) { p.f = 0; p.seg = Math.floor(Math.random() * N); }
-        const c = C[p.seg]; const L = c.link >= 0 ? C[c.link].P : c.link2 === -2 ? core.position : null;
-        if (!L) { pa.set([0, 0, -50], k * 3); return; }
-        tmp.lerpVectors(c.P, L, p.f); pa.set([tmp.x, tmp.y, tmp.z], k * 3);
-      });
-      pulseGeo.attributes.position.needsUpdate = true;
+    /* мосты: при сочетании подходов связываем группы между собой, ИИ — с каждым */
+    const sel = DIRS.filter(d => selected.has(d) && groups[d] && groups[d].members.length);
+    const anchor = d => groups[d].members[0].P;
+    if (sel.length > 1) {
+      if (selected.has('ai')) sel.forEach(d => { if (d !== 'ai') seg(anchor('ai'), anchor(d), 0.9, 0.62, 0.55, 0.3, 0.7, 0.68); });
+      const chain = sel.filter(d => d !== 'ai');
+      for (let i = 0; i + 1 < chain.length; i++) seg(anchor(chain[i]), anchor(chain[i + 1]), 0.35, 0.65, 0.62, 0.35, 0.65, 0.62);
+      if (k === 6 && chain.length > 2) seg(anchor(chain[chain.length - 1]), anchor(chain[0]), 0.35, 0.65, 0.62, 0.35, 0.65, 0.62);
     }
-    /* луч задачи и лучи к способам решения */
-    const ra = rayGeo.attributes.position.array, rc = rayGeo.attributes.color.array;
-    const inEnd = tmp.copy(center).add(new V(raysOn ? -0.62 * S : 0, raysOn ? 0 : 0.55 * S, 0));
-    ra.set([taskPt.x, taskPt.y, 0, inEnd.x, inEnd.y, inEnd.z], 0);
-    rc.set([0.35, 0.6, 0.58, 1, 0.92, 0.86], 0);
-    for (let k = 0; k < 6; k++) {
-      const d = DIRS[k], on = selected.has(d), pv = preview === d || preview === 'all';
-      const target = raysOn ? (on ? 1 : pv ? 0.65 : 0.14) : 0;
-      rayLvl[k] += (target - rayLvl[k]) * Math.min(1, dt * 5);
-      const o = optPts[k], st = new V(center.x + 0.35 * S, center.y, 0);
-      ra.set([st.x, st.y, 0, o.x - 0.12, o.y, 0], (k + 1) * 6);
-      const l = rayLvl[k];
-      rc.set(on ? [1 * l, 0.75 * l, 0.65 * l, 0.37 * l, 0.87 * l, 0.87 * l] : [0.85 * l, 0.95 * l, 0.92 * l, 0.25 * l, 0.7 * l, 0.68 * l], (k + 1) * 6);
+    lGeo.setDrawRange(0, n * 2); lGeo.attributes.position.needsUpdate = true; lGeo.attributes.color.needsUpdate = true;
+
+    /* частицы: в хаосе текут по пересекающимся потокам, в порядке — успокаиваются; импульсы бегут по связям */
+    const pp = pGeo.attributes.position.array, pc = pGeo.attributes.aColor.array, ps = pGeo.attributes.aSize.array;
+    const calm = order;
+    for (let i = 0; i < DUST; i++) {
+      const d = dust[i]; d.u = (d.u + dt * d.sp * (1 - calm * 0.7)) % 1;
+      const s = STREAMS[d.s](d.u);
+      const spreadK = 1 + calm * 0.6;
+      pp[i * 3] = s[0] * spreadK + d.r; pp[i * 3 + 1] = s[1] * spreadK + d.r * 0.6; pp[i * 3 + 2] = s[2] + d.z - calm * 0.8;
+      const a = (0.55 - calm * 0.35) * (0.6 + 0.4 * Math.sin(t * 1.5 + i));
+      pc.set([0.45 * a, 0.9 * a, 0.85 * a], i * 3); ps[i] = d.sz;
     }
-    rayGeo.attributes.position.needsUpdate = true; rayGeo.attributes.color.needsUpdate = true;
+    for (let i = 0; i < PUL; i++) {
+      const q = pulses[i], j = DUST + i;
+      q.f += dt * q.sp;
+      let e = E[q.e];
+      if (q.f > 1 || !e.organised || !e.L1) { q.f = 0; q.e = Math.floor(Math.random() * N); e = E[q.e]; }
+      if (e.organised && e.L1) {
+        tv.lerpVectors(e.P, e.L1.P, q.f);
+        pp.set([tv.x, tv.y, tv.z], j * 3);
+        const a = Math.sin(q.f * Math.PI) * 0.9; pc.set([1 * a, 0.7 * a, 0.6 * a], j * 3); ps[j] = 2.6;
+      } else { pc.set([0, 0, 0], j * 3); ps[j] = 0; }
+    }
+    pGeo.attributes.position.needsUpdate = true; pGeo.attributes.aColor.needsUpdate = true; pGeo.attributes.aSize.needsUpdate = true;
+
     renderer.render(scene, camera);
+
+    /* подписи подходов в общей композиции */
+    world.updateMatrixWorld();
+    for (const d of DIRS) {
+      const L = labels[d], g = groups[d];
+      const on = k > 1 && g && g.members.length;
+      L.op += ((on ? 1 : 0) - L.op) * Math.min(1, dt * 3);
+      if (L.op < 0.01) { L.el.style.opacity = 0; continue; }
+      const top = d === 'data' || d === 'soft' ? -0.95 : 0.85;
+      if (g) L.pos = [g.x, g.y + top * g.sc * (d === 'ai' ? 1.1 : 1), g.z]; /* при исчезновении подпись гаснет на прежнем месте */
+      if (!L.pos) continue;
+      proj.set(L.pos[0], L.pos[1], L.pos[2]).applyMatrix4(world.matrixWorld).project(camera);
+      if (!L.w) L.w = L.el.offsetWidth || 80;
+      const x = Math.min(W - L.w / 2 - 8, Math.max(L.w / 2 + 8, (proj.x * 0.5 + 0.5) * W)), y = (-proj.y * 0.5 + 0.5) * H;
+      L.el.style.opacity = L.op.toFixed(3);
+      L.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+    }
   }
 
-  /* ---------- цикл: только на экране; при reduced motion — по требованию ---------- */
+  /* ---------- цикл: только когда блок на экране ---------- */
   let raf = 0, running = false, last = 0, visible = false;
   function loop(now) { const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now; frame(dt); raf = requestAnimationFrame(loop); }
-  function start() { if (running) return; running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
+  function start() { if (running || reduce) return; running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
   function stop() { running = false; cancelAnimationFrame(raf); }
-  function still() { transT = 99; for (let i = 0; i < 4; i++) frame(0.5); }
-  wake = function () { if (reduce) requestAnimationFrame(still); };
-  relayout(); measure(); frame(0.016);
-  addEventListener('resize', () => { measure(); if (!running) still(); });
+  function settle() { E.forEach(e => (e.t0 = -99)); }
+  function still() { settle(); for (let i = 0; i < 3; i++) frame(0.2); }
+  function kick() { if (reduce) requestAnimationFrame(still); }
+
+  resize(); assign();
+  E.forEach(e => { e.t0 = -99; });
+  frame(0.016);
+  let wasPortrait = H > W * 0.95;
+  addEventListener('resize', () => { resize(); const pr = H > W * 0.95; if (pr !== wasPortrait) { wasPortrait = pr; relayout(); } if (!running) still(); });
   if (reduce) still();
   else {
-    new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible) { start(); setTimeout(measure, 1100); } else stop(); }), { rootMargin: '80px' }).observe(grid);
+    new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; visible ? start() : stop(); }), { rootMargin: '80px' }).observe(sceneEl);
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : visible && start()));
   }
-  document.fonts && document.fonts.ready.then(() => { measure(); if (!running) still(); });
+  /* освобождаем ресурсы видеокарты при уходе со страницы */
+  addEventListener('pagehide', ev => { if (ev.persisted) { stop(); return; } stop(); geo.dispose(); mat.dispose(); lGeo.dispose(); pGeo.dispose(); pMat.dispose(); renderer.dispose(); });
   requestAnimationFrame(() => root.classList.add('gl-ready'));
 })();
 </script>
