@@ -1,21 +1,32 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI OASIS — сложное становится простым</title>
+<meta name="description" content="Помогаем решать реальные задачи с помощью искусственного интеллекта, цифровых технологий и продуманного проектирования решений.">
 <meta name="theme-color" content="#0A0E0F">
 <link rel="canonical" href="https://aioasis29.github.io/">
-<meta property="og:title" content="AI OASIS — искусственный интеллект, который возвращает время">
-<meta property="og:description" content="Бутиковая проектная студия. Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения.">
-<meta property="og:image" content="https://aioasis29.github.io/assets/icon-512.png">
-<meta property="og:url" content="https://aioasis29.github.io/">
+<link rel="icon" href="https://aioasis29.github.io/assets/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="https://aioasis29.github.io/assets/icon-180.png">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="AI OASIS">
 <meta property="og:locale" content="ru_RU">
-<title>AI OASIS — искусственный интеллект, который возвращает время</title>
+<meta property="og:url" content="https://aioasis29.github.io/">
+<meta property="og:title" content="AI OASIS — сложное становится простым">
+<meta property="og:description" content="От понимания задачи до практического решения. AI, цифровые инструменты, образовательные продукты и проектирование.">
+<meta property="og:image" content="https://aioasis29.github.io/assets/og-image.jpg">
+<meta property="og:image:secure_url" content="https://aioasis29.github.io/assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI OASIS — сложное становится простым">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI OASIS — сложное становится простым">
+<meta name="twitter:description" content="От понимания задачи до практического решения. AI, цифровые инструменты, образовательные продукты и проектирование.">
+<meta name="twitter:image" content="https://aioasis29.github.io/assets/og-image.jpg">
+<meta name="twitter:image:alt" content="AI OASIS — сложное становится простым">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="AI OASIS — бутиковая проектная студия. Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения.">
-<link rel="icon" href="assets/icon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap">
@@ -463,6 +474,65 @@ fieldset.field{border:0;margin:0;padding:0}
   .edu .meta{grid-column:1;grid-row:auto;justify-content:flex-start;margin-top:6px}
 }
 
+
+/* ---------- ЗАСТАВКА: стеклянная ширма, за которой проявляется сайт ---------- */
+.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;pointer-events:auto;
+  transition:opacity 1.1s var(--ease), visibility 0s linear 1.1s;
+  animation:introFailsafe .01s linear 7s forwards} /* если скрипт не выполнится, заставка всё равно уйдёт */
+@keyframes introFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
+.intro-veil{position:absolute;inset:0;background:rgba(4,17,21,.96);backdrop-filter:blur(28px) saturate(.5);-webkit-backdrop-filter:blur(28px) saturate(.5);
+  transition:background-color 1.6s var(--ease), backdrop-filter 1.6s var(--ease), -webkit-backdrop-filter 1.6s var(--ease)}
+.intro.phase-2 .intro-veil{background:rgba(5,22,27,.8);backdrop-filter:blur(16px) saturate(.85);-webkit-backdrop-filter:blur(16px) saturate(.85)}
+.intro.phase-3 .intro-veil{background:rgba(5,22,27,.58);backdrop-filter:blur(7px) saturate(1);-webkit-backdrop-filter:blur(7px) saturate(1)}
+.intro.is-leaving .intro-veil{background:rgba(5,22,27,0);backdrop-filter:blur(0) saturate(1);-webkit-backdrop-filter:blur(0) saturate(1)}
+.intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.intro.is-gone{display:none}
+/* медленный свет */
+.intro-light{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform;transition:opacity 1.2s var(--ease)}
+.intro-light.l1{width:60vmax;height:60vmax;left:-14vmax;top:-18vmax;background:radial-gradient(circle,rgba(15,92,99,.9),transparent 65%);animation:drift1 14s ease-in-out infinite alternate}
+.intro-light.l2{width:52vmax;height:52vmax;right:-16vmax;bottom:-20vmax;background:radial-gradient(circle,rgba(8,126,131,.7),transparent 65%);animation:drift2 17s ease-in-out infinite alternate}
+.intro-light.l3{width:30vmax;height:30vmax;left:50%;top:50%;margin:-15vmax 0 0 -15vmax;background:radial-gradient(circle,rgba(41,180,174,.35),transparent 65%);animation:drift3 11s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate3d(9vmax,6vmax,0)}}
+@keyframes drift2{to{transform:translate3d(-8vmax,-7vmax,0)}}
+@keyframes drift3{to{transform:translate3d(3vmax,-2vmax,0) scale(1.08)}}
+.intro.is-leaving .intro-light{opacity:.15}
+/* едва заметная стеклянная форма и отражение */
+.intro-ring{position:absolute;left:50%;top:50%;width:min(78vmin,640px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle at 32% 26%,rgba(234,247,244,.07),transparent 40%),radial-gradient(circle,transparent 58%,rgba(160,227,216,.05) 70%,transparent 72%);
+  box-shadow:inset 0 0 0 1px rgba(160,227,216,.08),inset 0 0 80px rgba(160,227,216,.04);animation:ringBreath 9s ease-in-out infinite alternate}
+@keyframes ringBreath{to{transform:translate(-50%,-50%) scale(1.04)}}
+.intro-sheen{position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 42%,rgba(234,247,244,.045) 50%,transparent 58%);animation:sheen 9s ease-in-out infinite;pointer-events:none}
+@keyframes sheen{from{transform:translateX(-25%)}to{transform:translateX(25%)}}
+/* центр */
+.intro-center::before{content:"";position:absolute;left:50%;top:45%;width:min(560px,130vw);aspect-ratio:1.4;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(4,17,21,.82),rgba(4,17,21,.45) 55%,transparent);z-index:-1}
+.intro-center{position:relative;isolation:isolate;display:grid;justify-items:center;gap:26px;text-align:center;padding:0 24px}
+.intro-mark{position:relative;width:clamp(120px,22vmin,184px)}
+.intro-mark img{display:block;width:100%;height:auto;opacity:0;filter:blur(10px);animation:logoIn 1.3s .45s var(--ease) forwards}
+.intro-glow{position:absolute;left:50%;top:46%;width:260%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(95,223,222,.32),rgba(41,180,174,.12) 35%,transparent 65%);opacity:0;animation:glowIn 2.4s .05s ease-out forwards}
+@keyframes logoIn{to{opacity:1;filter:blur(0)}}
+@keyframes glowIn{0%{opacity:0}35%{opacity:1}100%{opacity:.35}}
+.intro.is-leaving .intro-mark img{opacity:.85}
+.intro-caption{font:600 .74rem/1 var(--f-body);letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;color:var(--silk);opacity:0;animation:fadeUp 1s 1s var(--ease) forwards}
+.intro-bar{position:relative;width:min(260px,62vw);height:1px;background:rgba(160,227,216,.14);opacity:0;animation:fadeUp 1s 1.15s var(--ease) forwards}
+.intro-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(41,180,174,.2),var(--ai-1));transition:width .9s var(--ease)}
+.intro-bar i::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:radial-gradient(circle,rgba(234,247,244,.95),rgba(95,223,222,.4) 40%,transparent 70%)}
+.intro-status{position:relative;height:1.2em;width:100%;font-size:.8rem;color:var(--on-dark-2);opacity:0;animation:fadeUp 1s 1.3s var(--ease) forwards}
+.intro-status span{position:absolute;left:0;right:0;opacity:0;transition:opacity .6s var(--ease)}
+.intro-status span.on{opacity:1}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* короткий вариант для повторного открытия в той же сессии: только мягкое проявление */
+.intro-short .intro-center,.intro-short .intro-ring,.intro-short .intro-sheen{display:none}
+.intro-short .intro .intro-veil{background:rgba(5,22,27,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.intro-short .intro{transition:opacity .7s var(--ease), visibility 0s linear .7s}
+html.intro-lock,html.intro-lock body{overflow:hidden}
+@media (prefers-reduced-motion:reduce){
+  .intro-light,.intro-ring,.intro-sheen{animation:none!important}
+  .intro-mark img,.intro-caption,.intro-bar,.intro-status,.intro-glow{animation:none!important;opacity:1;filter:none;transform:none}
+  .intro-glow{opacity:.35}
+  .intro-veil{transition:none}
+}
+
 /* появление: элемент видим в покое; анимация проигрывается, когда он въезжает в кадр */
 .reveal.in{animation:rise 1s var(--ease) both}
 .reveal.in.d1{animation-delay:.08s}.reveal.in.d2{animation-delay:.16s}.reveal.in.d3{animation-delay:.24s}
@@ -522,13 +592,69 @@ fieldset.field{border:0;margin:0;padding:0}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
+  *:not(.intro),*::before,*::after{animation:none!important;transition:none!important}
+  .intro{transition:opacity .5s linear, visibility 0s linear .5s!important;animation:introFailsafe .01s linear 7s forwards!important}
   .ok-mark path{stroke-dashoffset:0}
 }
 </style>
 
 </head>
 <body>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-light l1"></div><div class="intro-light l2"></div><div class="intro-light l3"></div>
+  <div class="intro-veil"></div>
+  <div class="intro-ring"></div><div class="intro-sheen"></div>
+  <div class="intro-center">
+    <div class="intro-mark"><div class="intro-glow"></div><img src="assets/logo-wordmark-240.png" width="266" height="240" alt=""></div>
+    <p class="intro-caption">Пространство решений</p>
+    <div class="intro-bar"><i id="intro-progress"></i></div>
+    <p class="intro-status"><span class="on">Подготавливаем пространство</span><span>Открываем возможности</span><span>Готово</span></p>
+  </div>
+</div>
+<script>
+/* Заставка. Прогресс отражает реальную готовность: разметка, шрифты, логотип, полная загрузка, 3D первого экрана.
+   Первое открытие: сцена 3–4 с, не больше 5 с. Повторно в той же вкладке: короткое проявление. Аварийный выход через 6 с. */
+(function(){
+  var intro=document.getElementById('intro'); if(!intro) return;
+  var root=document.documentElement, t0=performance.now(), seen=false;
+  try{ seen=sessionStorage.getItem('aioasis-intro')==='1'; sessionStorage.setItem('aioasis-intro','1'); }catch(e){}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(seen) root.classList.add('intro-short');
+  root.classList.add('intro-lock');
+  var MIN = seen ? 250 : (reduce ? 900 : 3000), MAX = seen ? 1500 : 5000;
+  var bar=document.getElementById('intro-progress'), st=intro.querySelectorAll('.intro-status span');
+  var steps={dom:0,fonts:0,logo:0,load:0,gl:0}, W={dom:.25,fonts:.2,logo:.15,load:.25,gl:.15}, done=false, shown=0;
+  function progress(){ var p=0; for(var k in steps) p+=steps[k]*W[k]; return p; }
+  function status(i){ for(var j=0;j<st.length;j++) st[j].classList.toggle('on', j===i); }
+  function mark(k){ if(steps[k]) return; steps[k]=1; update(); }
+  function update(){
+    var p=progress(), el=performance.now()-t0;
+    shown=Math.max(shown,p); bar.style.width=(shown*100).toFixed(1)+'%';
+    if(el>900 && !intro.classList.contains('phase-2')) intro.classList.add('phase-2');
+    if(el>1900 && !intro.classList.contains('phase-3')) intro.classList.add('phase-3');
+    status(p>=1 ? 2 : (p>=.55 && el>1200) ? 1 : 0);
+    if(!done && ((p>=1 && el>=MIN) || el>=MAX || (seen && steps.dom && el>=MIN))) finish();
+  }
+  function finish(){
+    done=true; status(2); bar.style.width='100%';
+    setTimeout(function(){
+      intro.classList.add('phase-3','is-leaving'); root.classList.remove('intro-lock');
+      setTimeout(function(){ intro.classList.add('is-gone'); }, 1200);
+    }, seen?0:350);
+  }
+  var tick=setInterval(function(){ if(done) return clearInterval(tick); update(); },150);
+  setTimeout(function(){ if(!done) finish(); }, 6000);
+  if(document.readyState!=='loading') mark('dom'); else document.addEventListener('DOMContentLoaded',function(){ mark('dom'); });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ mark('fonts'); }); else steps.fonts=1;
+  var img=intro.querySelector('img'); if(img.complete) mark('logo'); else { img.onload=img.onerror=function(){ mark('logo'); }; }
+  if(document.readyState==='complete') mark('load'); else addEventListener('load',function(){ mark('load'); });
+  /* 3D первого экрана: ждём, пока hero получит класс gl-ready; если WebGL нет — не ждём */
+  var glWait=setInterval(function(){
+    var h=document.getElementById('hero');
+    if(h && (h.classList.contains('gl-ready') || (steps.load && performance.now()-t0>1800))){ clearInterval(glWait); mark('gl'); }
+  },120);
+})();
+</script>
 <header class="header" id="top-header">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="AI OASIS — на главную">
@@ -563,7 +689,7 @@ fieldset.field{border:0;margin:0;padding:0}
     <div class="hero-fallback orb" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow">Бутиковая проектная студия</p>
+        <p class="eyebrow">Проектируем решения для реальных задач</p>
         <h1 id="hero-title">Искусственный интеллект, <span class="soft">который возвращает время</span></h1>
         <p class="hero-lead">Помогаем разобраться в технологиях и превращаем сложные задачи в понятные решения, инструменты и работающие продукты.</p>
         <div class="hero-actions">
@@ -572,7 +698,7 @@ fieldset.field{border:0;margin:0;padding:0}
         </div>
       </div>
       <div class="principles">
-        <div><b>Сначала задача. Потом технология.</b><span>Инструменты подбираем под вашу ситуацию, а не наоборот.</span></div>
+        <div><b>Решение под вашу задачу.</b><span>Инструменты подбираем под ситуацию, а не наоборот.</span></div>
         <div><b>Сложное делаем простым.</b><span>Разбираемся сами, чтобы вам не пришлось изучать всё в одиночку.</span></div>
         <div><b>Личное участие.</b><span>Над задачей работает основатель студии, профильных специалистов подключаем по необходимости.</span></div>
       </div>
@@ -930,7 +1056,7 @@ fieldset.field{border:0;margin:0;padding:0}
 
 <footer class="footer" id="contacts">
   <div class="wrap">
-    <div class="footer-brand"><a class="logo" href="#top"><img src="assets/logo-wordmark-112.png" width="84" height="76" alt="AI OASIS"></a><p>Бутиковая проектная студия</p><p class="brand-line" aria-hidden="true"></p></div>
+    <div class="footer-brand"><a class="logo" href="#top"><img src="assets/logo-wordmark-112.png" width="84" height="76" alt="AI OASIS"></a><p>Проектная студия цифровых и интеллектуальных решений</p><p class="brand-line" aria-hidden="true"></p></div>
     <div class="footer-contacts">
       <h3>Контакты</h3>
       <ul>
