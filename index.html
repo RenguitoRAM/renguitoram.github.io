@@ -1814,7 +1814,10 @@ strong.hl{font-weight:500}
       if(!(e.isIntersecting||e.boundingClientRect.bottom<0)) return;
       var b=e.target; io.unobserve(b);
       if(b===tail){ sec.classList.add('tail-in'); lightHl(sec.querySelector('.cx-final')); setTimeout(function(){ [].forEach.call(sec.querySelectorAll('.sq-tail'),function(x){x.classList.remove('sq','sq-tail')}); },3200); }
-      else show(b);
+      else { show(b);
+        /* кнопки подходов появляются вместе со сценой, сразу следом за ней */
+        if(b.classList.contains('cx-scene')){ var c=sec.querySelector('.cx-controls'); if(c){ io.unobserve(c); setTimeout(function(){ show(c); }, 450); } }
+      }
     }); },{rootMargin:'0px 0px -50% 0px'});
     rest.forEach(function(b){ io.observe(b); }); if(tail) io.observe(tail);
   })();
@@ -3501,7 +3504,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
   if (!renderer) { root.classList.add('no-gl'); return; }
 
   const mobile = Math.min(screen.width, screen.height) < 600;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.75 : 2));
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace; renderer.setClearColor(0, 0);
   const V = THREE.Vector3, Q = THREE.Quaternion, TAU = Math.PI * 2;
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
@@ -3518,6 +3521,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       vec2 d2=(uv-vec2(.5+.12*sin(uTime*.07),.5+.08*cos(uTime*.09)))*a; col+=vec3(.16,.7,.68)*.07*exp(-8.*dot(d2,d2));
       vec2 d3=(uv-vec2(.06,.04))*a; col=mix(col,vec3(.3,.13,.1),.5*exp(-4.*dot(d3,d3)));
       col+=vec3(.88,.64,.57)*.05*uOrder*exp(-10.*dot(d,d));
+      float cs=sin(uv.x*a.x*17.+sin(uv.y*13.+uTime*.3)*1.4)*sin(uv.y*15.+sin(uv.x*a.x*10.-uTime*.25)*1.2);
+      col+=vec3(.35,.85,.8)*.022*smoothstep(.55,1.,cs)*exp(-2.6*dot(d,d));
       float v=length((uv-.5)*vec2(1.,1.2)); col*=1.-.45*smoothstep(.35,.95,v);
       return col;
     }`;
@@ -3541,19 +3546,20 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     fragmentShader: BG + `
       uniform vec2 uRes;
       varying vec3 vN; varying vec3 vP; varying vec3 vC; varying vec3 vL; varying vec3 vLN; varying float vF; varying float vG; varying vec3 vS;
-      float box(vec2 p, vec2 a, vec2 b){ return step(a.x,p.x)*step(p.x,b.x)*step(a.y,p.y)*step(p.y,b.y); }
+      float st(float e, float x){ float w=max(fwidth(x)*.8,1e-4); return smoothstep(e-w,e+w,x); }
+      float box(vec2 p, vec2 a, vec2 b){ return st(a.x,p.x)*st(p.x,b.x)*st(a.y,p.y)*st(p.y,b.y); }
       float pattern(vec2 uv, float f){
         if(f<.5) return 0.;
         if(f<1.5){ /* строки текста */
           float y=uv.y*6.; float r=floor(y); float fy=fract(y); float w=.45+.4*fract(sin(r*12.9)*437.5);
-          return step(.38,fy)*step(fy,.62)*step(.14,uv.x)*step(uv.x,.14+w*.72)*step(.5,r)*step(r,4.5);
+          return st(.38,fy)*st(fy,.62)*st(.14,uv.x)*st(uv.x,.14+w*.72)*st(.5,r)*st(r,4.5);
         }
         if(f<2.5){ /* сетка данных */
           vec2 g=fract(uv*vec2(4.,3.)); float e=min(min(g.x,1.-g.x),min(g.y,1.-g.y)); return (1.-smoothstep(.02,.08,e))*.8;
         }
         if(f<3.5){ /* код: строки с отступами */
           float y=uv.y*7.; float r=floor(y); float fy=fract(y); float ind=.12+.1*mod(r,3.); float w=.2+.45*fract(sin(r*7.3)*91.7);
-          return step(.35,fy)*step(fy,.65)*step(ind,uv.x)*step(uv.x,ind+w)*step(.5,r)*step(r,5.5);
+          return st(.35,fy)*st(fy,.65)*st(ind,uv.x)*st(uv.x,ind+w)*st(.5,r)*st(r,5.5);
         }
         /* интерфейс: шапка, колонка, карточки */
         return max(max(box(uv,vec2(.06,.82),vec2(.94,.92)), box(uv,vec2(.06,.1),vec2(.24,.74))*.6),
@@ -3561,22 +3567,36 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       }
       void main(){
         vec3 N=normalize(vN); vec3 Vv=normalize(-vP); if(dot(N,Vv)<0.) N=-N;
-        float ndv=clamp(dot(N,Vv),0.,1.), fres=pow(1.-ndv,3.);
-        vec2 suv=gl_FragCoord.xy/uRes; float k=.14*(.6+(1.-ndv));
-        vec3 col=vec3(bg(suv+refract(-Vv,N,1./1.4).xy*k).r,bg(suv+refract(-Vv,N,1./1.46).xy*k).g,bg(suv+refract(-Vv,N,1./1.53).xy*k).b);
-        col=col*vC*1.45+.04*vC;
+        float ndv=clamp(dot(N,Vv),0.,1.);
+        float fres=.04+.96*pow(1.-ndv,5.);
+        vec2 suv=gl_FragCoord.xy/uRes;
+        float k=.17*(.5+1.25*(1.-ndv));
+        vec3 rr=refract(-Vv,N,1./1.38), rg=refract(-Vv,N,1./1.45), rb=refract(-Vv,N,1./1.55);
+        vec3 trans=vec3(bg(suv+rr.xy*k).r,bg(suv+rg.xy*k).g,bg(suv+rb.xy*k).b);
+        /* поглощение: на скосах и толще — глубже бирюза */
+        vec3 absorb=mix(vec3(1.),vC*vec3(.72,1.,.97),.5+.4*(1.-ndv));
+        vec3 col=trans*absorb*1.55+vC*.03;
+        /* студийный свет: верхний софтбокс, вертикальная световая полоса, холодный боковой, тёплый контровой снизу */
         vec3 R=reflect(-Vv,N);
-        float soft=smoothstep(.55,.92,R.y)*smoothstep(-.3,.4,R.z);
-        float side=pow(max(dot(R,normalize(vec3(-.75,.35,.55))),0.),18.);
-        float spec=pow(max(dot(R,normalize(vec3(.45,.6,.66))),0.),140.);
-        col+=vec3(.95,1.,.98)*(soft*.42+side*.45)*(.35+fres)+vec3(1.)*spec*1.1;
-        col+=vC*fres*.75+vC*pow(1.-ndv,6.)*.55;
-        /* узор только на лицевой грани (нормаль по z в локальных координатах) */
+        float top=smoothstep(.45,.95,R.y)*(1.-smoothstep(.5,1.,abs(R.x)));
+        float strip=(1.-smoothstep(.0,.13,abs(R.x-.38)))*smoothstep(.0,.5,R.y+.25)*smoothstep(-.2,.3,R.z);
+        float side=pow(max(dot(R,normalize(vec3(-.8,.25,.5))),0.),26.);
+        float spec=pow(max(dot(R,normalize(vec3(.4,.62,.68))),0.),240.);
+        float warm=pow(max(dot(R,normalize(vec3(.25,-.8,.5))),0.),7.);
+        vec3 refl=vec3(.93,1.,.98)*(top*.55+strip*.95+side*.55)+vec3(1.)*spec*1.8+vec3(1.,.6,.48)*warm*.26;
+        /* крупные плоские панели отражают софтбокс всей гранью — приглушаем, чтобы не было пересвета */
+        float big=clamp(vS.x*vS.y*2.2,0.,1.);
+        col+=refl*clamp(fres*1.7+.22,0.,1.)*mix(1.,.28,big);
+        /* тонкий чистый край */
+        float rim=smoothstep(.7,.985,1.-ndv);
+        col+=mix(vC,vec3(.92,1.,.98),.45)*rim*.85;
+        /* узор на лицевой грани */
         float front=smoothstep(.7,.9,abs(vLN.z));
         float pt=pattern(vL.xy+.5, vF)*front;
-        col+=mix(vec3(.85,1.,.97),vC,.3)*pt*.55;
-        col+=vec3(1.,.66,.55)*vG*(.35+fres*.9);
-        gl_FragColor=vec4(col,.94);
+        col+=mix(vec3(.88,1.,.98),vC,.25)*pt*mix(.7,.42,big)*(vF>3.5?.38:1.);
+        if(vF>3.5) col*=.82; /* экран продукта — глубже и спокойнее, карточки на нём читаются лучше */
+        col+=vec3(1.,.64,.52)*vG*(.3+fres*1.3)+vec3(1.,.82,.72)*vG*rim*.7;
+        gl_FragColor=vec4(col,.95);
       }`
   });
   const geo = window.AIO_ROUNDED_BOX(1, 1, 1, 0.14, 4);
@@ -3726,10 +3746,35 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
 
   /* ---------- связи и частицы ---------- */
   const MAXL = N * 2 + 16;
+  /* связи: экранные ленты с мягкими краями (обычные WebGL-линии всегда толщиной в 1 пиксель) */
+  const LV = MAXL * 4;
   const lGeo = new THREE.BufferGeometry();
-  lGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(MAXL * 6), 3).setUsage(THREE.DynamicDrawUsage));
-  lGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(MAXL * 6), 3).setUsage(THREE.DynamicDrawUsage));
-  const lines = new THREE.LineSegments(lGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+  const lA = { start: new Float32Array(LV * 3), end: new Float32Array(LV * 3), col: new Float32Array(LV * 3), w: new Float32Array(LV) };
+  const side = new Float32Array(LV), tt = new Float32Array(LV), idx = new Uint32Array(MAXL * 6);
+  for (let i = 0; i < MAXL; i++) {
+    side.set([-1, 1, -1, 1], i * 4); tt.set([0, 0, 1, 1], i * 4);
+    const v = i * 4; idx.set([v, v + 1, v + 2, v + 2, v + 1, v + 3], i * 6);
+  }
+  lGeo.setAttribute('position', new THREE.BufferAttribute(lA.start, 3).setUsage(THREE.DynamicDrawUsage));
+  lGeo.setAttribute('aEnd', new THREE.BufferAttribute(lA.end, 3).setUsage(THREE.DynamicDrawUsage));
+  lGeo.setAttribute('aCol', new THREE.BufferAttribute(lA.col, 3).setUsage(THREE.DynamicDrawUsage));
+  lGeo.setAttribute('aW', new THREE.BufferAttribute(lA.w, 1).setUsage(THREE.DynamicDrawUsage));
+  lGeo.setAttribute('aSide', new THREE.BufferAttribute(side, 1)); lGeo.setAttribute('aT', new THREE.BufferAttribute(tt, 1));
+  lGeo.setIndex(new THREE.BufferAttribute(idx, 1));
+  const lMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, uniforms: { uView: { value: new THREE.Vector2(1, 1) } },
+    vertexShader: `attribute vec3 aEnd; attribute vec3 aCol; attribute float aW; attribute float aSide; attribute float aT;
+      uniform vec2 uView; varying vec3 vC; varying float vS;
+      void main(){
+        vec4 a=projectionMatrix*modelViewMatrix*vec4(position,1.), b=projectionMatrix*modelViewMatrix*vec4(aEnd,1.);
+        vec2 sa=a.xy/a.w*uView*.5, sb=b.xy/b.w*uView*.5; vec2 d=sb-sa; d=length(d)>1e-4?normalize(d):vec2(1.,0.);
+        vec4 p=aT<.5?a:b; p.xy+=vec2(-d.y,d.x)*aSide*aW*p.w/(uView*.5);
+        gl_Position=p; vC=aCol; vS=aSide; }`,
+    fragmentShader: `varying vec3 vC; varying float vS;
+      void main(){ float e=abs(vS); float glow=pow(1.-e,2.); float core=1.-smoothstep(.0,.4,e);
+        vec3 c=vC*(glow*.75+core*.9); gl_FragColor=vec4(c,glow); }`
+  });
+  const lines = new THREE.Mesh(lGeo, lMat);
   lines.frustumCulled = false; world.add(lines);
 
   const DUST = mobile ? 150 : 240, PUL = 70, PN = DUST + PUL;
@@ -3792,6 +3837,43 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     tmpO.link2 = lk2 >= 0 && lk2 < g.members.length ? g.members[lk2] : null;
   }
 
+  /* ---------- постобработка: мягкое свечение ярких бликов, виньетка, тонкое зерно ---------- */
+  const HF = THREE.HalfFloatType;
+  const rtMain = new THREE.WebGLRenderTarget(1, 1, { type: HF, samples: mobile ? 2 : 4 });
+  const rtA = new THREE.WebGLRenderTarget(1, 1, { type: HF }), rtB = new THREE.WebGLRenderTarget(1, 1, { type: HF });
+  const post = new THREE.Scene(), postCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2)); quad.frustumCulled = false; post.add(quad);
+  const VQ = 'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}';
+  const brightMat = new THREE.ShaderMaterial({ uniforms: { t: { value: null } }, vertexShader: VQ, depthTest: false,
+    fragmentShader: 'uniform sampler2D t;varying vec2 vUv;void main(){vec3 c=texture2D(t,vUv).rgb;float l=max(max(c.r,c.g),c.b);gl_FragColor=vec4(c*smoothstep(.75,1.45,l),1.);}' });
+  const blurMat = new THREE.ShaderMaterial({ uniforms: { t: { value: null }, dir: { value: new THREE.Vector2() } }, vertexShader: VQ, depthTest: false,
+    fragmentShader: `uniform sampler2D t;uniform vec2 dir;varying vec2 vUv;void main(){
+      vec3 c=texture2D(t,vUv).rgb*.2270270270;
+      c+=(texture2D(t,vUv+dir*1.3846153846).rgb+texture2D(t,vUv-dir*1.3846153846).rgb)*.3162162162;
+      c+=(texture2D(t,vUv+dir*3.2307692308).rgb+texture2D(t,vUv-dir*3.2307692308).rgb)*.0702702703;
+      gl_FragColor=vec4(c,1.);}` });
+  const compMat = new THREE.ShaderMaterial({ uniforms: { tBase: { value: rtMain.texture }, tBloom: { value: rtA.texture }, uTime: U.uTime, uStr: { value: 0.65 } }, vertexShader: VQ, depthTest: false,
+    fragmentShader: `uniform sampler2D tBase;uniform sampler2D tBloom;uniform float uTime;uniform float uStr;varying vec2 vUv;
+      float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
+      void main(){
+        vec3 c=texture2D(tBase,vUv).rgb+texture2D(tBloom,vUv).rgb*uStr;
+        c=c/(1.+c*.22)*1.12;                       /* мягкое сжатие бликов без пересвета */
+        c=mix(vec3(dot(c,vec3(.299,.587,.114))),c,1.08); /* немного сочности */
+        float v=length((vUv-.5)*vec2(1.,1.1)); c*=1.-.28*smoothstep(.45,.95,v);
+        c+=(h(vUv*1000.+fract(uTime))-.5)*.012;   /* тонкое зерно против полос в градиентах */
+        gl_FragColor=vec4(c,1.);}` });
+  function renderFrame() {
+    renderer.setRenderTarget(rtMain); renderer.clear(); renderer.render(scene, camera);
+    quad.material = brightMat; brightMat.uniforms.t.value = rtMain.texture; renderer.setRenderTarget(rtA); renderer.render(post, postCam);
+    const bw = rtA.width, bh = rtA.height;
+    for (let i = 0; i < 2; i++) {
+      quad.material = blurMat;
+      blurMat.uniforms.t.value = rtA.texture; blurMat.uniforms.dir.value.set((1 + i) / bw, 0); renderer.setRenderTarget(rtB); renderer.render(post, postCam);
+      blurMat.uniforms.t.value = rtB.texture; blurMat.uniforms.dir.value.set(0, (1 + i) / bh); renderer.setRenderTarget(rtA); renderer.render(post, postCam);
+    }
+    quad.material = compMat; renderer.setRenderTarget(null); renderer.render(post, postCam);
+  }
+
   /* ---------- размеры ---------- */
   let W = 1, H = 1;
   function resize() {
@@ -3802,6 +3884,8 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     camera.position.set(0, dist * 0.12, dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
     U.uAspect.value = W / H; const db = new THREE.Vector2(); renderer.getDrawingBufferSize(db); U.uRes.value.copy(db);
     pMat.uniforms.uPR.value = renderer.getPixelRatio(); pMat.uniforms.uH.value = H;
+    lMat.uniforms.uView.value.copy(db);
+    rtMain.setSize(db.x, db.y); rtA.setSize(Math.max(1, db.x >> 2), Math.max(1, db.y >> 2)); rtB.setSize(Math.max(1, db.x >> 2), Math.max(1, db.y >> 2));
     Object.values(labels).forEach(L => (L.w = 0));
   }
 
@@ -3839,28 +3923,32 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     mesh.instanceMatrix.needsUpdate = true; mesh.instanceColor.needsUpdate = true; aFace.needsUpdate = true; aGlow.needsUpdate = true;
 
     /* связи: незавершённые в хаосе, полные и яркие в собранных структурах, мосты между подходами */
-    const pa = lGeo.attributes.position.array, ca = lGeo.attributes.color.array; let n = 0;
-    const seg = (a, b, r, g, bl, r2, g2, b2) => { if (n >= MAXL) return; pa.set([a.x, a.y, a.z, b.x, b.y, b.z], n * 6); ca.set([r, g, bl, r2, g2, b2], n * 6); n++; };
+    let n = 0; const PR = renderer.getPixelRatio();
+    const seg = (a, b, r, g, bl, r2, g2, b2, w) => {
+      if (n >= MAXL) return; const v = n * 4; w = (w || 1.5) * PR;
+      for (let q = 0; q < 4; q++) { lA.start.set([a.x, a.y, a.z], (v + q) * 3); lA.end.set([b.x, b.y, b.z], (v + q) * 3); lA.w[v + q] = w; }
+      lA.col.set([r, g, bl, r, g, bl, r2, g2, b2, r2, g2, b2], v * 3); n++;
+    };
     for (const e of E) {
       if (!e.dir) {
         const p = E[e.partner]; if (p.dir) continue;
         const d = e.P.distanceTo(p.P); if (d > 1.3) continue;
         const a = Math.max(0, 1 - d / 1.3) * 0.5; tv.lerpVectors(e.P, p.P, 0.35 + 0.25 * Math.sin(t * 0.6 + e.ph));
-        seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0);
+        seg(e.P, tv, 0.5 * a, 0.85 * a, 0.8 * a, 0, 0, 0, 1.3);
       } else if (e.organised) {
-        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.32, 0.6, 0.57, 0.32, 0.6, 0.57);
+        for (const L of [e.L1, e.L2]) if (L && L.dir === e.dir) seg(e.P, L.P, 0.3, 0.62, 0.58, 0.3, 0.62, 0.58, 1.6);
       }
     }
     /* мосты: при сочетании подходов связываем группы между собой, ИИ — с каждым */
     const sel = DIRS.filter(d => selected.has(d) && groups[d] && groups[d].members.length);
     const anchor = d => groups[d].members[0].P;
     if (sel.length > 1) {
-      if (selected.has('ai')) sel.forEach(d => { if (d !== 'ai') seg(anchor('ai'), anchor(d), 0.9, 0.62, 0.55, 0.3, 0.7, 0.68); });
+      if (selected.has('ai')) sel.forEach(d => { if (d !== 'ai') seg(anchor('ai'), anchor(d), 0.95, 0.62, 0.52, 0.3, 0.72, 0.7, 2.4); });
       const chain = sel.filter(d => d !== 'ai');
-      for (let i = 0; i + 1 < chain.length; i++) seg(anchor(chain[i]), anchor(chain[i + 1]), 0.35, 0.65, 0.62, 0.35, 0.65, 0.62);
-      if (k === 6 && chain.length > 2) seg(anchor(chain[chain.length - 1]), anchor(chain[0]), 0.35, 0.65, 0.62, 0.35, 0.65, 0.62);
+      for (let i = 0; i + 1 < chain.length; i++) seg(anchor(chain[i]), anchor(chain[i + 1]), 0.35, 0.68, 0.64, 0.35, 0.68, 0.64, 2.2);
+      if (k === 6 && chain.length > 2) seg(anchor(chain[chain.length - 1]), anchor(chain[0]), 0.35, 0.68, 0.64, 0.35, 0.68, 0.64, 2.2);
     }
-    lGeo.setDrawRange(0, n * 2); lGeo.attributes.position.needsUpdate = true; lGeo.attributes.color.needsUpdate = true;
+    lGeo.setDrawRange(0, n * 6); ['position', 'aEnd', 'aCol', 'aW'].forEach(k2 => (lGeo.attributes[k2].needsUpdate = true));
 
     /* частицы: в хаосе текут по пересекающимся потокам, в порядке — успокаиваются; импульсы бегут по связям */
     const pp = pGeo.attributes.position.array, pc = pGeo.attributes.aColor.array, ps = pGeo.attributes.aSize.array;
@@ -3871,7 +3959,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
       const spreadK = 1 + calm * 0.6;
       pp[i * 3] = s[0] * spreadK + d.r; pp[i * 3 + 1] = s[1] * spreadK + d.r * 0.6; pp[i * 3 + 2] = s[2] + d.z - calm * 0.8;
       const a = (0.55 - calm * 0.35) * (0.6 + 0.4 * Math.sin(t * 1.5 + i));
-      pc.set([0.45 * a, 0.9 * a, 0.85 * a], i * 3); ps[i] = d.sz;
+      const warmP = i % 9 === 0; pc.set(warmP ? [0.95 * a, 0.62 * a, 0.5 * a] : [0.45 * a, 0.9 * a, 0.85 * a], i * 3); ps[i] = d.sz * (0.85 + 0.25 * Math.sin(t * 2.3 + i * 1.7));
     }
     for (let i = 0; i < PUL; i++) {
       const q = pulses[i], j = DUST + i;
@@ -3886,7 +3974,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     }
     pGeo.attributes.position.needsUpdate = true; pGeo.attributes.aColor.needsUpdate = true; pGeo.attributes.aSize.needsUpdate = true;
 
-    renderer.render(scene, camera);
+    renderFrame();
 
     /* подписи подходов в общей композиции */
     world.updateMatrixWorld();
@@ -3926,7 +4014,7 @@ window.AIO_GLASS = function (BG, U, tint, opts) {
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : visible && start()));
   }
   /* освобождаем ресурсы видеокарты при уходе со страницы */
-  addEventListener('pagehide', ev => { if (ev.persisted) { stop(); return; } stop(); geo.dispose(); mat.dispose(); lGeo.dispose(); pGeo.dispose(); pMat.dispose(); renderer.dispose(); });
+  addEventListener('pagehide', ev => { if (ev.persisted) { stop(); return; } stop(); geo.dispose(); mat.dispose(); lGeo.dispose(); lMat.dispose(); rtMain.dispose(); rtA.dispose(); rtB.dispose(); [brightMat, blurMat, compMat].forEach(m => m.dispose()); pGeo.dispose(); pMat.dispose(); renderer.dispose(); });
   requestAnimationFrame(() => root.classList.add('gl-ready'));
 })();
 </script>
