@@ -1150,7 +1150,7 @@ strong.hl{font-weight:500}
           <p class="cx-input"><span class="eyebrow">На входе</span><b>Есть задача. Пока нет ясного решения.</b></p>
           <p class="cx-system" aria-hidden="true">Все инструменты — в одной системе</p>
         </div>
-        <div class="cx-controls sq-block" style="--sq-step:85ms">
+        <div class="cx-controls sq-block" style="--sq-step:45ms">
           <div class="cx-options" role="group" aria-label="Подходы к решению. Можно выбрать несколько"><button style="--i:0" type="button" class="sq cx-opt" data-dir="method" data-desc="Выстраиваем логику, структуру и последовательность действий." aria-pressed="false"><i aria-hidden="true"></i><span>Методология</span></button><button style="--i:1" type="button" class="sq cx-opt" data-dir="process" data-desc="Перестраиваем процессы так, чтобы работа стала понятнее и эффективнее." aria-pressed="false"><i aria-hidden="true"></i><span>Новый порядок работы</span></button><button style="--i:2" type="button" class="sq cx-opt" data-dir="data" data-desc="Структурируем информацию, находим взаимосвязи и превращаем данные в основу решений." aria-pressed="false"><i aria-hidden="true"></i><span>Работа с данными и аналитика</span></button><button style="--i:3" type="button" class="sq cx-opt" data-dir="auto" data-desc="Передаём повторяющиеся операции цифровым инструментам и освобождаем время." aria-pressed="false"><i aria-hidden="true"></i><span>Автоматизация</span></button><button style="--i:4" type="button" class="sq cx-opt" data-dir="soft" data-desc="Создаём сайты, сервисы, приложения и специализированные цифровые инструменты." aria-pressed="false"><i aria-hidden="true"></i><span>Разработка цифровых решений</span></button><button style="--i:5" type="button" class="sq cx-opt" data-dir="ai" data-desc="Используем ИИ для анализа, создания контента, поиска решений и интеллектуальной обработки задач." aria-pressed="false"><i aria-hidden="true"></i><span>Искусственный интеллект</span></button><button style="--i:6" type="button" class="sq cx-opt cx-all" data-dir="all" data-desc="Методология, порядок работы, данные, автоматизация, цифровые инструменты и ИИ работают вместе. Это схема подхода: в реальном проекте сочетание подбирается под задачу." aria-pressed="false"><i aria-hidden="true"></i><span>Комплексное решение</span></button></div>
           <button type="button" class="sq cx-reset" style="--i:7" disabled>Начать заново</button>
         </div>
@@ -1814,12 +1814,16 @@ strong.hl{font-weight:500}
       if(!(e.isIntersecting||e.boundingClientRect.bottom<0)) return;
       var b=e.target; io.unobserve(b);
       if(b===tail){ sec.classList.add('tail-in'); lightHl(sec.querySelector('.cx-final')); setTimeout(function(){ [].forEach.call(sec.querySelectorAll('.sq-tail'),function(x){x.classList.remove('sq','sq-tail')}); },3200); }
-      else { show(b);
-        /* кнопки подходов появляются вместе со сценой, сразу следом за ней */
-        if(b.classList.contains('cx-scene')){ var c=sec.querySelector('.cx-controls'); if(c){ io.unobserve(c); setTimeout(function(){ show(c); }, 450); } }
-      }
+      else show(b);
     }); },{rootMargin:'0px 0px -50% 0px'});
-    rest.forEach(function(b){ io.observe(b); }); if(tail) io.observe(tail);
+    /* сцена и кнопки подходов — одно целое: появляются одновременно, как только сцена выходит на экран */
+    var scn=sec.querySelector('.cx-scene'), ctl=sec.querySelector('.cx-controls');
+    var ioScene=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!(e.isIntersecting||e.boundingClientRect.bottom<0)) return;
+      ioScene.disconnect(); show(scn); if(ctl) show(ctl);
+    }); },{rootMargin:'0px 0px -22% 0px'});
+    if(scn) ioScene.observe(scn);
+    rest.forEach(function(b){ if(b!==scn && b!==ctl) io.observe(b); }); if(tail) io.observe(tail);
   })();
 
   /* ---------- коралловые акценты: проявляются при прокрутке и остаются ---------- */
