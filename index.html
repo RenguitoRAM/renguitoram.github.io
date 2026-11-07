@@ -91,7 +91,7 @@ a{color:inherit}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- кнопки ---------- */
-.btn{--h:54px;display:inline-flex;align-items:center;gap:.7em;height:var(--h);padding:0 1.6em;border-radius:999px;font:600 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;border:0;transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .3s}
+.btn{--h:54px;white-space:nowrap;display:inline-flex;align-items:center;gap:.7em;height:var(--h);padding:0 1.6em;border-radius:999px;font:600 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;border:0;transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .3s}
 .btn-primary{color:#04181B;background:linear-gradient(135deg,#B8F4F0 0%,var(--ai-1) 45%,var(--ai-2) 100%);box-shadow:0 10px 30px -10px rgba(34,183,187,.7), inset 0 1px 0 rgba(255,255,255,.7)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(41,180,174,.85), inset 0 1px 0 rgba(255,255,255,.8)}
 .btn-primary .arr{transition:transform .4s var(--ease)}
@@ -114,7 +114,7 @@ a{color:inherit}
 .logo img{display:block;height:52px;width:auto}
 .footer .logo img{height:76px}
 .nav{display:flex;align-items:center;gap:6px}
-.nav a{color:var(--on-dark-2);text-decoration:none;font-size:.92rem;font-weight:500;padding:8px 12px;border-radius:999px;transition:color .25s, background .25s}
+.nav a{white-space:nowrap;color:var(--on-dark-2);text-decoration:none;font-size:.9rem;font-weight:500;padding:8px 10px;border-radius:999px;transition:color .25s, background .25s}
 .nav a:hover{color:var(--on-dark);background:rgba(234,247,244,.07)}
 .header .btn{--h:44px;font-size:.92rem;padding:0 1.2em}
 .burger{display:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(234,247,244,.08);color:var(--on-dark);cursor:pointer;box-shadow:inset 0 0 0 1px var(--line-dark)}
@@ -371,6 +371,8 @@ fieldset.field{border:0;margin:0;padding:0}
 .consent input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--aqua)}
 .consent a{color:var(--mint)}
 .form .btn{justify-self:start}
+.form-legal{font-size:.78rem;line-height:1.5;color:var(--on-dark-2)}
+.form-legal a{color:var(--mint)}
 .form-status{font-size:.88rem;color:var(--mint);min-height:1.4em}
 
 .footer-brand{display:grid;gap:12px;justify-items:start}
@@ -388,6 +390,7 @@ fieldset.field{border:0;margin:0;padding:0}
 .case-scene.gl-ready canvas{opacity:1}
 .cs-labels{position:absolute;inset:0;pointer-events:none;z-index:1}
 .cs-label{position:absolute;left:0;top:0;white-space:nowrap;font:500 .74rem/1.2 var(--f-body);letter-spacing:.01em;color:var(--silk);padding:5px 10px;border-radius:999px;background:rgba(10,14,15,.62);box-shadow:inset 0 0 0 1px rgba(217,210,206,.14);opacity:0;will-change:transform,opacity}
+.cs-label.on{color:var(--coral);box-shadow:inset 0 0 0 1px rgba(225,164,146,.45)}
 .cs-label b{color:var(--coral);font-weight:600;font-variant-numeric:tabular-nums}
 .cs-top{position:absolute;left:0;right:0;top:0;z-index:2;padding:20px 20px 0;display:grid;gap:12px}
 .cs-title{font:600 .68rem/1.3 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-2)}
@@ -417,6 +420,223 @@ fieldset.field{border:0;margin:0;padding:0}
   .cs-bottom{grid-template-columns:auto minmax(0,1fr);}
   .cs-play{grid-column:1/-1;justify-self:start}
 }
+
+
+/* ---------- ПОРТФОЛИО: кейсы со своими сценами ---------- */
+.case-list{margin-top:clamp(48px,6vw,88px);display:grid;gap:clamp(64px,9vw,128px)}
+.case-story{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4.5vw,72px);align-items:center}
+.case-story.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.case-story.flip .case-visual{order:2}
+.case-visual{min-width:0}
+.scene{position:relative;min-height:620px;overflow:hidden;isolation:isolate;border-radius:32px;color:var(--on-dark);
+  background:radial-gradient(60% 45% at 50% 50%,#0C454C,transparent 72%),radial-gradient(50% 40% at 0% 100%,rgba(69,30,25,.7),transparent 70%),var(--graphite);
+  box-shadow:0 60px 120px -60px rgba(7,59,70,.55)}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.2s var(--ease);touch-action:pan-y}
+.scene.gl-ready canvas{opacity:1}
+.scene.no-gl{min-height:420px}
+#scene-games{background:radial-gradient(70% 55% at 50% 40%,#13525A,transparent 75%),radial-gradient(50% 40% at 100% 100%,rgba(225,164,146,.35),transparent 70%),#0B2A2F}
+#scene-motion{background:radial-gradient(55% 45% at 50% 42%,#2A2420,transparent 75%),radial-gradient(60% 50% at 100% 0%,rgba(12,69,76,.8),transparent 70%),#0B0D0E}
+.case-body{display:grid;gap:18px;align-content:center;justify-items:start}
+.case-body h3{font-size:clamp(1.5rem,1.15rem + 1.1vw,2.2rem);letter-spacing:-.03em}
+.case-body .client{color:var(--ink-2);font-size:.92rem}
+.case-lead{font-size:1.04rem;line-height:1.6;color:var(--ink)}
+.case-body .facts{width:100%}
+.pull{margin:0;padding:18px 20px;border-radius:18px;background:var(--foam);font:500 1.02rem/1.45 var(--f-display);letter-spacing:-.01em;color:var(--deep)}
+.pull cite{display:block;margin-top:8px;font:400 .8rem/1.3 var(--f-body);font-style:normal;color:var(--ink-2)}
+.cs-action{position:absolute;z-index:3;left:50%;bottom:calc(var(--cs-bottom,110px) - 28px);transform:translateX(-50%);border:0;cursor:pointer;font:600 .86rem/1 var(--f-body);color:#1A0E0A;
+  background:linear-gradient(135deg,#FFD9C8,var(--coral));padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px -12px rgba(225,164,146,.8)}
+.cs-action:hover{transform:translateX(-50%) translateY(-2px)}
+.game-ui{position:absolute;z-index:3;left:50%;bottom:calc(var(--cs-bottom,110px) - 30px);transform:translateX(-50%);display:grid;justify-items:center;gap:10px;text-align:center}
+.game-ui p{font-size:.86rem;color:var(--on-dark)}
+.game-opts{display:flex;gap:10px}
+.game-opts button{width:54px;height:54px;border-radius:16px;border:0;cursor:pointer;font:600 1.5rem/1 var(--f-display);color:#0B2A2F;background:linear-gradient(160deg,#FFF6EE,#F3D9CC);box-shadow:inset 0 -4px 0 rgba(0,0,0,.12),0 10px 24px -10px rgba(0,0,0,.6);transition:transform .2s}
+.game-opts button:hover{transform:translateY(-3px)}
+.game-opts button.wrong{animation:shake .4s}
+.game-opts button.right{background:linear-gradient(160deg,#C9F7F3,var(--ai-1))}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.others{margin-top:clamp(64px,8vw,112px)}
+.others-title{font-size:1.4rem;letter-spacing:-.02em}
+.others .project-list{margin-top:20px}
+/* ---------- истории проектов ---------- */
+.story{position:fixed;inset:0;z-index:85;display:none;overflow-y:auto;overscroll-behavior:contain;background:rgba(5,9,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:calc(24px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.story.is-open{display:block;animation:fadeIn .45s var(--ease) both}
+.story-panel{position:relative;max-width:1080px;margin:0 auto;border-radius:32px;overflow:hidden;color:var(--on-dark);
+  background:radial-gradient(70% 40% at 100% 0%,rgba(12,69,76,.95),transparent 70%),radial-gradient(50% 30% at 0% 0%,rgba(69,30,25,.7),transparent 70%),#0C1315;
+  box-shadow:inset 0 0 0 1px rgba(160,227,216,.14),0 60px 140px -40px rgba(0,0,0,.85);animation:rise .7s var(--ease) both}
+.story-close{position:sticky;top:14px;float:right;margin:14px 14px 0 0;z-index:2}
+.story-head{padding:clamp(28px,5vw,64px) clamp(22px,5vw,64px) 24px;display:grid;gap:16px;justify-items:start;border-bottom:1px solid rgba(217,210,206,.1)}
+.story-head h2{font-size:clamp(1.8rem,1.3rem + 2vw,3rem);letter-spacing:-.035em;max-width:20em}
+.story-head p{color:var(--on-dark-2);max-width:46em}
+.story-head .tag{background:rgba(217,210,206,.1);color:var(--silk)}
+.story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.st-block{padding:clamp(22px,3.2vw,40px) clamp(22px,5vw,64px);border-bottom:1px solid rgba(217,210,206,.08);display:grid;gap:14px;align-content:start}
+.st-block:nth-child(odd):not(.wide){border-right:1px solid rgba(217,210,206,.08)}
+.st-block.wide{grid-column:1/-1}
+.st-block h3{font:600 .72rem/1.4 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent,var(--ai-1))}
+.st-block p{color:var(--on-dark);line-height:1.65}
+.st-block.muted p{color:var(--on-dark-2);font-size:.94rem}
+.st-list{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.st-list li{position:relative;padding-left:18px;color:var(--on-dark)}
+.st-list li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--ai-2))}
+.st-steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;counter-reset:sst}
+.st-steps li{counter-increment:sst;position:relative;display:grid;gap:6px;padding:18px 16px 16px;border-radius:18px;background:rgba(217,210,206,.05);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1)}
+.st-steps li::before{content:counter(sst,decimal-leading-zero);font:500 .8rem/1 var(--f-display);color:var(--accent,var(--ai-1))}
+.st-steps b{font:500 1.02rem/1.3 var(--f-display);color:var(--on-dark)}
+.st-steps span{font-size:.88rem;color:var(--on-dark-2);line-height:1.5}
+.st-cycle{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px;counter-reset:cyc}
+.st-cycle li{counter-increment:cyc;padding:10px 14px;border-radius:999px;background:rgba(225,164,146,.1);color:var(--on-dark);font-size:.9rem}
+.st-cycle li::before{content:counter(cyc) " · ";color:var(--coral)}
+.st-cycle li:last-child::after{content:" ↺";color:var(--coral)}
+.review-quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.review-quotes blockquote{margin:0;padding:20px;border-radius:18px;background:rgba(225,164,146,.08);box-shadow:inset 0 0 0 1px rgba(225,164,146,.18);font:500 1.02rem/1.45 var(--f-display);color:var(--on-dark)}
+.review-full{display:grid;gap:12px;max-width:46em}
+.review-full p{color:var(--on-dark-2)}
+.review-full:not([hidden]){margin-top:6px}
+.review-meta{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.review-meta a{color:var(--ai-1);font-weight:500}
+.review-sign{font-size:.86rem;color:var(--on-dark-2)}
+.video-slot{display:grid;place-items:center;aspect-ratio:16/9;max-height:360px;width:100%;border-radius:20px;border:1px dashed rgba(217,210,206,.22);background:radial-gradient(60% 60% at 50% 50%,rgba(12,69,76,.5),transparent 70%)}
+.video-slot p{color:var(--on-dark-2);font-size:.92rem;text-align:center;padding:0 20px;max-width:28em}
+.story-foot{padding:28px clamp(22px,5vw,64px) 40px}
+@media (max-width:960px){
+  .case-story,.case-story.flip{grid-template-columns:minmax(0,1fr)}
+  .case-story.flip .case-visual{order:0}
+  .scene{min-height:560px}
+  .story-grid{grid-template-columns:minmax(0,1fr)}
+  .st-block:nth-child(odd):not(.wide){border-right:0}
+  .review-quotes{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .scene{min-height:600px;border-radius:24px}
+  .story{padding-left:0;padding-right:0;padding-top:env(safe-area-inset-top,0px)}
+  .story-panel{border-radius:24px 24px 0 0}
+}
+
+
+/* ---------- профиль основателя: четыре раскрывающихся блока ---------- */
+.profile{display:grid;gap:10px;padding-top:28px;border-top:1px solid rgba(217,210,206,.12)}
+.pf{border-radius:20px;background:rgba(217,210,206,.04);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1);transition:background .4s,box-shadow .4s}
+.pf.open{background:rgba(217,210,206,.06);box-shadow:inset 0 0 0 1px rgba(95,223,222,.28)}
+.pf-head{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 36px;grid-template-areas:"t i" "s i";gap:4px 16px;align-items:center;padding:18px 20px;border-radius:20px}
+.pf-head:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
+.pf-title{grid-area:t;font:500 1.12rem/1.25 var(--f-display);letter-spacing:-.015em;color:var(--on-dark)}
+.pf-teaser{grid-area:s;font-size:.86rem;color:var(--on-dark-2)}
+.pf-icon{grid-area:i;position:relative;width:36px;height:36px;border-radius:50%;background:rgba(217,210,206,.08);transition:background .3s,transform .5s var(--ease)}
+.pf-icon::before,.pf-icon::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--on-dark);transition:transform .5s var(--ease)}
+.pf-icon::after{transform:rotate(90deg)}
+.pf.open .pf-icon{background:var(--coral);transform:rotate(180deg)}
+.pf.open .pf-icon::before,.pf.open .pf-icon::after{background:#1A0E0A}
+.pf.open .pf-icon::after{transform:rotate(0)}
+.pf-head:hover .pf-title{color:var(--ai-1)}
+.pf-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.pf.open .pf-body{grid-template-rows:1fr}
+.pf-inner{overflow:hidden;min-height:0;padding:0 20px;opacity:0;transition:opacity .4s var(--ease),padding .6s var(--ease)}
+.pf.open .pf-inner{opacity:1;padding:0 20px 22px}
+.pf-k{font:600 .68rem/1.4 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-right:6px}
+.pf-note{font-size:.8rem;color:var(--on-dark-2);opacity:.85}
+.pf-dirs,.pf-exp{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.pf-dirs li,.pf-exp li{display:grid;gap:4px;padding:14px 0;border-top:1px solid rgba(217,210,206,.08)}
+.pf-dirs li:first-child,.pf-exp li:first-child{border-top:0}
+.pf-dirs b,.pf-exp b{font:500 1rem/1.3 var(--f-display);color:var(--on-dark)}
+.pf-dirs span,.pf-exp span{font-size:.9rem;color:var(--on-dark-2)}
+.pf-dirs small{font-size:.84rem;color:var(--silk);line-height:1.5}
+.pf-exp{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+.pf-exp li:nth-child(2){border-top:0}
+.pf .edu{margin-bottom:10px}
+/* публикации */
+.pub-feature{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:start;padding:6px 0 22px;border-bottom:1px solid rgba(217,210,206,.08)}
+.pub-text{display:grid;gap:10px;min-width:0}
+.pub-status{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.pub-kind{font-size:.78rem;color:var(--on-dark-2)}
+.pub-feature h4,.pub-item h4{margin:0;font:500 1.08rem/1.35 var(--f-display);letter-spacing:-.01em;color:var(--on-dark)}
+.pub-author{font-size:.88rem;color:var(--silk)}
+.pub-biblio{font-size:.82rem;line-height:1.55;color:var(--on-dark-2);padding-left:12px;border-left:2px solid rgba(225,164,146,.4)}
+.pub-abstract{display:grid;gap:8px}
+.pub-abstract p{font-size:.9rem;line-height:1.6;color:var(--on-dark)}
+.pub-item{display:grid;gap:8px;padding:20px 0;border-bottom:1px solid rgba(217,210,206,.08)}
+.pub-item h4 a{color:inherit;text-decoration:underline;text-decoration-color:rgba(95,223,222,.45);text-underline-offset:4px}
+.pub-item h4 a:hover,.pub-link:hover{color:var(--ai-1)}
+.pub-link{font-size:.88rem;font-weight:600;color:var(--ai-1);text-decoration:none}
+.pub-other{display:grid;gap:6px;padding-top:18px}
+.pub-other p{font-size:.92rem;color:var(--on-dark)}
+.pub-visual{position:relative;aspect-ratio:1;width:100%;max-width:200px;border-radius:24px;overflow:hidden;
+  background:radial-gradient(70% 70% at 30% 30%,rgba(69,30,25,.55),transparent 70%),radial-gradient(70% 70% at 75% 70%,rgba(12,69,76,.95),transparent 70%),#0B1214;box-shadow:inset 0 0 0 1px rgba(217,210,206,.1)}
+.pv-circle{position:absolute;top:50%;width:52%;aspect-ratio:1;margin-top:-26%;border-radius:50%;display:grid;align-items:center;
+  backdrop-filter:blur(2px);box-shadow:inset 0 0 0 1px rgba(234,247,244,.3),inset -10px -14px 26px rgba(3,34,42,.45),inset 8px 10px 22px rgba(234,247,244,.12)}
+.pv-circle b{position:relative;z-index:2;font:600 .58rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark)}
+.pv-teacher{left:4%;justify-items:start;padding-left:8%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.5) 0 5%,transparent 24%),radial-gradient(circle,rgba(225,164,146,.35),rgba(225,164,146,.12));animation:pvL 7s ease-in-out infinite alternate}
+.pv-teacher{z-index:1}
+.pv-ai{right:4%;justify-items:end;padding-right:18%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.5) 0 5%,transparent 24%),radial-gradient(circle,rgba(95,223,222,.35),rgba(34,183,187,.12));animation:pvR 7s ease-in-out infinite alternate}
+.pv-ai b{padding-left:0}
+@keyframes pvL{to{transform:translateX(5%)}}
+@keyframes pvR{to{transform:translateX(-5%)}}
+.pv-overlap{position:absolute;left:50%;top:78%;transform:translate(-50%,0);font:500 .6rem/1.25 var(--f-body);text-align:center;color:var(--silk);white-space:nowrap}
+.pv-orbit{position:absolute;inset:12%;border-radius:50%;border:1px dashed rgba(160,227,216,.18);animation:spin 40s linear infinite}
+.pv-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--coral);box-shadow:0 0 10px rgba(225,164,146,.7);left:50%;top:50%;animation:orbit 16s linear infinite}
+.pv-dot.d2{background:var(--ai-1);box-shadow:0 0 10px rgba(95,223,222,.7);animation-delay:-4s}
+.pv-dot.d3{animation-delay:-8s}
+.pv-dot.d4{background:var(--silk);animation-delay:-12s}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes orbit{from{transform:rotate(0) translateX(76px) rotate(0)}to{transform:rotate(360deg) translateX(76px) rotate(-360deg)}}
+@media (max-width:860px){
+  .pf-exp{grid-template-columns:minmax(0,1fr)}
+  .pf-exp li:nth-child(2){border-top:1px solid rgba(217,210,206,.08)}
+  .pub-feature{grid-template-columns:minmax(0,1fr)}
+  .pub-visual{max-width:180px}
+}
+
+
+/* ---------- разработка: «цифровая среда» ---------- */
+.digital{position:relative;overflow:hidden;isolation:isolate;margin-top:clamp(56px,7vw,96px);border-radius:32px;padding:clamp(28px,4.5vw,56px);color:var(--on-dark);
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,64px);align-items:center;
+  background:radial-gradient(60% 80% at 100% 0%,rgba(12,69,76,.95),transparent 70%),radial-gradient(50% 70% at 0% 100%,rgba(69,30,25,.75),transparent 70%),var(--graphite);
+  box-shadow:0 50px 100px -60px rgba(7,59,70,.6)}
+.digital::after{content:"";position:absolute;width:340px;height:340px;right:-90px;bottom:-140px;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.45) 0 4%,rgba(255,255,255,.08) 14%,transparent 28%),radial-gradient(circle,rgba(41,180,174,.12),rgba(8,126,131,.3) 70%,rgba(160,227,216,.4));
+  box-shadow:inset 0 0 0 1px rgba(234,247,244,.25),inset -18px -24px 50px rgba(3,34,42,.45)}
+.digital-head{display:grid;gap:14px}
+.digital-head .eyebrow{color:var(--coral)}
+.digital-head h3{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.5rem);letter-spacing:-.035em;line-height:1.08}
+.digital-head h3 span{color:var(--ai-1)}
+.digital-head p{color:var(--on-dark-2);font-size:1.02rem}
+.digital-list{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.digital-list li{position:relative;padding:14px 0 14px 28px;border-top:1px solid rgba(217,210,206,.1);font:500 1.08rem/1.35 var(--f-display);letter-spacing:-.01em}
+.digital-list li:last-child{border-bottom:1px solid rgba(217,210,206,.1)}
+.digital-list li::before{content:"";position:absolute;left:0;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--coral) 45%,#B0503A);box-shadow:0 0 12px rgba(225,164,146,.6)}
+.digital .hl.on{color:var(--coral)}
+.digital-foot{grid-column:1/-1;font:500 1.05rem/1.45 var(--f-display);color:var(--on-dark)}
+.digital-foot span{display:block;margin-top:6px;font:400 .88rem/1.5 var(--f-body);color:var(--on-dark-2)}
+@media (max-width:860px){.digital{grid-template-columns:minmax(0,1fr)}.digital::after{width:200px;height:200px;right:-90px;bottom:-110px;opacity:.6}}
+/* ---------- Telegram-канал в шапке ---------- */
+.hdr-tg{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--on-dark);background:rgba(234,247,244,.06);box-shadow:inset 0 0 0 1px var(--line-dark);transition:background .25s,color .25s}
+.hdr-tg:hover{background:rgba(95,223,222,.14);color:var(--ai-1)}
+.hdr-tg svg{width:20px;height:20px}
+.hdr-actions{display:flex;align-items:center;gap:10px}
+.mobile-nav .mn-social{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;border:0}
+.mobile-nav .mn-social a{font:500 .95rem/1 var(--f-body);border:0;padding:10px 14px;border-radius:999px;background:rgba(234,247,244,.08)}
+/* ---------- подвал: студия, основатель, площадки ---------- */
+.footer > .wrap{grid-template-columns:minmax(0,5fr) minmax(0,4fr) minmax(0,5fr)}
+.footer-col{display:grid;gap:22px;align-content:start}
+.footer-group ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.footer-group a{display:inline-flex;align-items:center;gap:10px}
+.footer-group svg{width:18px;height:18px;flex:none;color:var(--ai-1)}
+.footer-group small{color:var(--on-dark-2)}
+.author{display:grid;gap:8px;padding:18px 20px;border-radius:18px;background:rgba(217,210,206,.04);box-shadow:inset 0 0 0 1px rgba(217,210,206,.1)}
+.author b{font:500 1.1rem/1.2 var(--f-display);color:var(--on-dark)}
+.author .role{font-size:.8rem;color:var(--coral);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.author p{font-size:.84rem;line-height:1.55}
+.author-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.author-links a{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:.84rem;text-decoration:none;background:rgba(217,210,206,.07);box-shadow:inset 0 0 0 1px rgba(217,210,206,.14)}
+.author-links a.primary{background:rgba(95,223,222,.12);box-shadow:inset 0 0 0 1px rgba(95,223,222,.4)}
+.author-links svg{width:16px;height:16px}
+.channels{display:grid;gap:12px}
+.club.tg{background:radial-gradient(70% 90% at 100% 0%,rgba(41,180,174,.35),transparent 70%),radial-gradient(60% 80% at 0% 100%,rgba(12,69,76,.9),transparent 70%),#0E1416}
+.club .btn-sub{justify-self:start;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font:600 .88rem/1 var(--f-body);color:#04181B;background:linear-gradient(135deg,#B8F4F0,var(--ai-1) 45%,var(--ai-2))}
+.club .btn-sub svg{width:16px;height:16px}
+.club.small{padding:18px 20px}
+.club.small b{font-size:1.1rem}
+@media (max-width:860px){.footer > .wrap{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- прямые контакты ---------- */
 .direct{margin-top:36px;display:grid;gap:14px}
@@ -561,10 +781,10 @@ strong.hl{font-weight:500}
 @keyframes rise{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:none}}
 
 /* ---------- адаптив ---------- */
-@media (max-width:1180px){
+@media (max-width:1320px){
   .nav{display:none}
   .burger{display:block}
-  .header .btn{display:none}
+  .header .hdr-actions .btn{display:none}
   .steps{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:36px}
   .phases,.track{display:none}
   .prism-scene{grid-template-columns:170px minmax(0,1fr) 230px}
@@ -721,8 +941,8 @@ strong.hl{font-weight:500}
       <a href="#founder">Основатель</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <a class="btn btn-primary" href="#contact">Обсудить задачу</a>
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button>
+    <div class="hdr-actions"><a class="hdr-tg" href="https://t.me/aioasis29" target="_blank" rel="noopener" aria-label="Telegram-канал AI OASIS «Изнутри проектов»" title="Telegram-канал AI OASIS"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg></a><a class="btn btn-primary" href="#contact">Обсудить задачу</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button></div>
   </div>
 </header>
 <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Мобильная навигация">
@@ -733,6 +953,7 @@ strong.hl{font-weight:500}
   <a href="#founder">Основатель</a>
   <a href="#contacts">Контакты</a>
   <a class="btn btn-primary" href="#contact">Обсудить мою задачу <span class="arr">→</span></a>
+  <div class="mn-social"><a href="https://t.me/aioasis29" target="_blank" rel="noopener">Telegram-канал</a><a href="https://vk.ru/aioasis" target="_blank" rel="noopener">Сообщество ВКонтакте</a></div>
 </nav>
 
 <main id="top">
@@ -896,6 +1117,21 @@ strong.hl{font-weight:500}
           </article>
         </div>
       </div>
+      <div class="digital reveal">
+        <div class="digital-head">
+          <p class="eyebrow">Разработка</p>
+          <h3>Создаём не только решения. <span>Создаём цифровую среду.</span></h3>
+          <p>Проектируем и разрабатываем современные сайты, цифровые продукты и инструменты, которые помогают решать реальные задачи.</p>
+        </div>
+        <ul class="digital-list">
+          <li><span class="hl">Разработка современных сайтов</span></li>
+          <li>Проектирование <span class="hl">цифровых продуктов</span></li>
+          <li><span class="hl">Автоматизация</span> рабочих процессов</li>
+          <li>Разработка цифровых инструментов и сервисов</li>
+          <li>Решения на основе <span class="hl">искусственного интеллекта</span></li>
+        </ul>
+        <p class="digital-foot">От идеи и проектирования до работающего цифрового продукта. <span>Этот сайт — собственный проект AI OASIS: от концепции до разработки.</span></p>
+      </div>
     </div>
   </section>
 
@@ -934,7 +1170,7 @@ strong.hl{font-weight:500}
     </div>
   </section>
 
-  <!-- 6. ПРОЕКТЫ (фрагмент) -->
+  <!-- 6. ПРОЕКТЫ -->
   <section class="section cases" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
       <div class="section-head reveal">
@@ -947,32 +1183,10 @@ strong.hl{font-weight:500}
         <span class="tag t-method">Методологическое сопровождение</span>
         <span class="tag t-demo">Семинар или демонстрация</span>
       </div>
-
-      <article class="featured reveal">
-        <div class="featured-body">
-          <span class="tag t-done" style="justify-self:start">Выполненный проект</span>
-          <h3>Корпоративное обучение работе с AI для производственного предприятия</h3>
-          <p class="client">Лесохимическое предприятие. Название клиента не публикуется.</p>
-          <div class="facts">
-            <div class="fact"><b>12</b><span>сотрудников участвовали в диагностике потребностей</span></div>
-            <div class="fact"><b>17</b><span>человек прошли обучение в разных форматах</span></div>
-          </div>
-          <div class="case-rows">
-            <div><span class="k">Задача</span><p>Понять, где AI полезен сотрудникам в их реальной работе, и научить применять его системно.</p></div>
-            <div><span class="k">Подход</span><p>Опрос и диагностика, затем индивидуальная программа вокруг приоритетных направлений.</p></div>
-            <div><span class="k">Результат</span><p>Проведено обучение по индивидуальной программе. Создан <span class="hl">специализированный инструмент для построения промптов</span>.</p></div>
-          </div>
-          <details class="more">
-            <summary>Подробнее о проекте</summary>
-            <ul>
-              <li>Приоритетные направления: исследование рынка и технологий, анализ больших объёмов информации, работа с документами, Excel и аналитика, подготовка рабочих материалов.</li>
-              <li>Обучение работе с информацией и документами, применение AI для исследований и аналитики.</li>
-              <li>Практические задания на рабочих материалах.</li>
-            </ul>
-            <p class="note">Проект представлен как корпоративное обучение и проектирование практического применения AI. Экономия времени не измерялась, поэтому мы её не указываем.</p>
-          </details>
-        </div>
-        <div class="featured-visual case-scene" id="case-scene" role="group" aria-label="Схема хода проекта: от рабочей задачи к понятному решению">
+      <div class="case-list">
+      <article class="case-story" id="case-production">
+        <div class="case-visual reveal">
+          <div class="scene case-scene" id="case-scene" role="group" aria-label="Схема хода проекта: от рабочей задачи к понятному решению">
           <canvas aria-hidden="true"></canvas>
           <div class="cs-labels" aria-hidden="true"></div>
           <div class="cs-top">
@@ -993,15 +1207,102 @@ strong.hl{font-weight:500}
             <p class="cs-note">Условная схема хода работы, а не интерфейс программы</p>
           </div>
         </div>
+        </div>
+        <div class="case-body reveal d1">
+          <span class="tag t-done">Выполненный проект</span>
+          <h3>Корпоративное обучение работе с AI для производственного предприятия</h3>
+          <p class="client">Лесохимическое предприятие. Название клиента не публикуется.</p>
+          <p class="case-lead">Разобрались, где AI действительно полезен сотрудникам в их работе, и <span class="hl">научили применять его системно</span>: от диагностики до индивидуальной программы и практики.</p>
+          <div class="facts"><div class="fact"><b>12</b><span>сотрудников участвовали в диагностике потребностей</span></div><div class="fact"><b>17</b><span>человек прошли обучение в разных форматах</span></div></div>
+          
+          <button type="button" class="btn btn-dark story-open" data-story="story-production" aria-haspopup="dialog">Подробнее о проекте <span class="arr" aria-hidden="true">→</span></button>
+        </div>
       </article>
-
-      <div class="project-list">
-        <article class="project reveal"><h4>Методологическое консультирование аптечной сети</h4><span class="tag t-method">Сопровождение</span><p>Проектирование корпоративного образовательного продукта и годового цикла обучения вместе с отраслевым экспертом.</p></article>
-        <article class="project reveal"><h4>Цифровые обучающие игры для логопеда</h4><span class="tag t-done">Выполнен</span><p>Созданы несколько игр, и специалист освоила <span class="hl">способ самостоятельно делать новые задания</span> с помощью AI.</p></article>
-        <article class="project reveal"><h4>«Синергия»: курс stop-motion анимации</h4><span class="tag t-done">Выполнен</span><p>Полный методический комплекс на 20 академических часов. <span class="hl">Принят сетью и допущен к тиражированию.</span></p></article>
-        <article class="project reveal"><h4>ITLab29</h4><span class="tag t-done">Выполнен</span><p>Инженерно-творческое направление для школьников: 166 учащихся, 5 направлений, <span class="hl">32 цифровых продукта</span>.</p></article>
-        <article class="project reveal"><h4>Семинар для НКО: AI и грантовые заявки</h4><span class="tag t-demo">Семинар</span><p>Проверка требований, логики проекта, бюджета и оценка зрелости заявки.</p></article>
-        <article class="project reveal"><h4>«МедиаЛаб: Профессия в кадре»</h4><span class="tag t-done">Выполнен</span><p>30 участников обучено, 7 видеороликов, 14 интервью, охват более 5 000 человек. <span class="hl">Бюджет исполнен полностью.</span></p></article>
+      <article class="case-story flip" id="case-pharma">
+        <div class="case-visual reveal">
+          <div class="scene" id="scene-pharma" role="group" aria-label="Живая архитектура образовательного продукта">
+            <canvas aria-hidden="true"></canvas>
+            <div class="cs-labels" aria-hidden="true"></div>
+            <div class="cs-top"><p class="cs-title">Живая архитектура продукта</p><div class="cs-tabs"><button type="button" data-stage="0">Идеи<i></i></button><button type="button" data-stage="1">Структура<i></i></button><button type="button" data-stage="2">Цикл обучения<i></i></button><button type="button" data-stage="3">Адаптация<i></i></button></div></div>
+            <button type="button" class="cs-action" id="pharma-adapt" hidden>Новая потребность команды</button>
+            <div class="cs-bottom">
+              <p class="cs-num"><span>1</span><small> / 4</small></p>
+              <p class="cs-text">Идей много, но они пока не складываются в единую структуру.</p>
+              <button type="button" class="cs-play" aria-pressed="true">Пауза</button>
+              <p class="cs-note">Условная схема логики продукта. Содержание курса создавал специалист клиента</p>
+            </div>
+          </div>
+        </div>
+        <div class="case-body reveal d1">
+          <span class="tag t-method">Методологическое консультирование</span>
+          <h3>Корпоративный образовательный продукт для аптечной сети</h3>
+          <p class="client">Крупная аптечная сеть. Отраслевую экспертизу и содержание курса обеспечивал специалист со стороны клиента.</p>
+          <p class="case-lead">Помогли превратить множество идей в <span class="hl">стройную логику образовательного продукта</span> и выстроить работу с AI так, чтобы обучение можно было быстро перестраивать.</p>
+          <div class="facts"><div class="fact"><b>2</b><span>консультации от идеи до подписанного договора</span></div><div class="fact"><b>6</b><span>этапов в цикле обучения, который адаптируется</span></div></div>
+          <blockquote class="pull">«Пара предложений за считаные минуты превращалась в структурированную, стройную систему». <cite>Автор образовательного продукта</cite></blockquote>
+          <button type="button" class="btn btn-dark story-open" data-story="story-pharma" aria-haspopup="dialog">Подробнее о проекте <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </article>
+      <article class="case-story" id="case-games">
+        <div class="case-visual reveal">
+          <div class="scene" id="scene-games" role="group" aria-label="От учебной задачи к интерактивному игровому миру">
+            <canvas aria-hidden="true"></canvas>
+            <div class="cs-labels" aria-hidden="true"></div>
+            <div class="cs-top"><p class="cs-title">От учебной задачи к игре</p><div class="cs-tabs"><button type="button" data-stage="0">Задача<i></i></button><button type="button" data-stage="1">Буквы<i></i></button><button type="button" data-stage="2">Механики<i></i></button><button type="button" data-stage="3">Попробуйте<i></i></button><button type="button" data-stage="4">Навык<i></i></button></div></div>
+            <div class="game-ui" id="game-ui" hidden><p>Какая буква пропущена?</p><div class="game-opts"><button type="button" data-letter="А">А</button><button type="button" data-letter="О">О</button><button type="button" data-letter="И">И</button></div></div>
+            <div class="cs-bottom">
+              <p class="cs-num"><span>1</span><small> / 5</small></p>
+              <p class="cs-text">Учебная задача: вставить пропущенную букву.</p>
+              <button type="button" class="cs-play" aria-pressed="true">Пауза</button>
+              <p class="cs-note">Пример игровой механики. Игры создавала специалист вместе с основателем</p>
+            </div>
+          </div>
+        </div>
+        <div class="case-body reveal d1">
+          <span class="tag t-done">Индивидуальное сопровождение</span>
+          <h3>Цифровые обучающие игры для занятий логопеда</h3>
+          <p class="client">Индивидуальная работа со специалистом-логопедом.</p>
+          <p class="case-lead">Специалист хотела создавать короткие компьютерные игры для занятий с детьми, но не имела технических навыков. Главный результат — <span class="hl">умение делать новые игры самостоятельно</span>.</p>
+          <div class="facts"><div class="fact"><b>4–6</b><span>минут длится каждая игра на занятии</span></div><div class="fact"><b>60–90</b><span>минут заняла индивидуальная онлайн-встреча</span></div></div>
+          <blockquote class="pull">«Теперь я знаю секрет, как превратить закрепление любой темы в захватывающее приключение». <cite>Логопед, участница занятия</cite></blockquote>
+          <button type="button" class="btn btn-dark story-open" data-story="story-games" aria-haspopup="dialog">Подробнее о проекте <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </article>
+      <article class="case-story flip" id="case-motion">
+        <div class="case-visual reveal">
+          <div class="scene" id="scene-motion" role="group" aria-label="Как рождается мультфильм в технике stop-motion">
+            <canvas aria-hidden="true"></canvas>
+            <div class="cs-labels" aria-hidden="true"></div>
+            <div class="cs-top"><p class="cs-title">Как рождается мультфильм</p><div class="cs-tabs"><button type="button" data-stage="0">Идея<i></i></button><button type="button" data-stage="1">Сценарий<i></i></button><button type="button" data-stage="2">Персонажи<i></i></button><button type="button" data-stage="3">Раскадровка<i></i></button><button type="button" data-stage="4">Кадры<i></i></button><button type="button" data-stage="5">Монтаж<i></i></button></div></div>
+            <button type="button" class="cs-action" id="motion-shot" hidden>Снять кадр</button>
+            <div class="cs-bottom">
+              <p class="cs-num"><span>1</span><small> / 6</small></p>
+              <p class="cs-text">Всё начинается с идеи: короткой истории, которую хочется рассказать.</p>
+              <button type="button" class="cs-play" aria-pressed="true">Пауза</button>
+              <p class="cs-note">Схема того, чему учит программа. Мультфильмы создают сами учащиеся</p>
+            </div>
+          </div>
+        </div>
+        <div class="case-body reveal d1">
+          <span class="tag t-done">Выполненный проект</span>
+          <h3>«Синергия»: программа по созданию мультфильма в технике stop-motion</h3>
+          <p class="client">Методический комплекс для каникулярной программы сети «Синергия».</p>
+          <p class="case-lead">Полный методический пакет программы «Основы анимации: создание мультфильма в технике stop-motion». Комплекс <span class="hl">принят сетью и допущен к тиражированию</span>.</p>
+          <div class="facts"><div class="fact"><b>20</b><span>академических часов: 5 дней по 4 часа</span></div><div class="fact"><b>8–11</b><span>лет — возраст учащихся</span></div></div>
+          
+          <button type="button" class="btn btn-dark story-open" data-story="story-motion" aria-haspopup="dialog">Подробнее о проекте <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </article>
+      </div>
+      <div class="others">
+        <h3 class="others-title">Другие проекты и практика</h3>
+        <div class="project-list">
+          <article class="project reveal"><h4>ITLab29</h4><span class="tag t-done">Выполнен</span><p>Инженерно-творческое направление для школьников: 166 учащихся, 5 направлений, <span class="hl">32 цифровых продукта</span>, созданных учащимися.</p></article>
+          <article class="project reveal"><h4>«МедиаЛаб: Профессия в кадре»</h4><span class="tag t-done">Выполнен</span><p>30 участников обучено, 7 видеороликов, 14 интервью, охват более 5 000 человек. <span class="hl">Бюджет исполнен полностью.</span></p></article>
+          <article class="project reveal"><h4>«НЕшкола программирования микроконтроллеров»</h4><span class="tag t-done">Грантовый проект</span><p>Изучение программирования на реальных микроконтроллерах. Грант 70 000 ₽, общий бюджет проекта 842 729 ₽.</p></article>
+          <article class="project reveal"><h4>Семинар для НКО: AI и грантовые заявки</h4><span class="tag t-demo">Семинар</span><p>Проверка формальных требований, логики проекта, бюджета и оценка зрелости заявки.</p></article>
+          <article class="project reveal"><h4>Форум «ПрофтехПоморье — 2026»</h4><span class="tag t-demo">Демонстрация</span><p>Практическая демонстрация AI для преподавателей профессионального образования: адаптация материалов, задания, Excel, интерактивные игры.</p></article>
+        </div>
       </div>
     </div>
   </section>
@@ -1017,48 +1318,62 @@ strong.hl{font-weight:500}
         <p class="eyebrow">Основатель</p>
         <blockquote id="founder-title">За технологиями всегда стоит человек. <span>И именно человек понимает, какую задачу необходимо решить.</span></blockquote>
         <p>Студия работает на <span class="hl">личном профессиональном участии</span> основателя. В работе соединяются методология, образовательная практика, технологии и проектное управление. Когда задаче нужна другая экспертиза, подключаются профильные специалисты и партнёры.</p>
-        <div class="founder-cols">
-          <div>
-            <h3>Профессиональные направления</h3>
-            <ul>
-              <li>Проектирование образовательных продуктов</li>
-              <li>Методология и педагогический дизайн</li>
-              <li>Цифровая трансформация образования</li>
-              <li>Практическое применение искусственного интеллекта</li>
-              <li>Проектное управление, формирование и координация команд</li>
-              <li>Обучение специалистов и преподавателей</li>
-              <li>Экспертная деятельность</li>
-            </ul>
+        <div class="profile">
+          <div class="pf" id="pf-dirs">
+            <button type="button" class="pf-head" aria-expanded="false" aria-controls="pf-dirs-body">
+              <span class="pf-title">Профессиональные направления</span><span class="pf-teaser">7 направлений и примеры подтверждённой практики</span><span class="pf-icon" aria-hidden="true"></span>
+            </button>
+            <div class="pf-body" id="pf-dirs-body" inert><div class="pf-inner"><ul class="pf-dirs"><li><b>Искусственный интеллект и цифровые технологии</b><span>Практическое применение AI в работе специалистов, команд и образовательных организаций.</span><small><span class="pf-k">Практика</span> Корпоративное обучение на производственном предприятии; семинар для НКО по грантовым заявкам; демонстрация на форуме «ПрофтехПоморье — 2026».</small></li><li><b>Образовательная методология и педагогический дизайн</b><span>Логика обучения, структура программ, учебные траектории.</span><small><span class="pf-k">Практика</span> Методологическое консультирование аптечной сети; методическая работа с педагогами.</small></li><li><b>Разработка образовательных продуктов</b><span>Программы, курсы и учебно-методические комплексы под конкретную аудиторию.</span><small><span class="pf-k">Практика</span> Методический комплекс «Синергия»: 20 академических часов, принят сетью и допущен к тиражированию.</small></li><li><b>Проектирование цифровых решений</b><span>Цифровые инструменты, которые решают конкретную задачу.</span><small><span class="pf-k">Практика</span> Инструмент для построения промптов; сопровождение логопеда в создании цифровых игр; этот сайт.</small></li><li><b>Проектное управление</b><span>Цели и показатели, этапы, команда, контроль результатов.</span><small><span class="pf-k">Практика</span> «МедиаЛаб: Профессия в кадре» — бюджет исполнен полностью; «НЕшкола программирования микроконтроллеров» — проект с грантовой поддержкой.</small></li><li><b>Корпоративное обучение и развитие компетенций</b><span>Обучение сотрудников работе с AI на их собственных рабочих задачах.</span><small><span class="pf-k">Практика</span> Обучение 17 сотрудников производственного предприятия в разных форматах.</small></li><li><b>Экспертная и методическая деятельность</b><span>Экспертиза в профессиональном образовании и методическая поддержка педагогов.</span><small><span class="pf-k">Практика</span> Экспертная работа в профессиональном образовании; методическая работа с педагогами.</small></li></ul></div></div>
           </div>
-          <div>
-            <h3>Опыт</h3>
-            <ul>
-              <li>Преподавание искусственного интеллекта</li>
-              <li>Преподавание цифровой педагогики и онлайн-обучения</li>
-              <li>Робототехника и программирование</li>
-              <li>Методическая работа с педагогами</li>
-              <li>Экспертная работа в профессиональном образовании</li>
-              <li>Образовательные и медиапроекты</li>
-            </ul>
+          <div class="pf" id="pf-exp">
+            <button type="button" class="pf-head" aria-expanded="false" aria-controls="pf-exp-body">
+              <span class="pf-title">Опыт</span><span class="pf-teaser">Преподавание, методическая работа, экспертиза, управление проектами</span><span class="pf-icon" aria-hidden="true"></span>
+            </button>
+            <div class="pf-body" id="pf-exp-body" inert><div class="pf-inner"><ul class="pf-exp"><li><b>Преподавание искусственного интеллекта</b><span>Обучение работе с AI специалистов, педагогов и команд.</span></li><li><b>Преподавание цифровой педагогики и онлайн-обучения</b><span>Цифровые инструменты и форматы в образовательной практике.</span></li><li><b>Методическая работа с педагогами</b><span>Сопровождение педагогов, методические материалы и практики.</span></li><li><b>Профессиональное образование</b><span>Экспертная работа и работа с преподавателями профессионального образования.</span></li><li><b>Разработка образовательных программ</b><span>От программы до сценариев занятий и материалов учащихся.</span></li><li><b>Робототехника и программирование</b><span>ITLab29: робототехника, программирование, Arduino, беспилотные авиационные системы, STEM-проектирование.</span></li><li><b>Управление образовательными и цифровыми проектами</b><span>ITLab29 — 166 учащихся и 32 цифровых продукта; «МедиаЛаб» — 30 участников, 7 роликов, 14 интервью.</span></li></ul></div></div>
           </div>
-          <div>
-            <h3>Публикации</h3>
-            <ul class="pubs">
-              <li>«Искусственный интеллект как помощник начинающего учителя: практики внедрения и этические аспекты»</li>
-              <li>«К вопросу о методике использования технологий искусственного интеллекта в процессе создания презентаций»<small>Выходные данные уточняются</small></li>
-            </ul>
+          <div class="pf" id="pf-edu">
+            <button type="button" class="pf-head" aria-expanded="false" aria-controls="pf-edu-body">
+              <span class="pf-title">Профессиональное развитие</span><span class="pf-teaser">С 2021 года: переподготовка, повышение квалификации, курсы</span><span class="pf-icon" aria-hidden="true"></span>
+            </button>
+            <div class="pf-body" id="pf-edu-body" inert><div class="pf-inner"><ul class="edu"><li data-doc=""><span class="org">Университет искусственного интеллекта · Переподготовка</span><span class="prog">Профессиональная переподготовка / обучение в области искусственного интеллекта</span><span class="meta"><span class="chip ">2021</span></span></li><li data-doc=""><span class="org">Московский физико-технический институт (МФТИ) · Повышение квалификации · удостоверение</span><span class="prog">«Быстрый старт в искусственный интеллект»</span><span class="meta"><span class="chip ">72 часа</span><span class="chip ">2022</span></span></li><li data-doc=""><span class="org">Московский городской педагогический университет · Повышение квалификации · удостоверение</span><span class="prog">«Искусственный интеллект: теория и методика обучения в основной и старшей школе»</span><span class="meta"><span class="chip ">72 часа</span><span class="chip ">2022–2023</span></span></li><li data-doc=""><span class="org">Всероссийский форум «Педагоги России» · Диплом участника курса</span><span class="prog">«Нейросети и искусственный интеллект в образовательной практике: повышение эффективности и персонализация обучения»</span><span class="meta"><span class="chip ">36 часов</span><span class="chip ">2024</span></span></li><li><span class="org">Курс завершён · Документ об окончании ещё не получен</span><span class="prog">«ИИ для педагогов»</span><span class="meta"><span class="chip warm">удостоверение ожидается</span></span></li><li><span class="org">Академия Edison · Обучение продолжается</span><span class="prog">«Продюсер онлайн-курсов»</span><span class="meta"><span class="chip warm">обучение в процессе</span></span></li></ul><p class="pf-note">Сканы документов можно будет открыть в увеличенном виде, как только они будут добавлены.</p></div></div>
           </div>
-          <div class="wide">
-            <h3>Профессиональное развитие</h3>
-            <ul class="edu">
-              <li data-doc=""><span class="org">Московский городской педагогический университет · удостоверение о повышении квалификации</span><span class="prog">«Искусственный интеллект: теория и методика обучения в основной и старшей школе»</span><span class="meta"><span class="chip">72 часа</span><span class="chip">2022–2023</span></span></li>
-              <li data-doc=""><span class="org">Московский физико-технический институт (МФТИ) · удостоверение о повышении квалификации</span><span class="prog">«Быстрый старт в искусственный интеллект»</span><span class="meta"><span class="chip">72 часа</span><span class="chip">2022</span></span></li>
-              <li data-doc=""><span class="org">Всероссийский форум «Педагоги России» · диплом участника курса</span><span class="prog">«Нейросети и искусственный интеллект в образовательной практике: повышение эффективности и персонализация обучения»</span><span class="meta"><span class="chip">36 часов</span><span class="chip">2024</span></span></li>
-              <li><span class="org">Обучение завершено, документ об окончании ожидается</span><span class="prog">«ИИ для педагогов»</span><span class="meta"><span class="chip warm">документ ожидается</span></span></li>
-              <li><span class="org">Академия Edison</span><span class="prog">«Продюсер онлайн-курсов»</span><span class="meta"><span class="chip warm">обучение в процессе</span></span></li>
-            </ul>
+          <div class="pf" id="pf-pubs">
+            <button type="button" class="pf-head" aria-expanded="false" aria-controls="pf-pubs-body">
+              <span class="pf-title">Публикации</span><span class="pf-teaser">Научно-методические статьи и авторская колонка</span><span class="pf-icon" aria-hidden="true"></span>
+            </button>
+            <div class="pf-body" id="pf-pubs-body" inert><div class="pf-inner"><article class="pub-feature" data-cover="" data-pdf="" data-url="">
+              <div class="pub-visual" aria-hidden="true">
+                <span class="pv-orbit"></span>
+                <span class="pv-circle pv-teacher"><b>Педагог</b></span>
+                <span class="pv-circle pv-ai"><b>ИИ</b></span>
+                <span class="pv-overlap">помощник,<br>а не замена</span>
+                <i class="pv-dot d1"></i><i class="pv-dot d2"></i><i class="pv-dot d3"></i><i class="pv-dot d4"></i>
+              </div>
+              <div class="pub-text">
+                <div class="pub-status"><span class="chip warm">В редакционной подготовке</span><span class="pub-kind">Научно-методическая статья</span></div>
+                <h4>«Искусственный интеллект как помощник начинающего учителя: практики внедрения и этические аспекты»</h4>
+                <p class="pub-author">Коцуба Алексей Александрович</p>
+                <p class="pub-biblio">Методические практики и технологии поддержки молодых педагогов: сборник лучших практик сопровождения молодых педагогов и материалов по итогам регионального заочного конкурса «Траектория профессионального успеха» / авт.-сост. Е.Б. Баскакова. – Архангельск: Изд-во АО ИОО, 2026. – 197 с. Страницы статьи (предварительно): 108–114.</p>
+                <div class="pub-abstract">
+                  <p>В статье рассматривается опыт применения технологий искусственного интеллекта в профессиональной деятельности начинающих педагогов: при подготовке учебных занятий, оценивании результатов обучения, разработке индивидуальных образовательных маршрутов и организации обратной связи.</p>
+                  <p>Отдельное внимание уделяется методическим и этическим аспектам: <span class="hl">защите персональных данных</span>, ответственности за автоматизированные решения, рискам технологической зависимости и сохранению человеческого взаимодействия в образовательном процессе.</p>
+                  <p>Основная идея: искусственный интеллект должен выступать <span class="hl">помощником педагога</span>, расширять его профессиональные возможности, но не подменять педагогическую ответственность и живое общение с обучающимися.</p>
+                </div>
+                <p class="pf-note">Сборник находится на редакционной доработке и ещё не вышел. Обложка, PDF и ссылка на публикацию появятся после выхода.</p>
+              </div>
+            </article>
+            <article class="pub-item">
+              <div class="pub-status"><span class="chip">Опубликовано</span><span class="pub-kind">Статья · журнал «Северная Двина», № 6/2024</span></div>
+              <h4><a href="https://www.sdvina.ru/detail/?ID=1861136&SECTION_ID=15404" target="_blank" rel="noopener">«К вопросу о методике использования технологий искусственного интеллекта в процессе создания презентаций»</a></h4>
+              <a class="pub-link" href="https://www.sdvina.ru/detail/?ID=1861136&SECTION_ID=15404" target="_blank" rel="noopener">Читать на сайте журнала «Северная Двина» →</a>
+            </article>
+            <div class="pub-other">
+              <p class="pf-k">Другие материалы автора</p>
+              <p><b>Авторская колонка «Искусственный интеллект в образовании: сложные вопросы и простые ответы»</b></p>
+              <p class="pf-note">Публицистические материалы. Не относятся к научным публикациям.</p>
+            </div></div></div>
           </div>
-        </div>
+        </div><!-- /profile -->
       </div>
     </div>
   </section>
@@ -1079,9 +1394,9 @@ strong.hl{font-weight:500}
         <div class="direct">
           <p>Если удобнее написать напрямую:</p>
           <div class="direct-links">
-            <a class="clink" href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5FDFDE" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg><span>Telegram <small>@Alexey_Kotsuba</small></span></a>
+            <a class="clink" href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5FDFDE" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg><span>Основатель в Telegram <small>@Alexey_Kotsuba</small></span></a>
             <a class="clink" href="mailto:studio@kocuba-aa.ru"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#5FDFDE" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><span>studio@kocuba-aa.ru</span></a>
-            <a class="clink" href="https://vk.ru/aioasis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5FDFDE" d="M12.8 17.5c-5.6 0-8.8-3.8-8.9-10.2h2.8c.1 4.7 2.1 6.6 3.7 7V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6c-.4 2.5-2.2 4.3-3.5 5 1.3.6 3.4 2.2 4.2 5.2h-2.9c-.6-1.9-2.2-3.4-4.2-3.6v3.6h-.2Z"/></svg><span>ВКонтакте <small>vk.ru/aioasis</small></span></a>
+            <a class="clink" href="https://vk.ru/aioasis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5FDFDE" d="M12.8 17.5c-5.6 0-8.8-3.8-8.9-10.2h2.8c.1 4.7 2.1 6.6 3.7 7V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6c-.4 2.5-2.2 4.3-3.5 5 1.3.6 3.4 2.2 4.2 5.2h-2.9c-.6-1.9-2.2-3.4-4.2-3.6v3.6h-.2Z"/></svg><span>Сообщество ВКонтакте <small>vk.ru/aioasis</small></span></a>
           </div>
         </div>
       </div>
@@ -1100,9 +1415,10 @@ strong.hl{font-weight:500}
         </fieldset>
         <div class="field"><label for="f-task">Что происходит и что хотелось бы изменить</label><textarea id="f-task" name="task" required placeholder="Можно коротко и своими словами"></textarea></div>
         <div class="hp" aria-hidden="true"><label for="f-website">Сайт</label><input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
-        <label class="consent"><input type="checkbox" id="f-consent" name="consent" required><span>Я даю согласие на обработку персональных данных в соответствии с <a href="#personal-data">условиями обработки персональных данных</a>. Данные используются только для ответа на обращение.</span></label>
+        <label class="consent"><input type="checkbox" id="f-consent" name="consent" required><span>Я даю согласие на обработку моих персональных данных (имя, способ связи, описание задачи) для ответа на это обращение. <a href="privacy.html#consent" target="_blank" rel="noopener">Текст согласия</a></span></label>
         <button class="btn btn-primary" type="submit">Отправить <span class="arr" aria-hidden="true">→</span></button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form-legal">Отправляя форму, вы подтверждаете, что ознакомились с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>. Без отметки согласия форма не отправляется.</p>
       </form>
     </div>
   </section>
@@ -1110,27 +1426,101 @@ strong.hl{font-weight:500}
 
 <footer class="footer" id="contacts">
   <div class="wrap">
-    <div class="footer-brand"><a class="logo" href="#top"><img src="assets/logo-wordmark-112.png" width="84" height="76" alt="AI OASIS"></a><p>Проектная студия цифровых и интеллектуальных решений</p><p class="brand-line" aria-hidden="true"></p></div>
-    <div class="footer-contacts">
-      <h3>Контакты</h3>
-      <ul>
-        <li><a href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener">Telegram: @Alexey_Kotsuba</a></li>
-        <li><a href="mailto:studio@kocuba-aa.ru">studio@kocuba-aa.ru</a></li>
-        <li><a href="https://vk.ru/aioasis" target="_blank" rel="noopener">ВКонтакте: vk.ru/aioasis</a></li>
-      </ul>
+    <div class="footer-col">
+      <div class="footer-brand"><a class="logo" href="#top"><img src="assets/logo-wordmark-112.png" width="84" height="76" alt="AI OASIS"></a><p>Проектная студия цифровых и интеллектуальных решений</p><p class="brand-line" aria-hidden="true"></p></div>
+      <div class="author">
+        <span class="role">Основатель студии</span>
+        <b>Алексей Коцуба</b>
+        <p>Идея, концепция и развитие AI OASIS — Алексей Коцуба, основатель студии.</p>
+        <p>Сайт создан как самостоятельный проект AI OASIS с использованием современных инструментов проектирования, разработки и искусственного интеллекта.</p>
+        <div class="author-links">
+          <a class="primary" href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg>Связаться с основателем</a>
+          <a href="https://vk.ru/kotcyba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.8 17.5c-5.6 0-8.8-3.8-8.9-10.2h2.8c.1 4.7 2.1 6.6 3.7 7V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6c-.4 2.5-2.2 4.3-3.5 5 1.3.6 3.4 2.2 4.2 5.2h-2.9c-.6-1.9-2.2-3.4-4.2-3.6v3.6h-.2Z"/></svg>Личный профиль ВКонтакте</a>
+        </div>
+      </div>
     </div>
-    <a class="club" href="https://vk.ru/aioasis" target="_blank" rel="noopener">
-      <span class="eyebrow">Сообщество ВКонтакте</span>
-      <b>Клуб спокойного ИИ</b>
-      <p>Практика, разборы, идеи и поддержка в применении ИИ в работе и жизни. По понедельникам: одна рабочая задача и один приём работы с ИИ.</p>
-      <span class="go">Перейти в сообщество →</span>
-    </a>
+    <div class="footer-col">
+      <div class="footer-group">
+        <h3>Студия</h3>
+        <ul>
+          <li><a href="mailto:studio@kocuba-aa.ru">studio@kocuba-aa.ru</a></li>
+          <li><a href="https://t.me/aioasis29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg><span>Telegram-канал <small>AI OASIS | Изнутри проектов</small></span></a></li>
+          <li><a href="https://vk.ru/aioasis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.8 17.5c-5.6 0-8.8-3.8-8.9-10.2h2.8c.1 4.7 2.1 6.6 3.7 7V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6c-.4 2.5-2.2 4.3-3.5 5 1.3.6 3.4 2.2 4.2 5.2h-2.9c-.6-1.9-2.2-3.4-4.2-3.6v3.6h-.2Z"/></svg><span>Сообщество ВКонтакте <small>Клуб спокойного ИИ</small></span></a></li>
+        </ul>
+      </div>
+      <div class="footer-group">
+        <h3>Основатель</h3>
+        <ul>
+          <li><a href="https://t.me/Alexey_Kotsuba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg><span>Telegram <small>@Alexey_Kotsuba</small></span></a></li>
+          <li><a href="https://vk.ru/kotcyba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.8 17.5c-5.6 0-8.8-3.8-8.9-10.2h2.8c.1 4.7 2.1 6.6 3.7 7V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6c-.4 2.5-2.2 4.3-3.5 5 1.3.6 3.4 2.2 4.2 5.2h-2.9c-.6-1.9-2.2-3.4-4.2-3.6v3.6h-.2Z"/></svg><span>ВКонтакте <small>vk.ru/kotcyba</small></span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="channels">
+      <a class="club tg" href="https://t.me/aioasis29" target="_blank" rel="noopener">
+        <span class="eyebrow">Telegram-канал · AI OASIS | Изнутри проектов</span>
+        <b>Следите за AI OASIS — <span class="hl">проекты</span>, идеи и решения изнутри</b>
+        <p>Практическое применение искусственного интеллекта, разработка сайтов, <span class="hl">цифровые решения</span>, автоматизация и рабочие эксперименты.</p>
+        <span class="btn-sub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.5Zm-4 3.6-8.6 7.8-.3 3.6-1.6-5 9.9-6.2c.5-.3.9-.1.6-.2Z"/></svg>Подписаться на Telegram</span>
+      </a>
+      <a class="club small" href="https://vk.ru/aioasis" target="_blank" rel="noopener">
+        <span class="eyebrow">Сообщество ВКонтакте</span>
+        <b>Клуб спокойного ИИ</b>
+        <p>Практика, разборы, идеи и поддержка в применении ИИ в работе и жизни.</p>
+        <span class="go">Перейти в сообщество →</span>
+      </a>
+    </div>
     <div class="footer-legal" id="personal-data">
-      <p>Персональные данные из формы (имя, способ связи, описание задачи) используются только для ответа на обращение и не передаются третьим лицам для других целей. Сообщение доставляется основателю студии в Telegram и на электронную почту.</p>
-      <p>© AI OASIS</p>
+      <p><a href="privacy.html">Политика конфиденциальности</a> · <a href="privacy.html#consent">Согласие на обработку персональных данных</a></p>
+      <p>© 2026 AI OASIS · Проектная студия цифровых и интеллектуальных решений</p>
     </div>
   </div>
 </footer>
+<!-- STORIES -->
+<div class="story" id="story-production" role="dialog" aria-modal="true" aria-labelledby="story-production-t" hidden>
+  <div class="story-panel" style="--accent:#5FDFDE">
+    <button class="modal-close story-close" type="button" data-close aria-label="Закрыть историю проекта">×</button>
+    <header class="story-head"><span class="tag t-done">Выполненный проект</span><h2 id="story-production-t">Корпоративное обучение работе с AI для производственного предприятия</h2><p>Лесохимическое предприятие. Название клиента не публикуется.</p></header>
+    <div class="story-grid"><section class="st-block "><h3>Исходная задача</h3><p>Понять, где искусственный интеллект действительно полезен сотрудникам в их реальной работе, и научить применять его системно, а не от случая к случаю.</p></section><section class="st-block "><h3>Особенности ситуации</h3><p>Сотрудники работают с исследованиями рынка и технологий, большими объёмами информации, рабочими документами и Excel. Задача была не во внедрении промышленной AI-системы, а в том, чтобы люди умели применять AI в своих задачах.</p></section><section class="st-block "><h3>Подход</h3><p>Сначала диагностика и опрос участников, затем индивидуальная программа вокруг приоритетных направлений и практика на рабочих материалах.</p></section><section class="st-block wide"><h3>Ход работы</h3><ol class="st-steps"><li><b>Диагностика</b><span>Опрос участников, определение потребностей. В диагностике участвовали 12 сотрудников.</span></li><li><b>Приоритеты</b><span>Исследование рынка и технологий, большие объёмы информации, документы, Excel и аналитика, подготовка рабочих материалов.</span></li><li><b>Программа</b><span>Индивидуальная программа обучения под эти направления.</span></li><li><b>Обучение и практика</b><span>Занятия в разных форматах и практические задания. Обучение прошли 17 человек.</span></li><li><b>Инструмент</b><span>Специализированный инструмент для построения промптов.</span></li></ol></section><section class="st-block "><h3>Роль основателя</h3><p>Диагностика потребностей, проектирование программы, обучение сотрудников, разработка практических заданий и инструмента для построения промптов.</p></section><section class="st-block "><h3>Выполненные результаты</h3><ul class="st-list"><li>12 сотрудников прошли диагностику потребностей</li><li>17 человек прошли обучение в разных форматах</li><li>Разработана индивидуальная программа обучения</li><li>Созданы практические задания</li><li>Разработан инструмент для построения промптов</li></ul></section><section class="st-block muted"><h3>Чего мы не заявляем</h3><p>Экономия времени и финансовый эффект не измерялись, поэтому мы их не указываем. Проект — корпоративное обучение и проектирование практического применения AI, а не внедрение автоматизированной системы.</p></section></div>
+    <footer class="story-foot"><button class="btn btn-primary" type="button" data-close>Вернуться к проектам</button></footer>
+  </div>
+</div>
+<div class="story" id="story-pharma" role="dialog" aria-modal="true" aria-labelledby="story-pharma-t" hidden>
+  <div class="story-panel" style="--accent:#E1A492">
+    <button class="modal-close story-close" type="button" data-close aria-label="Закрыть историю проекта">×</button>
+    <header class="story-head"><span class="tag t-method">Методологическое консультирование</span><h2 id="story-pharma-t">Корпоративный образовательный продукт для аптечной сети</h2><p>Отраслевую экспертизу и предметное содержание обеспечивал специалист со стороны клиента. Роль AI OASIS — методология, проектирование продукта и работа с AI.</p></header>
+    <div class="story-grid"><section class="st-block "><h3>Исходная задача</h3><p>У специалиста была идея структурированного курса для обучения и сплочения команды фармацевтов крупной аптечной сети. Идей было много, но они не складывались в единую структуру.</p></section><section class="st-block "><h3>Особенности ситуации</h3><p>Содержание курса — в руках отраслевого эксперта. Нужна была логика продукта и такой способ работы с AI, который позволит быстро менять направление обучения уже после запуска.</p></section><section class="st-block "><h3>Подход</h3><p>Последовательное уточнение задачи через сократовский диалог. Вместе со специалистом разработали ветку промптов в Qwen, которая превращает короткие формулировки в структуру обучения.</p></section><section class="st-block wide"><h3>Ход работы</h3><ol class="st-steps"><li><b>Первая консультация</b><span>Сформировали логику образовательного продукта и ветку промптов в Qwen.</span></li><li><b>Самостоятельная работа</b><span>Специалист подготовила коммерческое предложение для генерального директора.</span></li><li><b>Вторая консультация</b><span>Разработали алгоритм подготовки договора с помощью AI.</span></li><li><b>Договор</b><span>Проверен юристами компании с небольшими корректировками и подписан генеральным директором.</span></li><li><b>Запуск</b><span>Образовательный продукт запущен и работает.</span></li></ol></section><section class="st-block wide"><h3>Цикл обучения в курсе</h3><ol class="st-cycle"><li>Диагностика и опросы</li><li>Тематическое микрообучение</li><li>Практика</li><li>Анализ профессиональных коммуникаций с использованием AI</li><li>Интерпретация результатов методологом</li><li>Адаптация последующего обучения</li></ol></section><section class="st-block "><h3>Роль основателя</h3><ul class="st-list"><li>Методологическое консультирование</li><li>Помощь в структурировании идеи</li><li>Проектирование образовательной логики</li><li>Архитектура работы с AI</li><li>Сопровождение подготовки коммерческого предложения и договора</li><li>Поддержка специалиста при запуске</li></ul></section><section class="st-block "><h3>Выполненные результаты</h3><ul class="st-list"><li>Логика образовательного продукта</li><li>Ветка промптов в Qwen</li><li>Коммерческое предложение (подготовлено специалистом)</li><li>Договор подписан генеральным директором</li><li>Курс запущен</li></ul></section><section class="st-block wide review-block"><h3>Отзыв автора проекта</h3><div class="review">
+        <div class="review-quotes">
+          <blockquote>«Пара предложений за считаные минуты превращалась в структурированную, стройную систему».</blockquote>
+          <blockquote>«Благодаря изначально правильно написанному промпту я могу за два часа полностью изменить вектор обучения».</blockquote>
+          <blockquote>«Помог мне снять страхи и барьеры перед началом работы над проектом».</blockquote>
+        </div>
+        <div class="review-full" id="pharma-review" hidden><p>Всё началось с идеи создания структурированного курса для обучения и сплочения команды фармацевтов одной крупной аптечной сети. Было много мыслей, которые никак не укладывались в единую структуру. Нужен был простой инструмент.</p><p>С Алексеем мы уже работали вместе. Ранее он подсказал мне, как ИИ может помочь написать бизнес-план. Я успешно защитила его и подписала социальный контракт. Поэтому я не сомневалась, что и с созданием обучающего курса с нуля консультация Алексея мне поможет.</p><p>Самым сложным было уложить свои мысли в качественный промпт. Главным затруднением было то, что я не знала, с чего начать.</p><p>На первой встрече Алексей рассказал, что уже успешно работал с подобной задачей с помощью ИИ. Я полностью доверилась его опыту.</p><p>Мы вместе написали ветку промптов в Qwen, используя сократовский диалог. И я увидела ту самую «волшебную палочку»: пара предложений за считаные минуты превращалась в структурированную, стройную систему.</p><p>Дальше я уже самостоятельно продолжила работу и подготовила коммерческое предложение для генерального директора аптечной сети.</p><p>На второй короткой консультации Алексей подсказал алгоритм работы с ИИ для подготовки договора оказания консультационных услуг. Получившийся договор лишь в малой части был откорректирован юристами компании и благополучно подписан генеральным директором.</p><p>Курс уже функционирует. Я столкнулась с необходимостью менять направление обучения в процессе работы. Самостоятельно я бы не смогла делать это за такие короткие промежутки времени. Но благодаря изначально правильно написанному промпту я могу за два часа полностью изменить вектор обучения.</p><p>ИИ теперь выступает моим главным консультантом и помощником. Мои трудозатраты и время на рутинное оформление структуры обучения, сценариев микроуроков, разработку чек-листов, обработку голосовых сообщений с выполненными заданиями, создание промежуточных опросников, написание сообщений в чаты обучающихся, транскрибацию рабочих встреч и составление подробных резюме существенно сократились.</p><p>С этим списком задач я справляюсь вместе с ИИ за часы вместо дней самостоятельной работы. При этом могу за минуты поменять концепцию и структуру без потери качества благодаря изначальному промпту, который мы написали вместе с Алексеем.</p><p>Кстати, Алексей, обладая педагогическим опытом и знанием психологии поведения, помог мне снять страхи и барьеры перед началом работы над проектом, перед неизвестностью, повысить чувство собственного достоинства и самооценку.</p><p>При этом он всегда на связи, отвечает на вопросы, проявляет соучастие. Я считаю, что это тоже несомненно повлияло на положительный результат запуска моего образовательного продукта.</p></div>
+        <div class="review-meta">
+          <button type="button" class="btn btn-ghost review-toggle" aria-expanded="false" aria-controls="pharma-review">Читать отзыв полностью</button>
+          <a href="https://vk.ru/chemlow" target="_blank" rel="noopener">Профиль автора во ВКонтакте →</a>
+        </div>
+      </div></section><section class="st-block wide"><h3>Видеоотзыв</h3><div class="video-slot"><p>Видеоотзыв автора проекта появится здесь, как только будет опубликован.</p></div></section><section class="st-block muted wide"><h3>Чего мы не заявляем</h3><p>Мы не связываем проект с ростом продаж и другими бизнес-показателями аптечной сети: такие данные не измерялись. Оценки времени в отзыве — личный опыт автора.</p></section></div>
+    <footer class="story-foot"><button class="btn btn-primary" type="button" data-close>Вернуться к проектам</button></footer>
+  </div>
+</div>
+<div class="story" id="story-games" role="dialog" aria-modal="true" aria-labelledby="story-games-t" hidden>
+  <div class="story-panel" style="--accent:#F3C9BC">
+    <button class="modal-close story-close" type="button" data-close aria-label="Закрыть историю проекта">×</button>
+    <header class="story-head"><span class="tag t-done">Индивидуальное сопровождение</span><h2 id="story-games-t">Цифровые обучающие игры для занятий логопеда</h2><p>Индивидуальное методологическое и техническое сопровождение специалиста.</p></header>
+    <div class="story-grid"><section class="st-block "><h3>Исходная задача</h3><p>Специалист-логопед хотела создавать короткие компьютерные игры на 4–6 минут для занятий с детьми: вставить пропущенную букву, переставить буквы, составить предложение, выбрать предлог по картинке.</p></section><section class="st-block "><h3>Особенности ситуации</h3><p>Технических навыков для создания игр у специалиста не было. Важно было не сделать игры за неё, а передать способ, которым она сможет создавать новые сама.</p></section><section class="st-block "><h3>Подход</h3><ul class="st-list"><li>Индивидуальная онлайн-встреча на 60–90 минут</li><li>Совместное создание нескольких игр</li><li>Демонстрация диалогового взаимодействия с AI</li><li>Последовательное уточнение и улучшение результата</li><li>Запись занятия для повторения</li><li>Дальнейшая поддержка специалиста</li></ul></section><section class="st-block "><h3>Роль основателя</h3><p>Методологическое и техническое сопровождение: показать способ, вместе пройти путь от учебной задачи до работающей игры, ответить на вопросы после встречи.</p></section><section class="st-block "><h3>Выполненные результаты</h3><ul class="st-list"><li>Созданы несколько игр для занятий</li><li>Специалист получила запись занятия</li><li>Специалист научилась самостоятельно разрабатывать новые игры</li></ul></section><section class="st-block wide review-block"><h3>Отзыв</h3><div class="review"><div class="review-full"><p>«Закончился урок по созданию игр для занятий с детьми у Алексея Александровича. Восторг! Теперь я знаю секрет, как превратить закрепление любой темы в захватывающее приключение. Спасибо ВАМ за то, что делитесь такими крутыми инструментами. Рекомендую всем коллегам.»</p></div><p class="review-sign">Логопед, участница занятия</p></div></section></div>
+    <footer class="story-foot"><button class="btn btn-primary" type="button" data-close>Вернуться к проектам</button></footer>
+  </div>
+</div>
+<div class="story" id="story-motion" role="dialog" aria-modal="true" aria-labelledby="story-motion-t" hidden>
+  <div class="story-panel" style="--accent:#A0E3D8">
+    <button class="modal-close story-close" type="button" data-close aria-label="Закрыть историю проекта">×</button>
+    <header class="story-head"><span class="tag t-done">Выполненный проект</span><h2 id="story-motion-t">«Синергия»: программа по созданию мультфильма в технике stop-motion</h2><p>Полный методический комплекс для каникулярной программы «Основы анимации: создание мультфильма в технике stop-motion».</p></header>
+    <div class="story-grid"><section class="st-block "><h3>Исходная задача</h3><p>Разработать методический комплекс для каникулярного обучения детей 8–11 лет: программу, по которой преподаватели сети смогут вести занятия.</p></section><section class="st-block "><h3>Особенности ситуации</h3><p>Короткий интенсивный формат: 5 дней по 4 академических часа, всего 20 часов. Комплекс должен работать в разных филиалах сети, то есть быть понятным любому преподавателю.</p></section><section class="st-block wide"><h3>Что разработано</h3><ol class="st-steps"><li><b>Образовательная программа</b><span>Цели, содержание и логика пяти дней.</span></li><li><b>Сценарии преподавателя</b><span>Пошаговые сценарии занятий.</span></li><li><b>Материалы учащихся</b><span>Материалы для работы детей.</span></li><li><b>Презентации занятий</b><span>Презентации к каждому занятию.</span></li></ol></section><section class="st-block "><h3>Роль основателя</h3><p>Разработка полного методического комплекса: от программы до материалов к каждому занятию.</p></section><section class="st-block "><h3>Выполненные результаты</h3><ul class="st-list"><li>Методический комплекс разработан полностью</li><li>Комплекс принят сетью и допущен к тиражированию</li></ul></section><section class="st-block muted"><h3>Чего мы не заявляем</h3><p>Мы не утверждаем, что программа уже реализована во всех филиалах сети. Визуализация рассказывает о процессе, которому учит программа, а не о мультфильме, созданном студией.</p></section></div>
+    <footer class="story-foot"><button class="btn btn-primary" type="button" data-close>Вернуться к проектам</button></footer>
+  </div>
+</div>
+<!-- /STORIES -->
 <div class="modal" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-title" hidden>
   <div class="modal-card">
     <button class="modal-close" type="button" data-close aria-label="Закрыть">×</button>
@@ -1293,7 +1683,18 @@ strong.hl{font-weight:500}
   document.querySelectorAll('.modal').forEach(function(m){
     m.addEventListener('click',function(e){if(e.target===m||e.target.closest('[data-close]'))closeModal(m)});
   });
-  addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.is-open').forEach(closeModal)});
+  addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.is-open,.story.is-open').forEach(closeModal)});
+  /* истории проектов: полноэкранная панель поверх сайта */
+  document.querySelectorAll('.story').forEach(function(st){
+    st.addEventListener('click',function(e){if(e.target===st||e.target.closest('[data-close]'))closeModal(st)});
+  });
+  document.querySelectorAll('.story-open').forEach(function(b){
+    b.addEventListener('click',function(){var st=document.getElementById(b.dataset.story); if(!st) return; openModal(st); st.scrollTop=0;});
+  });
+  /* полный текст отзыва */
+  document.querySelectorAll('.review-toggle').forEach(function(b){
+    b.addEventListener('click',function(){var t=document.getElementById(b.getAttribute('aria-controls')); var open=t.hidden; t.hidden=!open; b.setAttribute('aria-expanded',open); b.textContent=open?'Свернуть отзыв':'Читать отзыв полностью';});
+  });
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var missing=[].filter.call(form.querySelectorAll('[required]'),function(el){return el.type==='checkbox'?!el.checked:!el.value.trim()});
@@ -1310,6 +1711,12 @@ strong.hl{font-weight:500}
       })
       .catch(function(){setStatus('Сообщение не отправилось. Проверьте подключение к интернету и попробуйте ещё раз. Всё, что вы написали, осталось в форме. Если не получится, '+FALLBACK.charAt(0).toLowerCase()+FALLBACK.slice(1),true)})
       .then(function(){clearTimeout(timer);sendBtn.disabled=false;sendBtn.innerHTML=label});
+  });
+
+  /* профиль основателя: плавно раскрывающиеся блоки */
+  document.querySelectorAll('.pf').forEach(function(p){
+    var h=p.querySelector('.pf-head'), b=p.querySelector('.pf-body');
+    h.addEventListener('click',function(){var open=!p.classList.contains('open'); p.classList.toggle('open',open); h.setAttribute('aria-expanded',open); if(open) b.removeAttribute('inert'); else b.setAttribute('inert','');});
   });
 
   /* просмотр документов о повышении квалификации: кнопка появляется только у пунктов с файлом в data-doc */
@@ -1986,6 +2393,899 @@ import * as THREE from 'three';
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   }
   requestAnimationFrame(() => host.classList.add('gl-ready'));
+})();
+</script>
+<script type="module" id="scene-kit-js">
+/* AI OASIS — общий каркас интерактивных сцен портфолио.
+   Отвечает за вкладки этапов, автопросмотр, подписи в пространстве, размеры, вращение перетаскиванием,
+   работу только на экране и упрощённый режим (prefers-reduced-motion). Саму сцену строит build(). */
+import * as THREE from 'three';
+
+window.AIO_THREE = THREE;
+window.AIO_SCENE = function (host, opt) {
+  if (!host) return null;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tabs = [...host.querySelectorAll('.cs-tabs button')];
+  const bars = tabs.map(b => b.querySelector('i'));
+  const numEl = host.querySelector('.cs-num span');
+  const textEl = host.querySelector('.cs-text');
+  const playBtn = host.querySelector('.cs-play');
+  const labelsEl = host.querySelector('.cs-labels');
+  const N = tabs.length, DUR = opt.durs, TRANS = opt.trans || 1.8;
+  let stage = reduce ? (opt.reduceStage ?? N - 1) : 0, auto = !reduce, stageT = reduce ? 99 : 0, hovering = false, hold = false;
+  let scene = null, renderer = null;
+  const api = { auto: () => auto, stage: () => stage, stageT: () => stageT, reduce, setAuto, setStage, hold: v => (hold = v) };
+
+  function ui() {
+    tabs.forEach((b, i) => { b.classList.toggle('on', i === stage); b.setAttribute('aria-pressed', i === stage); });
+    numEl.textContent = stage + 1; textEl.textContent = opt.texts[stage];
+    playBtn.textContent = auto ? 'Пауза' : 'Автопросмотр'; playBtn.setAttribute('aria-pressed', auto);
+    bars.forEach(b => (b.style.width = '0'));
+  }
+  function setAuto(v) { auto = v && !reduce; ui(); }
+  function setStage(s) { stage = s; stageT = reduce ? 99 : 0; scene && scene.stage && scene.stage(s); ui(); if (reduce && renderer && scene) requestAnimationFrame(still); }
+  tabs.forEach((b, i) => b.addEventListener('click', () => { auto = false; setStage(i); }));
+  playBtn.addEventListener('click', () => { auto = !auto && !reduce; if (auto && stageT > DUR[stage]) setStage((stage + 1) % N); else ui(); });
+  host.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
+  host.addEventListener('pointerleave', () => { hovering = false; });
+  if (reduce) playBtn.hidden = true;
+  ui();
+
+  const canvas = host.querySelector('canvas');
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: !!opt.alpha, powerPreference: 'high-performance' }); } catch (e) {}
+  if (!renderer) { host.classList.add('no-gl'); return api; }
+  const mobile = Math.min(screen.width, screen.height) < 600;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.5));
+  if (opt.linear !== false) renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  if (opt.alpha) renderer.setClearColor(0x000000, 0);
+
+  const scene3 = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(opt.fov || 30, 1, 0.1, 100);
+  const root = new THREE.Group(); scene3.add(root);
+
+  /* подписи */
+  const labels = [];
+  function addLabel(html, stages, anchor, short) {
+    const el = document.createElement('span'); el.className = 'cs-label'; el.innerHTML = html; labelsEl.appendChild(el);
+    const L = { el, stages, anchor, op: 0, w: 0, full: html, short, on: true }; labels.push(L); return L;
+  }
+
+  /* перетаскивание: вращение композиции */
+  const drag = { rot: 0, vel: 0, active: false, lastX: 0 };
+  canvas.addEventListener('pointerdown', e => { drag.active = true; drag.lastX = e.clientX; drag.vel = 0; });
+  addEventListener('pointerup', () => { drag.active = false; });
+  addEventListener('pointermove', e => {
+    if (!drag.active) return; const dx = e.clientX - drag.lastX; drag.lastX = e.clientX;
+    drag.vel = dx * 0.006; drag.rot += drag.vel;
+  });
+
+  const k = { THREE, renderer, scene: scene3, camera, root, addLabel, drag, reduce, mobile, W: 1, H: 1, narrow: false, api };
+  scene = opt.build(k);
+
+  function resize() {
+    const W = host.clientWidth, H = host.clientHeight; k.W = W; k.H = H; k.narrow = W < 560;
+    renderer.setSize(W, H, false); camera.aspect = W / H;
+    const botFull = host.querySelector('.cs-bottom').offsetHeight;
+    host.style.setProperty('--cs-bottom', botFull + 'px');
+    const topH = host.querySelector('.cs-top').offsetHeight, botH = botFull * 0.8;
+    const avail = Math.max(160, H - topH - botH);
+    camera.setViewOffset(W, H, 0, (botH - topH) / 2, W, H);
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const fw = opt.fit.w, fh = opt.fit.h;
+    const dist = Math.max(fw / (tanH * camera.aspect), (fh * H / avail) / tanH);
+    const el = opt.elev ?? 0.2;
+    camera.position.set(0, dist * el + (opt.camY || 0), dist);
+    camera.lookAt(0, opt.lookY || 0, 0);
+    camera.updateProjectionMatrix();
+    labels.forEach(L => { L.el.innerHTML = k.narrow && L.short ? L.short : L.full; L.w = 0; });
+    scene.resize && scene.resize(W, H);
+  }
+
+  const proj = new THREE.Vector3();
+  let t = 0;
+  function frame(dt) {
+    t += dt; stageT += dt;
+    if (auto && !hovering && !hold && stageT > DUR[stage]) setStage((stage + 1) % N);
+    if (auto) bars[stage].style.width = Math.min(100, stageT / DUR[stage] * 100) + '%';
+    if (!drag.active) { drag.vel *= 0.94; drag.rot += drag.vel; }
+    const k2 = Math.max(0, Math.min(1, stageT / TRANS));
+    scene.frame(dt, t, stage, stageT, k2);
+    renderer.render(scene3, camera);
+    root.updateMatrixWorld();
+    for (const L of labels) {
+      const on = L.on && (typeof L.stages === 'function' ? L.stages(stage, stageT) : L.stages.includes(stage) && stageT > 0.8);
+      L.op += ((on ? 1 : 0) - L.op) * Math.min(1, dt * (on ? 2.5 : 5));
+      if (L.op < 0.01) { L.el.style.opacity = 0; continue; }
+      L.anchor(t, proj); proj.applyMatrix4(root.matrixWorld).project(camera);
+      if (!L.w) L.w = L.el.offsetWidth || 100;
+      const x = Math.min(k.W - L.w / 2 - 8, Math.max(L.w / 2 + 8, (proj.x * 0.5 + 0.5) * k.W)), y = (-proj.y * 0.5 + 0.5) * k.H;
+      L.el.style.opacity = L.op.toFixed(3);
+      L.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+    }
+  }
+  function still() { stageT = 99; for (let i = 0; i < 5; i++) frame(0.4); }
+
+  let raf = 0, running = false, last = 0;
+  function loop(now) { const dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now; frame(dt); raf = requestAnimationFrame(loop); }
+  function start() { if (running || reduce) return; running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  api.kick = () => { if (reduce) requestAnimationFrame(still); };
+
+  resize();
+  scene.stage && scene.stage(stage);
+  addEventListener('resize', () => { resize(); if (!running) still(); });
+  if (reduce) still();
+  else {
+    frame(0.016);
+    new IntersectionObserver(es => es.forEach(e => (e.isIntersecting ? start() : stop())), { rootMargin: '80px' }).observe(host);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  }
+  requestAnimationFrame(() => host.classList.add('gl-ready'));
+  return api;
+};
+
+/* скругление коробки: «мягкие» кубики и плитки без дополнительных библиотек */
+window.AIO_ROUNDED_BOX = function (w, h, d, r, seg) {
+  r = Math.min(r, w / 2, h / 2, d / 2) * 0.999; // скругление не больше половины самой тонкой стороны
+  const g = new THREE.BoxGeometry(w, h, d, seg || 6, seg || 6, seg || 6);
+  const p = g.attributes.position, v = new THREE.Vector3(), inner = new THREE.Vector3();
+  const hx = w / 2 - r, hy = h / 2 - r, hz = d / 2 - r;
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    inner.set(Math.max(-hx, Math.min(hx, v.x)), Math.max(-hy, Math.min(hy, v.y)), Math.max(-hz, Math.min(hz, v.z)));
+    v.sub(inner).normalize().multiplyScalar(r).add(inner);
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals();
+  return g;
+};
+
+/* стеклянный материал с преломлением процедурного фона (как в сценах первого экрана) */
+window.AIO_GLASS = function (BG, U, tint, opts) {
+  opts = opts || {};
+  return new THREE.ShaderMaterial({
+    uniforms: { ...U, uTint: { value: new THREE.Vector3(...tint) }, uFlat: { value: opts.flat ? 1 : 0 }, uOp: { value: opts.opacity ?? 1 }, uGlow: { value: 0 } },
+    transparent: true, depthWrite: opts.depthWrite ?? true,
+    vertexShader: 'varying vec3 vN;varying vec3 vP;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vP=mv.xyz;vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*mv;}',
+    fragmentShader: BG + `
+      uniform vec2 uRes; uniform vec3 uTint; uniform float uFlat; uniform float uOp; uniform float uGlow;
+      varying vec3 vN; varying vec3 vP;
+      void main(){
+        vec3 N = uFlat>.5 ? normalize(cross(dFdx(vP),dFdy(vP))) : normalize(vN);
+        vec3 V = normalize(-vP); if(dot(N,V)<0.) N=-N;
+        float ndv=clamp(dot(N,V),0.,1.), fres=pow(1.-ndv,3.);
+        vec2 suv=gl_FragCoord.xy/uRes; float k=.18*(.55+1.1*(1.-ndv));
+        vec3 col=vec3(bg(suv+refract(-V,N,1./1.40).xy*k).r, bg(suv+refract(-V,N,1./1.46).xy*k).g, bg(suv+refract(-V,N,1./1.53).xy*k).b);
+        col=col*uTint*1.35+.035;
+        vec3 R=reflect(-V,N);
+        float box=smoothstep(.6,.9,R.y)*smoothstep(-.2,.4,R.z);
+        float side=pow(max(dot(R,normalize(vec3(-.75,.35,.55))),0.),20.);
+        float spec=pow(max(dot(R,normalize(vec3(.5,.6,.65))),0.),160.);
+        col+=vec3(.92,1.,.98)*(box*.4+side*.5)*(.35+fres)+vec3(1.)*spec*1.3;
+        col+=uTint*fres*.55+uTint*pow(1.-ndv,7.)*.5;
+        col+=uTint*uGlow*.6;
+        gl_FragColor=vec4(col,uOp);
+      }`
+  });
+};
+</script>
+<script type="module" id="scene-pharma-js">
+/* Кейс «Аптечная сеть» — «Живая архитектура образовательного продукта».
+   Идеи-фрагменты → стеклянные слои и модули → цикл обучения со световым импульсом → адаптация структуры.
+   Взаимодействие: вкладки, вращение перетаскиванием, кнопка «Новая потребность команды». */
+(function () {
+  const host = document.getElementById('scene-pharma');
+  if (!host || !window.AIO_SCENE) return;
+  const adaptBtn = document.getElementById('pharma-adapt');
+
+  const api = window.AIO_SCENE(host, {
+    durs: [6, 6.5, 9, 9],
+    texts: [
+      'Идей много, но они пока не складываются в единую структуру.',
+      'Через сократовский диалог идеи превращаются в логику продукта: слои, модули и связи между ними.',
+      'Курс работает циклом: диагностика, микрообучение, практика, AI-анализ коммуникаций, интерпретация методологом, адаптация.',
+      'Когда меняются потребности команды, структура перестраивается, а не создаётся заново. Попробуйте: нажмите кнопку.'
+    ],
+    fit: { w: 2.35, h: 1.9 }, elev: 0.32, lookY: 0.1,
+    build(k) {
+      const THREE = k.THREE, V = THREE.Vector3, TAU = Math.PI * 2;
+      const U = { uTime: { value: 0 }, uAspect: { value: 1 }, uRes: { value: new THREE.Vector2(1, 1) } };
+      const BG = `
+        uniform float uTime; uniform float uAspect;
+        vec3 bg(vec2 uv){
+          vec2 a = uAspect<1. ? vec2(1.,1./uAspect) : vec2(uAspect,1.);
+          vec3 col=vec3(.039,.055,.059);
+          vec2 d=(uv-vec2(.52,.5))*a; col=mix(col,vec3(.047,.25,.28),.9*exp(-2.1*dot(d,d)));
+          vec2 d2=(uv-vec2(.85,.15))*a; col=mix(col,vec3(.36,.17,.13),.55*exp(-4.*dot(d2,d2)));
+          vec2 d3=(uv-vec2(.5,.62+.03*sin(uTime*.2)))*a; col+=vec3(.88,.64,.57)*.06*exp(-9.*dot(d3,d3));
+          float v=length((uv-.5)*vec2(1.,1.15)); col*=1.-.42*smoothstep(.35,.95,v);
+          return col;
+        }`;
+      const bgMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: U, depthTest: false, depthWrite: false,
+        vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
+        fragmentShader: BG + 'varying vec2 vUv;void main(){gl_FragColor=vec4(bg(vUv),1.);}' }));
+      bgMesh.frustumCulled = false; bgMesh.renderOrder = -10; k.scene.add(bgMesh);
+      const G = (t, o) => window.AIO_GLASS(BG, U, t, o);
+
+      /* ---- слои образовательной структуры ---- */
+      const LAYERS = 5;
+      const tower = new THREE.Group(); k.root.add(tower);
+      const layerMat = G([0.85, 1, 0.97], { opacity: 0.92 });
+      const layers = [];
+      for (let i = 0; i < LAYERS; i++) {
+        const m = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.06, 96, 1), layerMat);
+        m.scale.set(0.001, 1, 0.001); tower.add(m);
+        layers.push({ m, r: 1.25 - i * 0.16, y: -0.9 + i * 0.42, rot: 0, tr: 1.25 - i * 0.16, ty: -0.9 + i * 0.42, trot: 0 });
+      }
+      /* ---- модули: стеклянные плитки ---- */
+      const NM = 30;
+      const tileGeo = window.AIO_ROUNDED_BOX(0.24, 0.07, 0.17, 0.03, 4);
+      const tileMats = [G([1, 0.78, 0.7], { flat: false }), G([0.75, 1, 0.97], {}), G([0.95, 0.95, 0.95], {})];
+      const tiles = [];
+      let seed = 21; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      for (let i = 0; i < NM; i++) {
+        const m = new THREE.Mesh(tileGeo, tileMats[i % 3]); tower.add(m);
+        tiles.push({ m, layer: i % LAYERS, slot: Math.floor(i / LAYERS), p0: new V((rnd() * 2 - 1) * 2.3, (rnd() * 2 - 1) * 1.4, (rnd() * 2 - 1) * 1.1),
+          ph: rnd() * TAU, from: new V(), fromRot: new V(), shuffle: rnd() });
+      }
+      /* ---- вертикальные потоки между слоями ---- */
+      const flowN = 18;
+      const flowGeo = new THREE.BufferGeometry(); flowGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(flowN * 6), 3));
+      const flowMat = new THREE.LineBasicMaterial({ color: new THREE.Color().setRGB(0.6, 0.9, 0.86), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+      const flows = new THREE.LineSegments(flowGeo, flowMat); flows.frustumCulled = false; tower.add(flows);
+
+      /* ---- цикл обучения: кольцо с шестью узлами и световым импульсом ---- */
+      const CYCLE = ['Диагностика', 'Микрообучение', 'Практика', 'AI-анализ коммуникаций', 'Интерпретация методологом', 'Адаптация'];
+      const CYCLE_SHORT = ['Диагностика', 'Микрообучение', 'Практика', 'AI-анализ', 'Методолог', 'Адаптация'];
+      const ringR = 2.05;
+      const cycle = new THREE.Group(); cycle.rotation.x = 0.0; k.root.add(cycle);
+      const ringMesh = new THREE.Mesh(new THREE.TorusGeometry(ringR, 0.012, 10, 220), G([1, 0.8, 0.72], {}));
+      ringMesh.rotation.x = Math.PI / 2; cycle.add(ringMesh);
+      const nodeGeo = new THREE.IcosahedronGeometry(0.1, 0);
+      const nodes = CYCLE.map((n, i) => {
+        const m = new THREE.Mesh(nodeGeo, G(i === 3 ? [0.6, 1, 1] : i === 4 ? [1, 0.85, 0.78] : [0.85, 1, 0.97], { flat: true }));
+        cycle.add(m); return { m, a: i / 6 * TAU - Math.PI / 2, glow: 0 };
+      });
+      const pulseTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+        const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,240,230,1)'); g.addColorStop(.3, 'rgba(240,170,140,.6)'); g.addColorStop(1, 'rgba(240,140,110,0)');
+        x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+      const pulse = new THREE.Sprite(new THREE.SpriteMaterial({ map: pulseTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+      pulse.scale.setScalar(0.42); cycle.add(pulse);
+      const trailN = 14, trail = [];
+      for (let i = 0; i < trailN; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: pulseTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 })); s.scale.setScalar(0.3 * (1 - i / trailN)); cycle.add(s); trail.push(s); }
+      /* связь «узел цикла → структура» */
+      const beamGeo = new THREE.BufferGeometry(); beamGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+      const beam = new THREE.Line(beamGeo, new THREE.LineBasicMaterial({ color: new THREE.Color().setRGB(0.95, 0.7, 0.6), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+      beam.frustumCulled = false; k.root.add(beam);
+
+      /* ---- три участника: эксперт, методология, AI ---- */
+      const AGENTS = [{ n: 'Эксперт', t: [1, 0.72, 0.62], g: new THREE.OctahedronGeometry(0.13, 0) },
+        { n: 'Методология', t: [0.95, 0.95, 0.93], g: new THREE.IcosahedronGeometry(0.13, 0) },
+        { n: 'AI', t: [0.55, 1, 1], g: new THREE.TorusGeometry(0.1, 0.035, 12, 40) }];
+      const agents = AGENTS.map((a, i) => { const m = new THREE.Mesh(a.g, G(a.t, { flat: i < 2 })); m.scale.setScalar(0.001); k.root.add(m); return { m, a: i / 3 * TAU }; });
+      const agentLinesGeo = new THREE.BufferGeometry(); agentLinesGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(18), 3));
+      const agentLines = new THREE.LineSegments(agentLinesGeo, new THREE.LineBasicMaterial({ color: new THREE.Color().setRGB(0.8, 0.9, 0.88), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+      agentLines.frustumCulled = false; k.root.add(agentLines);
+
+      /* ---- подписи ---- */
+      let activeNode = 0;
+      CYCLE.forEach((n, i) => {
+        const L = k.addLabel(n, (s) => (s === 2 || s === 3) && (!k.narrow || i === activeNode), (t, o) => o.copy(nodes[i].m.position).applyMatrix4(cycle.matrix).add(new V(0, 0.24, 0)), CYCLE_SHORT[i]);
+        nodes[i].label = L;
+      });
+      AGENTS.forEach((a, i) => k.addLabel(a.n, [2], (t, o) => o.copy(agents[i].m.position).add(new V(0, i % 2 ? -0.26 : 0.26, 0))));
+      k.addLabel('Идеи и наработки специалиста', [0], (t, o) => o.set(0, -1.55, 0));
+      k.addLabel('Логика продукта', [1], (t, o) => o.set(0, 1.35, 0));
+
+      /* ---- адаптация: новая конфигурация слоёв и модулей ---- */
+      let version = 0, adaptT = 9, waveT = 9;
+      function adapt() {
+        version++; adaptT = 0; waveT = 0;
+        layers.forEach((L, i) => {
+          L.tr = 0.8 + rnd() * 0.55; L.trot = L.rot + (rnd() - 0.5) * 1.2;
+          L.ty = -0.95 + i * (0.38 + rnd() * 0.08);
+        });
+        tiles.forEach(t => { t.layer = Math.floor(rnd() * LAYERS); t.shuffle = rnd(); t.from.copy(t.m.position); });
+      }
+      if (adaptBtn) adaptBtn.addEventListener('click', () => { api.setAuto(false); if (api.stage() !== 3) api.setStage(3); adapt(); api.kick(); });
+
+      const tmp = new V(), tmp2 = new V();
+      let lastStage = -1, pulseA = 0, lastNode = -1;
+      function tileTarget(t, i, s, time, out) {
+        if (s === 0) {
+          return out.set(t.p0.x + Math.sin(time * 0.3 + t.ph) * 0.25, t.p0.y + Math.cos(time * 0.25 + t.ph) * 0.2, t.p0.z + Math.sin(time * 0.2 + t.ph * 2) * 0.2);
+        }
+        const L = layers[t.layer]; const perLayer = 6;
+        const a = (t.slot + t.shuffle * 0.3) / perLayer * TAU + L.rot + time * 0.06 * (t.layer % 2 ? -1 : 1);
+        const rr = L.r * 0.82;
+        return out.set(Math.cos(a) * rr, L.y + 0.07, Math.sin(a) * rr);
+      }
+
+      return {
+        resize(W, H) { U.uAspect.value = W / H; const v = new THREE.Vector2(); k.renderer.getDrawingBufferSize(v); U.uRes.value.copy(v); },
+        stage(s) {
+          tiles.forEach(t => t.from.copy(t.m.position));
+          if (adaptBtn) adaptBtn.hidden = s !== 3;
+          if (s === 3 && lastStage !== 3) adaptT = 9;
+          lastStage = s;
+        },
+        frame(dt, time, s, st, kk) {
+          U.uTime.value = time;
+          const e = kk < 0.5 ? 4 * kk * kk * kk : 1 - Math.pow(-2 * kk + 2, 3) / 2;
+          k.root.rotation.y = k.drag.rot + Math.sin(time * 0.08) * 0.1;
+          adaptT += dt; waveT += dt;
+          if (s === 3 && adaptT > 4.2 && k.api.auto()) adapt(); // в автопросмотре структура сама перестраивается после круга цикла
+          /* слои */
+          const showLayers = s >= 1;
+          layers.forEach((L, i) => {
+            L.r += (L.tr - L.r) * Math.min(1, dt * 1.6); L.y += (L.ty - L.y) * Math.min(1, dt * 1.6); L.rot += (L.trot - L.rot) * Math.min(1, dt * 1.6);
+            const target = showLayers ? L.r : 0.001;
+            const sc = L.m.scale.x + (target - L.m.scale.x) * Math.min(1, dt * (showLayers ? 2.2 - i * 0.2 : 4));
+            L.m.scale.set(Math.max(0.001, sc), 1, Math.max(0.001, sc));
+            L.m.position.y = L.y + Math.sin(time * 0.6 + i) * 0.015;
+            L.m.rotation.y = L.rot;
+          });
+          layerMat.uniforms.uGlow.value = Math.max(0, 1 - Math.abs(waveT * 1.3 - 1.2)) * (s === 3 ? 1 : 0);
+          /* модули */
+          tiles.forEach((t, i) => {
+            tileTarget(t, i, s, time, tmp);
+            const kt = s === 0 ? 1 : Math.max(0, Math.min(1, (Math.min(st, adaptT + 0.001 + (s === 3 ? 0 : 99)) - t.slot * 0.08) / 1.4));
+            const kk2 = kt < 0.5 ? 4 * kt * kt * kt : 1 - Math.pow(-2 * kt + 2, 3) / 2;
+            if (s === 0) t.m.position.lerp(tmp, Math.min(1, dt * 1.5)); else t.m.position.lerpVectors(t.from, tmp, kk2);
+            if (s === 0) { t.m.rotation.x = time * 0.3 + t.ph; t.m.rotation.y = time * 0.2 + t.ph; }
+            else { t.m.rotation.x += (0 - t.m.rotation.x) * Math.min(1, dt * 3); t.m.rotation.y = -Math.atan2(t.m.position.z, t.m.position.x) + Math.PI / 2; }
+          });
+          /* потоки */
+          const fo = s >= 1 ? Math.min(1, st / 2) * 0.35 : 0;
+          flowMat.opacity += (fo - flowMat.opacity) * Math.min(1, dt * 3);
+          if (flowMat.opacity > 0.01) {
+            const arr = flowGeo.attributes.position.array;
+            for (let i = 0; i < flowN; i++) {
+              const a = tiles[i], b = tiles[(i + 7) % NM];
+              arr.set([a.m.position.x, a.m.position.y, a.m.position.z, b.m.position.x, b.m.position.y, b.m.position.z], i * 6);
+            }
+            flowGeo.attributes.position.needsUpdate = true;
+          }
+          /* цикл */
+          const cyc = s >= 2;
+          const cs = cycle.scale.x + ((cyc ? 1 : 0.001) - cycle.scale.x) * Math.min(1, dt * 2.5);
+          cycle.scale.setScalar(Math.max(0.001, cs)); cycle.visible = cs > 0.01;
+          cycle.position.y = -0.1; cycle.rotation.z = 0.12;
+          nodes.forEach((n, i) => { n.m.position.set(Math.cos(n.a) * ringR, 0, Math.sin(n.a) * ringR); n.m.rotation.y = time * 0.7 + i; n.glow *= Math.pow(0.15, dt); n.m.material.uniforms.uGlow.value = n.glow; n.m.scale.setScalar(1 + n.glow * 0.6); });
+          cycle.updateMatrix();
+          if (cyc) {
+            pulseA += dt * (TAU / 6) / 1.1; // ~1,1 с на этап цикла
+            const pa = pulseA - Math.PI / 2;
+            pulse.position.set(Math.cos(pa) * ringR, 0, Math.sin(pa) * ringR);
+            trail.forEach((tr, j) => { const aa = pa - (j + 1) * 0.06; tr.position.set(Math.cos(aa) * ringR, 0, Math.sin(aa) * ringR); tr.material.opacity = 0.5 * (1 - j / trailN); });
+            const ni = Math.floor(((pulseA % TAU) + TAU) % TAU / (TAU / 6) + 0.5) % 6;
+            if (ni !== lastNode) { lastNode = ni; nodes[ni].glow = 1; activeNode = ni; nodes.forEach((n, j) => n.label && n.label.el.classList.toggle('on', j === ni)); }
+            /* луч от активного узла к структуре */
+            tmp.copy(nodes[ni].m.position).applyMatrix4(cycle.matrix); tmp2.set(0, layers[Math.min(LAYERS - 1, ni % LAYERS)].y, 0);
+            beamGeo.attributes.position.array.set([tmp.x, tmp.y, tmp.z, tmp2.x, tmp2.y, tmp2.z]); beamGeo.attributes.position.needsUpdate = true;
+            beam.material.opacity = 0.55 * nodes[ni].glow;
+          } else beam.material.opacity = 0;
+          pulse.visible = cyc;
+          /* участники */
+          const ag = s === 2 ? 1 : 0.001;
+          agents.forEach((a, i) => {
+            const aa = a.a + time * 0.25; a.m.position.set(Math.cos(aa) * 1.05, 1.42 + i * 0.12 + Math.sin(time + i) * 0.04, Math.sin(aa) * 1.05);
+            const sc = a.m.scale.x + (ag - a.m.scale.x) * Math.min(1, dt * 3); a.m.scale.setScalar(Math.max(0.001, sc)); a.m.rotation.y = time * 0.8; a.m.rotation.x = time * 0.4;
+          });
+          agentLines.material.opacity += ((s === 2 ? 0.4 : 0) - agentLines.material.opacity) * Math.min(1, dt * 3);
+          if (agentLines.material.opacity > 0.01) {
+            const arr = agentLinesGeo.attributes.position.array; const top = layers[LAYERS - 1];
+            agents.forEach((a, i) => arr.set([a.m.position.x, a.m.position.y, a.m.position.z, 0, top.y + 0.05, 0], i * 6));
+            agentLinesGeo.attributes.position.needsUpdate = true;
+          }
+        }
+      };
+    }
+  });
+})();
+</script>
+<script type="module" id="scene-games-js">
+/* Кейс «Цифровые игры логопеда» — «От учебной задачи к интерактивному игровому миру».
+   Карточка-задание → буквы становятся игровыми кубиками → четыре механики на игровом острове →
+   мини-игра, в которую посетитель может сыграть сам → новые слова собираются «сами» (передача навыка). */
+(function () {
+  const host = document.getElementById('scene-games');
+  if (!host || !window.AIO_SCENE) return;
+  const gameUI = document.getElementById('game-ui');
+  const optBtns = gameUI ? [...gameUI.querySelectorAll('button')] : [];
+
+  const api = window.AIO_SCENE(host, {
+    durs: [5, 5.5, 8, 9, 9],
+    texts: [
+      'Учебная задача: вставить пропущенную букву в слово.',
+      'Буквы становятся игровыми объектами, с которыми ребёнок может действовать.',
+      'Из тех же объектов собираются разные механики: пропущенная буква, перестановка, предложение, предлог по картинке.',
+      'Попробуйте сами: выберите букву, которой не хватает в слове.',
+      'Главный результат: специалист научилась сама превращать любую тему в новую игру.'
+    ],
+    alpha: true, linear: false, fov: 32,
+    fit: { w: 2.75, h: 1.9 }, elev: 0.55, lookY: -0.25,
+    build(k) {
+      const THREE = k.THREE, V = THREE.Vector3, TAU = Math.PI * 2;
+      k.renderer.outputColorSpace = THREE.SRGBColorSpace;
+      k.renderer.toneMapping = THREE.ACESFilmicToneMapping; k.renderer.toneMappingExposure = 1.05;
+      const S = k.scene;
+      S.add(new THREE.HemisphereLight(0xdff7f3, 0x3a2620, 1.35));
+      const key = new THREE.DirectionalLight(0xfff0e4, 2.1); key.position.set(3, 6, 4); S.add(key);
+      const rim = new THREE.DirectionalLight(0x5fdfde, 1.1); rim.position.set(-5, 2.5, -4); S.add(rim);
+
+      /* ---- текстуры ---- */
+      const FONT = '600 150px Onest, Manrope, sans-serif';
+      function letterCanvas(ch, face, ink) {
+        const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
+        x.fillStyle = face; x.fillRect(0, 0, 256, 256);
+        const g = x.createRadialGradient(90, 70, 10, 128, 128, 200); g.addColorStop(0, 'rgba(255,255,255,.35)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+        x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+        x.fillStyle = ink; x.font = FONT; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(ch, 128, 140);
+        return c;
+      }
+      const FACES = [['#FFF4EA', '#0B2A2F'], ['#F2B4A0', '#3A1610'], ['#7FE3DE', '#06363A'], ['#CFF3EE', '#0B2A2F']];
+      function blockMat(ch, fi) {
+        const tex = new THREE.CanvasTexture(letterCanvas(ch, FACES[fi][0], FACES[fi][1])); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+        const m = new THREE.MeshPhysicalMaterial({ map: tex, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.18, sheen: 0.2 });
+        m.userData = { ch, fi, tex }; return m;
+      }
+      function redraw(m, ch) { m.userData.ch = ch; m.map.image = letterCanvas(ch, FACES[m.userData.fi][0], FACES[m.userData.fi][1]); m.map.needsUpdate = true; }
+      const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+        const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(0,0,0,.45)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+        return new THREE.CanvasTexture(c); })();
+
+      /* ---- игровой остров ---- */
+      const ISL_Y = -0.95;
+      const island = new THREE.Mesh(new THREE.CylinderGeometry(2.45, 2.3, 0.28, 96), new THREE.MeshPhysicalMaterial({ color: 0x1b6066, roughness: 0.55, clearcoat: 0.5 }));
+      island.position.y = ISL_Y - 0.14; k.root.add(island);
+      const top = new THREE.Mesh(new THREE.CircleGeometry(2.38, 96), new THREE.MeshPhysicalMaterial({ color: 0x2a7a7e, roughness: 0.7 }));
+      top.rotation.x = -Math.PI / 2; top.position.y = ISL_Y + 0.001; k.root.add(top);
+      const lip = new THREE.Mesh(new THREE.TorusGeometry(2.42, 0.035, 12, 160), new THREE.MeshPhysicalMaterial({ color: 0xf2b4a0, roughness: 0.3, clearcoat: 1 }));
+      lip.rotation.x = Math.PI / 2; lip.position.y = ISL_Y; k.root.add(lip);
+      const islandGroup = [island, top, lip];
+      islandGroup.forEach(m => m.scale.setScalar(0.001));
+
+      /* ---- карточка-задание ---- */
+      const cardC = document.createElement('canvas'); cardC.width = 1024; cardC.height = 512;
+      function drawCard() {
+        const x = cardC.getContext('2d'); x.clearRect(0, 0, 1024, 512);
+        x.fillStyle = '#FFF4EA'; x.beginPath(); x.roundRect(8, 8, 1008, 496, 60); x.fill();
+        x.fillStyle = '#5B7F82'; x.font = '500 46px Manrope, sans-serif'; x.textAlign = 'center'; x.fillText('Вставь пропущенную букву', 512, 110);
+        x.fillStyle = '#0B2A2F'; x.font = '600 220px Onest, Manrope, sans-serif'; x.fillText('К _ Т', 512, 380);
+        cardTex.needsUpdate = true;
+      }
+      const cardTex = new THREE.CanvasTexture(cardC); cardTex.colorSpace = THREE.SRGBColorSpace;
+      const card = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshBasicMaterial({ map: cardTex, transparent: true, toneMapped: false }));
+      k.root.add(card); drawCard();
+
+      /* ---- кубики-буквы ---- */
+      const geo = window.AIO_ROUNDED_BOX(0.42, 0.42, 0.42, 0.08, 5);
+      const LETTERS = [['К', 0], ['Т', 0], ['А', 3], ['О', 1], ['И', 3], ['М', 2], ['И', 2], ['Р', 2], ['С', 0]];
+      let seed = 5; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+      const blocks = LETTERS.map(([ch, fi], i) => {
+        const m = new THREE.Mesh(geo, blockMat(ch, fi)); m.scale.setScalar(0.001); k.root.add(m);
+        const sh = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.7), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0 }));
+        sh.rotation.x = -Math.PI / 2; k.root.add(sh);
+        return { m, sh, ch, from: new V(), fromQ: new THREE.Quaternion(), fromS: 0.001, p: new V(), q: new THREE.Quaternion(), s: 0.001,
+          scatter: new V((rnd() * 2 - 1) * 1.9, ISL_Y + 0.6 + rnd() * 1.2, (rnd() * 2 - 1) * 1.3), ph: rnd() * TAU, hop: 0 };
+      });
+      const B = ch => blocks.find(b => b.ch === ch);
+      const [bK, bT, bA, bO, bI, bM, bI2, bR, bS] = blocks;
+
+      /* ---- плитки-слова, мяч и коробка для механики «предлог по картинке» ---- */
+      function wordTile(w) {
+        const c = document.createElement('canvas'); c.width = 512; c.height = 192; const x = c.getContext('2d');
+        x.fillStyle = '#FFF4EA'; x.beginPath(); x.roundRect(4, 4, 504, 184, 40); x.fill();
+        x.fillStyle = '#0B2A2F'; x.font = '600 96px Onest, Manrope, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(w, 256, 104);
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+        const m = new THREE.Mesh(window.AIO_ROUNDED_BOX(0.62, 0.24, 0.08, 0.04, 3), [0, 0, 0, 0, 0, 0].map((_, f) => f === 4 ? new THREE.MeshPhysicalMaterial({ map: t, roughness: 0.35, clearcoat: 1 }) : new THREE.MeshPhysicalMaterial({ color: 0xfff4ea, roughness: 0.35, clearcoat: 1 })));
+        m.scale.setScalar(0.001); k.root.add(m); return { m, w, redraw: () => { x.clearRect(0, 0, 512, 192); x.fillStyle = '#FFF4EA'; x.beginPath(); x.roundRect(4, 4, 504, 184, 40); x.fill(); x.fillStyle = '#0B2A2F'; x.font = '600 96px Onest, Manrope, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(w, 256, 104); t.needsUpdate = true; } };
+      }
+      const words = ['КОТ', 'СПИТ', 'НА', 'ОКНЕ'].map(wordTile);
+      const preps = ['В', 'НА', 'ПОД'].map(wordTile);
+      preps.forEach(p => p.m.userData.small = true);
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(0.13, 32, 32), new THREE.MeshPhysicalMaterial({ color: 0xf08a6a, roughness: 0.25, clearcoat: 1 }));
+      const boxG = new THREE.Group();
+      const boxMat = new THREE.MeshPhysicalMaterial({ color: 0x7fe3de, roughness: 0.3, clearcoat: 1, transparent: true, opacity: 0.92 });
+      [[0, -0.2, 0, 0.62, 0.05, 0.5], [-0.29, 0, 0, 0.05, 0.42, 0.5], [0.29, 0, 0, 0.05, 0.42, 0.5], [0, 0, -0.23, 0.62, 0.42, 0.05]].forEach(([x, y, z, w, h, d]) => {
+        const m = new THREE.Mesh(window.AIO_ROUNDED_BOX(w, h, d, 0.02, 2), boxMat); m.position.set(x, y, z); boxG.add(m); });
+      k.root.add(ball, boxG); ball.scale.setScalar(0.001); boxG.scale.setScalar(0.001);
+      /* рамка «пропуска» */
+      const gap = new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.012, 8, 4), new THREE.MeshBasicMaterial({ color: 0xffd9c8, transparent: true, opacity: 0, toneMapped: false }));
+      gap.rotation.z = Math.PI / 4; k.root.add(gap);
+      /* «волшебное» кольцо передачи навыка */
+      const wand = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.03, 16, 64), new THREE.MeshPhysicalMaterial({ color: 0xffb08a, emissive: 0xff7a4a, emissiveIntensity: 0.6, roughness: 0.2, clearcoat: 1 }));
+      wand.scale.setScalar(0.001); k.root.add(wand);
+      const sparkle = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.26, 48), new THREE.MeshBasicMaterial({ color: 0xffe0c8, transparent: true, opacity: 0, side: THREE.DoubleSide, toneMapped: false }));
+      sparkle.rotation.x = -Math.PI / 2; k.root.add(sparkle);
+
+      /* ---- станции механик ---- */
+      const ST = { miss: new V(-1.15, ISL_Y, 0.75), swap: new V(-1.1, ISL_Y, -0.85), sent: new V(1.0, ISL_Y, -0.85), prep: new V(1.15, ISL_Y, 0.75) };
+      k.addLabel('Пропущенная буква', [2], (t, o) => o.copy(ST.miss).add(new V(0, 0.95, 0)), 'Пропуск');
+      k.addLabel('Перестановка букв', [2], (t, o) => o.copy(ST.swap).add(new V(0, 0.95, 0)), 'Перестановка');
+      k.addLabel('Составь предложение', [2], (t, o) => o.copy(ST.sent).add(new V(0, 0.95, 0)), 'Предложение');
+      k.addLabel('Предлог по картинке', [2], (t, o) => o.copy(ST.prep).add(new V(0, 1.0, 0)), 'Предлог');
+      k.addLabel('Новые игры специалист создаёт сама', [4], (t, o) => o.set(0, ISL_Y + 1.15, 0), 'Новые игры — самостоятельно');
+
+      /* ---- мини-игра ---- */
+      let solved = false, solveT = 0, tryT = 0, wrongBlock = null, wrongT = 0;
+      function choose(ch, byUser) {
+        if (solved) return;
+        const btn = optBtns.find(b => b.dataset.letter === ch);
+        if (ch === 'О') {
+          solved = true; solveT = 0; btn && btn.classList.add('right');
+          if (byUser) { k.api.setAuto(false); }
+          k.api.hold(false);
+        } else {
+          wrongBlock = B(ch === 'А' ? 'А' : 'И'); wrongT = 0;
+          if (btn) { btn.classList.remove('wrong'); void btn.offsetWidth; btn.classList.add('wrong'); }
+          if (byUser) k.api.hold(true);
+        }
+        k.api.kick();
+      }
+      optBtns.forEach(b => b.addEventListener('click', () => choose(b.dataset.letter, true)));
+
+      /* ---- целевые положения по этапам ---- */
+      const tq = new THREE.Quaternion(), te = new THREE.Euler(), tv = new V();
+      const WORDS4 = ['КИТ', 'ЛЕС', 'ДОМ', 'СОК'];
+      let wordIdx = -1, wordT = 0;
+      function blockTarget(b, i, s, t, P) {
+        let sc = 1; te.set(0, 0, 0);
+        if (s === 0) { P.set(0, 0.25, 0); sc = 0.001; }
+        else if (s === 1) {
+          P.copy(b.scatter); P.y += Math.sin(t * 1.3 + b.ph) * 0.08;
+          te.set(Math.sin(t * 0.7 + b.ph) * 0.4, t * 0.5 + b.ph, Math.cos(t * 0.6 + b.ph) * 0.3);
+        } else if (s === 2 || s === 3) {
+          const base = ISL_Y + 0.21;
+          if (b === bK) P.copy(ST.miss).add(tv.set(-0.5, 0.21, 0));
+          else if (b === bT) P.copy(ST.miss).add(tv.set(0.5, 0.21, 0));
+          else if (b === bO || b === bA || b === bI) {
+            const order = { 'А': -0.55, 'О': 0, 'И': 0.55 }[b.ch];
+            if (s === 3 && solved && b === bO) P.copy(ST.miss).add(tv.set(0, 0.21 + Math.max(0, Math.sin(Math.min(solveT, 1.2) * 2.6)) * 0.25, 0));
+            else if (s === 3) { P.copy(ST.miss).add(tv.set(order * 0.6, 1.3, 0)); sc = 0.001; }
+            else { P.copy(ST.miss).add(tv.set(order, 0.21, 0.55)); sc = 0.62; P.y = base - 0.08; }
+          } else if (b === bM || b === bR || b === bI2) {
+            let x = b === bI2 ? 0 : b === bM ? -0.5 : 0.5;
+            const cyc = (t % 4) / 4; const sw = cyc > 0.5 ? Math.min(1, (cyc - 0.5) * 6) : Math.max(0, 1 - cyc * 6);
+            if (b !== bI2) { x = x * (1 - 2 * sw); P.y = 0; }
+            P.copy(ST.swap).add(tv.set(x, 0.21 + (b !== bI2 ? Math.sin(sw * Math.PI) * 0.35 : 0), 0));
+          } else if (b === bS) { P.copy(ST.sent).add(tv.set(0, 0.21, 0.6)); sc = 0.001; }
+          if (s === 3 && b !== bK && b !== bT && b !== bO && b !== bA && b !== bI) sc = 0.55;
+        } else if (s === 4) {
+          const row = [bK, bO, bT]; const ri = row.indexOf(b);
+          if (ri >= 0) { P.set((ri - 1) * 0.52, ISL_Y + 0.21 + Math.max(0, Math.sin((wordT - ri * 0.12) * 3)) * 0.12 * (wordT < 1.2 ? 1 : 0), 0.15); te.set(Math.min(1, Math.max(0, (wordT - ri * 0.12) * 2)) * TAU, 0, 0); }
+          else { const a = i / 9 * TAU + t * 0.15; P.set(Math.cos(a) * 1.75, ISL_Y + 0.21, Math.sin(a) * 1.1); sc = 0.55; te.set(0, -a, 0); }
+        }
+        tq.setFromEuler(te); return sc;
+      }
+
+      let lastStage = -1, celebrate = 0;
+      return {
+        stage(s) {
+          blocks.forEach(b => { b.from.copy(b.m.position); b.fromQ.copy(b.m.quaternion); b.fromS = b.m.scale.x; });
+          if (gameUI) gameUI.hidden = s !== 3;
+          if (s === 3) { solved = false; tryT = 0; optBtns.forEach(b => b.classList.remove('right', 'wrong')); k.api.hold(false); }
+          if (s === 4) { wordIdx = -1; wordT = 99; }
+          lastStage = s;
+        },
+        frame(dt, t, s, st, kk) {
+          const e = 1 - Math.pow(1 - kk, 3);
+          /* камера-фокус: на этапе «Попробуйте» приближаемся к станции с пропущенной буквой */
+          const focus = s === 3 ? 1 : 0;
+          const f = (k.root.userData.f ?? 0) + (focus - (k.root.userData.f ?? 0)) * Math.min(1, dt * 2.2); k.root.userData.f = f;
+          const sc = 1 + f * 0.45;
+          k.root.scale.setScalar(sc);
+          k.root.position.set(-ST.miss.x * sc * f, -0.15 * f, -ST.miss.z * sc * f * 0.6);
+          k.root.rotation.y = k.drag.rot * (1 - f) + Math.sin(t * 0.1) * 0.08 * (1 - f);
+          /* остров */
+          const isl = s >= 1 ? 1 : 0.001;
+          islandGroup.forEach(m => { const v = m.scale.x + (isl - m.scale.x) * Math.min(1, dt * 3); m.scale.setScalar(Math.max(0.001, v)); });
+          /* карточка */
+          const cOn = s === 0 ? 1 : 0;
+          card.scale.setScalar(Math.max(0.001, card.scale.x + (cOn - card.scale.x) * Math.min(1, dt * 4)));
+          card.position.set(0, 0.2 + Math.sin(t * 1.2) * 0.06, 0.3); card.rotation.set(-0.15 + Math.sin(t * 0.8) * 0.04, Math.sin(t * 0.5) * 0.12, 0);
+          card.lookAt(k.camera.position.clone().applyMatrix4(new THREE.Matrix4().copy(k.root.matrixWorld).invert()));
+          /* мини-игра: автоподсказка, если никто не играет */
+          if (s === 3) {
+            tryT += dt; if (solved) solveT += dt; wrongT += dt;
+            if (!solved && k.api.auto() && tryT > 4) choose('О', false);
+            if (solved && solveT < 0.05) celebrate = 1;
+          }
+          celebrate *= Math.pow(0.3, dt);
+          sparkle.position.copy(ST.miss).add(tv.set(0, 0.03, 0)); sparkle.scale.setScalar(1 + (1 - celebrate) * 3); sparkle.material.opacity = celebrate * 0.8;
+          gap.position.copy(ST.miss).add(tv.set(0, 0.21, 0)); gap.material.opacity += (((s === 2 || s === 3) && !solved ? 0.9 : 0) - gap.material.opacity) * Math.min(1, dt * 4);
+          if (wrongT < 0.5) gap.position.x += Math.sin(wrongT * 50) * 0.04;
+          gap.rotation.set(0, 0, Math.PI / 4); gap.scale.setScalar(1 + Math.sin(t * 3) * 0.05);
+          /* смена слов на этапе «Навык» */
+          if (s === 4) {
+            wordT += dt;
+            if (wordT > 1.9) { wordT = 0; wordIdx = (wordIdx + 1) % WORDS4.length; }
+            const w = WORDS4[Math.max(0, wordIdx)]; const row = [bK, bO, bT];
+            row.forEach((b, ri) => { if (wordT > 0.25 + ri * 0.12 && b.m.material.userData.ch !== w[ri]) redraw(b.m.material, w[ri]); });
+          } else { if (bK.m.material.userData.ch !== 'К') redraw(bK.m.material, 'К'); if (bO.m.material.userData.ch !== 'О') redraw(bO.m.material, 'О'); if (bT.m.material.userData.ch !== 'Т') redraw(bT.m.material, 'Т'); }
+          /* кубики */
+          blocks.forEach((b, i) => {
+            const target = blockTarget(b, i, s, t, b.p);
+            const kb = Math.max(0, Math.min(1, (st - i * 0.06) / 1.3)); const eb = kb === 1 ? 1 : 1 + 2.2 * Math.pow(kb - 1, 3) + 1.2 * Math.pow(kb - 1, 2); // мягкий «отскок»
+            b.m.position.lerpVectors(b.from, b.p, Math.min(1, eb));
+            if (kb >= 1 || s === 1 || s === 4) b.m.position.lerp(b.p, Math.min(1, dt * 6));
+            b.m.quaternion.slerpQuaternions(b.fromQ, tq, Math.min(1, kb));
+            const scv = b.fromS + (target - b.fromS) * Math.min(1, eb); b.m.scale.setScalar(Math.max(0.001, scv) * (1 + celebrate * 0.15 * Math.sin(t * 20 + i)));
+            b.sh.position.set(b.m.position.x, ISL_Y + 0.004, b.m.position.z);
+            const hgt = Math.max(0, b.m.position.y - ISL_Y); b.sh.material.opacity = s >= 1 ? Math.max(0, 0.55 - hgt * 0.3) * Math.min(1, b.m.scale.x) : 0;
+            b.sh.scale.setScalar(0.8 + hgt * 0.4);
+          });
+          /* слова, предлоги, мяч и коробка */
+          const sentOrder = (Math.floor(t / 3) % 2) ? [0, 1, 2, 3] : [2, 0, 3, 1];
+          words.forEach((w, i) => {
+            const on = s === 2 ? 1 : s === 3 ? 0.6 : 0.001; const pos = sentOrder.indexOf(i);
+            w.m.position.lerp(tv.copy(ST.sent).add(new V(0, 0.2 + (3 - pos) * 0.27, 0)), Math.min(1, dt * 3));
+            w.m.rotation.y = -0.4; w.m.scale.setScalar(Math.max(0.001, w.m.scale.x + (on - w.m.scale.x) * Math.min(1, dt * 3)));
+          });
+          const prepIdx = Math.floor(t / 2.2) % 3;
+          preps.forEach((p, i) => {
+            const on = s === 2 ? (i === prepIdx ? 0.7 : 0.5) : s === 3 ? 0.4 : 0.001;
+            p.m.position.lerp(tv.copy(ST.prep).add(new V((i - 1) * 0.45, 0.1, 0.62)), Math.min(1, dt * 3));
+            p.m.rotation.x = -0.6; p.m.scale.setScalar(Math.max(0.001, p.m.scale.x + (on - p.m.scale.x) * Math.min(1, dt * 4)));
+          });
+          const bOn = s === 2 || s === 3 ? 1 : 0.001;
+          boxG.position.copy(ST.prep).add(tv.set(0, 0.25, 0)); boxG.rotation.y = -0.5;
+          boxG.scale.setScalar(Math.max(0.001, boxG.scale.x + (bOn - boxG.scale.x) * Math.min(1, dt * 3)));
+          const bp = [new V(0, 0.2, 0), new V(0, 0.62, 0), new V(0, -0.02, 0.45)][prepIdx];
+          ball.position.lerp(tv.copy(ST.prep).add(bp), Math.min(1, dt * 4)); ball.scale.setScalar(Math.max(0.001, ball.scale.x + (bOn - ball.scale.x) * Math.min(1, dt * 3)));
+          /* кольцо навыка */
+          const wOn = s === 4 ? 1 : 0.001;
+          wand.scale.setScalar(Math.max(0.001, wand.scale.x + (wOn - wand.scale.x) * Math.min(1, dt * 3)));
+          wand.position.set(Math.sin(t * 1.3) * 0.75, ISL_Y + 0.85 + Math.sin(t * 2.1) * 0.08, 0.15); wand.rotation.set(t * 1.5, t, 0);
+        }
+      };
+    }
+  });
+})();
+</script>
+<script type="module" id="scene-motion-js">
+/* Кейс «Синергия» — «Как рождается мультфильм».
+   Эскиз идеи → страницы сценария → глиняный персонаж и декорации → раскадровка →
+   покадровая съёмка игрушечной камерой (кадры действительно снимаются в текстуры) → монтаж: кадры оживают на экране.
+   Взаимодействие: вкладки, вращение, кнопка «Снять кадр». */
+(function () {
+  const host = document.getElementById('scene-motion');
+  if (!host || !window.AIO_SCENE) return;
+  const shotBtn = document.getElementById('motion-shot');
+
+  window.AIO_SCENE(host, {
+    durs: [5.5, 5.5, 6, 6, 9, 8],
+    texts: [
+      'Всё начинается с идеи: короткой истории, которую хочется рассказать.',
+      'Идея превращается в сценарий: что происходит, кто герои, чем всё закончится.',
+      'Учащиеся создают персонажей и декорации своими руками.',
+      'Раскадровка показывает, из каких сцен сложится история.',
+      'Кадр за кадром: персонаж сдвигается совсем чуть-чуть, камера снимает. Нажмите «Снять кадр».',
+      'Монтаж соединяет кадры, и персонаж оживает на экране.'
+    ],
+    alpha: true, linear: false, fov: 30,
+    fit: { w: 2.4, h: 1.75 }, elev: 0.42, lookY: -0.35,
+    build(k) {
+      const THREE = k.THREE, V = THREE.Vector3, TAU = Math.PI * 2;
+      const R = k.renderer; R.outputColorSpace = THREE.SRGBColorSpace; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.1;
+      const useShadows = !k.mobile; R.shadowMap.enabled = useShadows; R.shadowMap.type = THREE.PCFSoftShadowMap;
+      const S = k.scene, root = k.root;
+      S.add(new THREE.HemisphereLight(0xbfe9e4, 0x2a1a12, 0.45));
+      const spot = new THREE.SpotLight(0xffd8b4, 60, 14, 0.55, 0.65, 1.6); spot.position.set(1.2, 4.2, 2.6); spot.target.position.set(0, -1, 0);
+      spot.castShadow = useShadows; spot.shadow.mapSize.set(1024, 1024); spot.shadow.bias = -0.0008; S.add(spot, spot.target);
+      const rimL = new THREE.DirectionalLight(0x5fdfde, 0.9); rimL.position.set(-3, 2, -3); S.add(rimL);
+      const TABLE_Y = -1;
+      const clay = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.82, metalness: 0 });
+
+      /* стол и задник */
+      const table = new THREE.Mesh(new THREE.CircleGeometry(3.4, 64), new THREE.MeshStandardMaterial({ color: 0x3b2a20, roughness: 0.75 }));
+      table.rotation.x = -Math.PI / 2; table.position.y = TABLE_Y; table.receiveShadow = true; root.add(table);
+      const backdrop = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.6, 2.4, 64, 1, true, Math.PI * 0.75, Math.PI * 0.5), new THREE.MeshStandardMaterial({ color: 0x1d3a3e, roughness: 0.95, side: THREE.BackSide }));
+      backdrop.position.set(0, TABLE_Y + 1.2, 0.6); backdrop.receiveShadow = true; root.add(backdrop);
+
+      /* ---- лист с эскизом ---- */
+      function paperCanvas() { const c = document.createElement('canvas'); c.width = 512; c.height = 384; return c; }
+      const sketchC = paperCanvas(), sketchT = new THREE.CanvasTexture(sketchC); sketchT.colorSpace = THREE.SRGBColorSpace;
+      const STROKES = (() => {
+        const st = [], circ = (cx, cy, r, a0, a1, n) => { const p = []; for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; p.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); } return p; };
+        st.push(circ(256, 150, 62, -Math.PI / 2, Math.PI * 1.5, 40));                 // голова
+        st.push([[214, 104], [200, 52], [236, 92]]); st.push([[276, 92], [312, 52], [298, 104]]); // уши
+        st.push(circ(234, 142, 7, 0, TAU, 12)); st.push(circ(278, 142, 7, 0, TAU, 12)); // глаза
+        st.push(circ(256, 168, 20, 0.2, Math.PI - 0.2, 14));                          // улыбка
+        st.push([[226, 206], [206, 300], [306, 300], [286, 206]]);                    // туловище
+        st.push([[120, 320], [400, 320]]);                                            // земля
+        st.push(circ(400, 80, 26, 0, TAU, 20));                                       // солнце
+        return st; })();
+      const totalPts = STROKES.reduce((a, s) => a + s.length, 0);
+      let tipUV = [0.5, 0.5];
+      function drawSketch(p) {
+        const x = sketchC.getContext('2d'); x.fillStyle = '#F7EFE3'; x.fillRect(0, 0, 512, 384);
+        x.strokeStyle = 'rgba(80,120,125,.25)'; x.lineWidth = 1; for (let y = 40; y < 384; y += 32) { x.beginPath(); x.moveTo(24, y); x.lineTo(488, y); x.stroke(); }
+        x.strokeStyle = '#2B3B3D'; x.lineWidth = 5; x.lineCap = 'round'; x.lineJoin = 'round';
+        let left = Math.floor(p * totalPts);
+        for (const s of STROKES) { if (left <= 1) break; x.beginPath(); const n = Math.min(s.length, left); s.slice(0, n).forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.stroke(); if (n < s.length) tipUV = [s[n - 1][0] / 512, s[n - 1][1] / 384]; left -= n; }
+        sketchT.needsUpdate = true;
+      }
+      drawSketch(0);
+      const paper = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.125), new THREE.MeshStandardMaterial({ map: sketchT, roughness: 0.9 }));
+      paper.castShadow = true; root.add(paper);
+      const pencil = new THREE.Group();
+      const pBody = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.5, 12), clay(0xf0a46a)); pBody.position.y = 0.3;
+      const pTip = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.08, 12), clay(0xf3dcc0)); pTip.rotation.x = Math.PI; pTip.position.y = 0.04;
+      pencil.add(pBody, pTip); pencil.rotation.z = -0.5; root.add(pencil);
+
+      /* ---- страницы сценария ---- */
+      const pages = [0, 1, 2].map(i => {
+        const c = paperCanvas(), x = c.getContext('2d'); x.fillStyle = '#F4ECDF'; x.fillRect(0, 0, 512, 384);
+        x.fillStyle = '#2B3B3D'; x.font = '600 34px Onest, Manrope, sans-serif'; x.fillText(['Сцена 1', 'Сцена 2', 'Сцена 3'][i], 36, 64);
+        x.fillStyle = 'rgba(43,59,61,.55)'; for (let l = 0; l < 7; l++) x.fillRect(36, 100 + l * 36, 300 + ((l * 73 + i * 41) % 130), 10);
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.82), new THREE.MeshStandardMaterial({ map: t, roughness: 0.9, side: THREE.DoubleSide }));
+        m.castShadow = true; m.scale.setScalar(0.001); root.add(m); return m;
+      });
+
+      /* ---- персонаж из пластилина ---- */
+      const hero = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, 0.18, 8, 24), clay(0xe8875f)); body.position.y = 0.26;
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.17, 32, 24), clay(0xf0a07a)); head.position.y = 0.6;
+      const earG = new THREE.ConeGeometry(0.06, 0.13, 16);
+      const e1 = new THREE.Mesh(earG, clay(0xe8875f)); e1.position.set(-0.1, 0.77, 0); e1.rotation.z = 0.35;
+      const e2 = e1.clone(); e2.position.x = 0.1; e2.rotation.z = -0.35;
+      const eyeG = new THREE.SphereGeometry(0.025, 12, 12), eyeM = new THREE.MeshStandardMaterial({ color: 0x1a1412, roughness: 0.3 });
+      const y1 = new THREE.Mesh(eyeG, eyeM); y1.position.set(-0.06, 0.63, 0.15); const y2 = y1.clone(); y2.position.x = 0.06;
+      const scarf = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.04, 12, 32), clay(0x5fdfde)); scarf.rotation.x = Math.PI / 2; scarf.position.y = 0.44;
+      [body, head, e1, e2, y1, y2, scarf].forEach(m => { m.castShadow = true; hero.add(m); });
+      hero.scale.setScalar(0.001); root.add(hero);
+      /* декорации */
+      const props = [];
+      function tree(x, z, s) {
+        const g = new THREE.Group();
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.3, 12), clay(0x6b4a34)); trunk.position.y = 0.15;
+        const c1 = new THREE.Mesh(new THREE.ConeGeometry(0.24, 0.45, 18), clay(0x2f8f86)); c1.position.y = 0.45;
+        const c2 = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.35, 18), clay(0x3fa79c)); c2.position.y = 0.66;
+        [trunk, c1, c2].forEach(m => { m.castShadow = true; g.add(m); });
+        g.position.set(x, TABLE_Y, z); g.userData.s = s; g.scale.setScalar(0.001); root.add(g); props.push(g); return g;
+      }
+      tree(-1.35, -0.45, 1); tree(1.45, -0.3, 0.85); tree(-0.9, -0.85, 0.7);
+      const house = new THREE.Group();
+      const hb = new THREE.Mesh(window.AIO_ROUNDED_BOX(0.5, 0.4, 0.42, 0.04, 3), clay(0xf2e2c8)); hb.position.y = 0.2;
+      const roof = new THREE.Mesh(new THREE.ConeGeometry(0.42, 0.3, 4), clay(0xd9775a)); roof.position.y = 0.55; roof.rotation.y = Math.PI / 4;
+      const door = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.2, 0.02), clay(0x6b4a34)); door.position.set(0, 0.1, 0.215);
+      [hb, roof, door].forEach(m => { m.castShadow = true; house.add(m); });
+      house.position.set(0.85, TABLE_Y, -0.75); house.rotation.y = -0.35; house.userData.s = 1; house.scale.setScalar(0.001); root.add(house); props.push(house);
+      const sun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 24), new THREE.MeshStandardMaterial({ color: 0xffc58a, emissive: 0xff9a4a, emissiveIntensity: 0.7, roughness: 0.6 }));
+      sun.position.set(-0.3, TABLE_Y + 1.5, -0.9); sun.userData.s = 1; sun.scale.setScalar(0.001); root.add(sun); props.push(sun);
+
+      /* ---- раскадровка ---- */
+      const boards = [0, 1, 2, 3, 4].map(i => {
+        const c = document.createElement('canvas'); c.width = 320; c.height = 220; const x = c.getContext('2d');
+        x.fillStyle = '#F7EFE3'; x.fillRect(0, 0, 320, 220); x.strokeStyle = '#2B3B3D'; x.lineWidth = 4; x.strokeRect(10, 10, 300, 200);
+        x.beginPath(); x.moveTo(20, 170); x.lineTo(300, 170); x.stroke();
+        const cx = 60 + i * 50; x.beginPath(); x.arc(cx, 100, 18, 0, TAU); x.stroke(); x.beginPath(); x.moveTo(cx - 14, 118); x.lineTo(cx - 18, 168); x.lineTo(cx + 18, 168); x.lineTo(cx + 14, 118); x.stroke();
+        x.beginPath(); x.moveTo(262, 168); x.lineTo(262, 120); x.stroke(); x.beginPath(); x.moveTo(240, 130); x.lineTo(262, 80); x.lineTo(284, 130); x.closePath(); x.stroke();
+        x.fillStyle = '#E1A492'; x.font = '600 26px Onest, Manrope, sans-serif'; x.fillText(String(i + 1), 22, 42);
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.43), new THREE.MeshStandardMaterial({ map: t, roughness: 0.9, emissive: 0x111111 }));
+        m.scale.setScalar(0.001); root.add(m); return m;
+      });
+
+      /* ---- игрушечная камера на штативе ---- */
+      const cam = new THREE.Group();
+      const cbody = new THREE.Mesh(window.AIO_ROUNDED_BOX(0.34, 0.22, 0.2, 0.04, 3), clay(0x2b3b3d));
+      const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.08, 0.16, 24), clay(0x1a1412)); lens.rotation.x = Math.PI / 2; lens.position.z = 0.16;
+      const lensGlass = new THREE.Mesh(new THREE.CircleGeometry(0.06, 24), new THREE.MeshStandardMaterial({ color: 0x5fdfde, emissive: 0x1d6a6a, roughness: 0.1, metalness: 0.6 })); lensGlass.position.z = 0.245;
+      cam.add(cbody, lens, lensGlass);
+      for (let i = 0; i < 3; i++) { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.75, 8), clay(0x1a1412)); const a = i / 3 * TAU; leg.position.set(Math.cos(a) * 0.12, -0.4, Math.sin(a) * 0.12); leg.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3); cam.add(leg); }
+      cam.position.set(0, TABLE_Y + 0.82, 1.55); cam.lookAt(0, TABLE_Y + 0.35, 0); cam.scale.setScalar(0.001); root.add(cam);
+      const flash = new THREE.PointLight(0xffffff, 0, 6); flash.position.set(0, TABLE_Y + 1, 1.2); root.add(flash);
+
+      /* ---- съёмка кадров в текстуры ---- */
+      const FRAMES = 12, rts = [], filmCam = new THREE.PerspectiveCamera(34, 1.6, 0.1, 20);
+      for (let i = 0; i < FRAMES; i++) rts.push(new THREE.WebGLRenderTarget(256, 160, { colorSpace: THREE.SRGBColorSpace }));
+      let shots = 0;
+      const strip = [], stripG = new THREE.Group(); root.add(stripG);
+      for (let i = 0; i < FRAMES; i++) {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.25), new THREE.MeshBasicMaterial({ map: rts[i].texture, toneMapped: false }));
+        const border = new THREE.Mesh(new THREE.PlaneGeometry(0.46, 0.33), new THREE.MeshBasicMaterial({ color: 0x15100d })); border.position.z = -0.002;
+        const g = new THREE.Group(); g.add(border, m); g.scale.setScalar(0.001); stripG.add(g); strip.push(g);
+      }
+      const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.92, 1.2), new THREE.MeshBasicMaterial({ map: rts[0].texture, toneMapped: false }));
+      const screenFrame = new THREE.Mesh(window.AIO_ROUNDED_BOX(2.06, 1.34, 0.08, 0.02, 3), new THREE.MeshStandardMaterial({ color: 0x15100d, roughness: 0.6 }));
+      const screenG = new THREE.Group(); screen.position.z = 0.045; screenG.add(screenFrame, screen); screenG.position.set(0, TABLE_Y + 1.05, -0.2); screenG.scale.setScalar(0.001); root.add(screenG);
+
+      function pose(f) { // положение героя в кадре f
+        hero.position.set(-0.75 + f * 0.135, TABLE_Y + Math.abs(Math.sin(f * Math.PI / 2)) * 0.05, 0.15);
+        hero.rotation.set(0, 0.5, (f % 2 ? 1 : -1) * 0.07);
+      }
+      function capture(i) {
+        const hidden = [stripG, screenG, cam, pencil, paper, ...pages, ...boards]; const vis = hidden.map(o => o.visible); hidden.forEach(o => (o.visible = false));
+        const hs = hero.scale.x; hero.scale.setScalar(1); props.forEach(p => p.scale.setScalar(p.userData.s));
+        root.updateMatrixWorld(true);
+        filmCam.position.copy(new V(0, TABLE_Y + 0.82, 1.55).applyMatrix4(root.matrixWorld));
+        filmCam.lookAt(new V(0, TABLE_Y + 0.4, 0).applyMatrix4(root.matrixWorld));
+        const prev = R.getRenderTarget(); R.setClearColor(0x15110e, 1); R.setRenderTarget(rts[i]); R.clear(); R.render(S, filmCam); R.setRenderTarget(prev); R.setClearColor(0x000000, 0);
+        hidden.forEach((o, j) => (o.visible = vis[j])); hero.scale.setScalar(hs);
+      }
+      function shoot() {
+        if (shots >= FRAMES) { shots = 0; strip.forEach(g => g.scale.setScalar(0.001)); }
+        pose(shots); capture(shots); shots++; flashT = 0;
+      }
+      let flashT = 9, lastShot = 0;
+      if (shotBtn) shotBtn.addEventListener('click', () => { k.api.setAuto(false); if (k.api.stage() !== 4) k.api.setStage(4); shoot(); k.api.kick(); });
+      const counter = k.addLabel('Кадр <b>01</b>', [4], (t, o) => o.set(0, TABLE_Y + 1.62, -0.3));
+      k.addLabel('Персонажи и декорации своими руками', [2], (t, o) => o.set(0, TABLE_Y + 1.35, 0), 'Персонажи и декорации');
+      k.addLabel('Монтаж: кадры складываются в движение', [5], (t, o) => o.set(0, TABLE_Y + 1.85, -0.2), 'Монтаж');
+
+      const grow = (o, on, dt, sp, s1) => { const tg = on ? (s1 ?? 1) : 0.001; const v = o.scale.x + (tg - o.scale.x) * Math.min(1, dt * (sp || 4)); o.scale.setScalar(Math.max(0.001, v)); };
+      let drawP = 0, lastStage = -1;
+      return {
+        stage(s) {
+          if (shotBtn) shotBtn.hidden = s !== 4;
+          if (s === 0) drawP = 0;
+          if (s === 4 && lastStage !== 4) { shots = 0; strip.forEach(g => g.scale.setScalar(0.001)); lastShot = 0; }
+          if (s === 5) { while (shots < FRAMES) shoot(); }
+          lastStage = s;
+        },
+        frame(dt, t, s, st) {
+          root.rotation.y = k.drag.rot * 0.6 + Math.sin(t * 0.12) * 0.06;
+          /* свет: в монтаже приглушаем сцену, «экран» становится главным */
+          spot.intensity += ((s === 5 ? 22 : 60) - spot.intensity) * Math.min(1, dt * 2);
+          flashT += dt; flash.intensity = Math.max(0, 6 * (1 - flashT / 0.25));
+          /* эскиз */
+          if (s === 0) { drawP = Math.min(1, drawP + dt / 3.6); drawSketch(drawP); }
+          else if (drawP < 1) { drawP = 1; drawSketch(1); }
+          const pOn = s <= 1;
+          grow(paper, pOn, dt, 4);
+          paper.position.lerp(new V(s === 0 ? 0 : -0.95, TABLE_Y + 0.02, s === 0 ? 0.3 : 0.5), Math.min(1, dt * 3));
+          paper.rotation.set(-Math.PI / 2 + (s === 0 ? 0.55 : 0.1), 0, s === 0 ? 0 : 0.25);
+          paper.updateMatrix();
+          grow(pencil, s === 0 && drawP < 1, dt, 6);
+          const tip = new V((tipUV[0] - 0.5) * 1.5, (0.5 - tipUV[1]) * 1.125, 0.02).applyMatrix4(paper.matrix);
+          pencil.position.lerp(tip, Math.min(1, dt * 12));
+          /* сценарий */
+          pages.forEach((m, i) => {
+            grow(m, s === 1 && st > 0.3 + i * 0.5, dt, 4);
+            m.position.lerp(new V(0.15 + i * 0.42, TABLE_Y + 0.35 + i * 0.05, 0.1 - i * 0.12), Math.min(1, dt * 3));
+            m.rotation.set(-0.5, -0.25 + i * 0.12, (i - 1) * 0.08);
+          });
+          /* персонаж и декорации */
+          const setOn = s >= 2 && s <= 4;
+          props.forEach((p, i) => { const on = setOn && st > 0.25 + i * 0.25 || (s >= 3 && s <= 4); const tg = on ? p.userData.s : 0.001;
+            const v = p.scale.x + (tg - p.scale.x) * Math.min(1, dt * 5); p.scale.set(Math.max(0.001, v), Math.max(0.001, v * (1 + Math.sin(st * 9 - i) * 0.08 * Math.max(0, 1 - st / 1.8))), Math.max(0.001, v)); });
+          sun.position.y = TABLE_Y + 1.5 + Math.sin(t * 0.6) * 0.04;
+          grow(hero, setOn, dt, 5);
+          if (s === 2 || s === 3) { hero.position.lerp(new V(-0.2, TABLE_Y, 0.15), Math.min(1, dt * 4)); hero.rotation.set(0, 0.4 + Math.sin(t * 0.8) * 0.15, 0); head.rotation.z = Math.sin(t * 1.4) * 0.12; }
+          /* раскадровка */
+          boards.forEach((m, i) => {
+            grow(m, s === 3 && st > 0.2 + i * 0.25, dt, 5);
+            const a = (i - 2) * 0.32; m.position.set(Math.sin(a) * 2.1, TABLE_Y + 1.55 + Math.cos(i * 1.3 + t) * 0.03, -0.2 + (1 - Math.cos(a)) * 1.2); m.rotation.set(-0.15, -a, 0);
+          });
+          /* съёмка */
+          grow(cam, s === 4, dt, 5);
+          if (s === 4) {
+            if (k.api.auto() && st - lastShot > 0.6 && shots < FRAMES && st > 0.8) { lastShot = st; shoot(); }
+            if (shots > 0) pose(shots - 1); else pose(0);
+            counter.el.innerHTML = 'Кадр <b>' + String(Math.max(1, shots)).padStart(2, '0') + '</b> из 12';
+          }
+          /* плёнка */
+          const vis = Math.min(shots, 6), startIdx = Math.max(0, shots - 6);
+          strip.forEach((g, i) => {
+            const on = (s === 4 && i < shots) || s === 5;
+            const slot = s === 5 ? i : i - startIdx;
+            const inView = s === 5 || (slot >= 0 && slot < 6);
+            grow(g, on && inView, dt, 6, s === 5 ? 0.62 : 1);
+            const x = s === 5 ? (slot - 5.5) * 0.3 : (slot - (vis - 1) / 2) * 0.5;
+            g.position.lerp(new V(x, s === 5 ? TABLE_Y + 0.22 : TABLE_Y + 1.62 - 0.32, s === 5 ? 0.9 : -0.3), Math.min(1, dt * 5));
+            g.rotation.set(s === 5 ? -0.5 : 0, 0, 0);
+          });
+          /* экран монтажа */
+          grow(screenG, s === 5, dt, 3);
+          if (s === 5) { screen.material.map = rts[Math.floor(t * 7) % FRAMES].texture; }
+        }
+      };
+    }
+  });
 })();
 </script>
 
